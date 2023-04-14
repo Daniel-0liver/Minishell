@@ -1,0 +1,79 @@
+readline: É uma função de uma biblioteca de leitura de linha de comando que permite a leitura interativa de linhas de texto, com suporte a edição e histórico.
+
+rl_clear_history: Limpa o histórico de comandos previamente armazenados pela função readline.
+
+rl_on_new_line: Indica ao readline que o cursor está em uma nova linha, o que é útil para redisplay corretamente a linha de comando atual.
+
+rl_replace_line: Substitui o conteúdo atual da linha de comando gerenciada pelo readline por uma nova string.
+
+rl_redisplay: Redesenha a linha de comando gerenciada pelo readline, útil quando ocorre uma atualização visual.
+
+add_history: Adiciona uma linha ao histórico de comandos gerenciado pelo readline.
+
+printf: É uma função de formatação de saída que exibe texto formatado na saída padrão.
+
+malloc: Aloca memória dinamicamente durante a execução do programa.
+
+free: Libera a memória previamente alocada com a função malloc.
+
+write: Escreve dados em um descritor de arquivo.
+
+access: Verifica se um arquivo ou diretório possui as permissões de acesso especificadas.
+
+open: Abre um arquivo ou cria um novo arquivo.
+
+read: Lê dados de um descritor de arquivo.
+
+close: Fecha um descritor de arquivo.
+
+fork: Cria um novo processo (filho) a partir do processo atual (pai).
+
+wait: Aguarda a conclusão de um processo filho.
+
+waitpid, wait3, wait4: Funções que esperam por um processo filho específico ou por qualquer processo filho.
+
+signal: Configura o tratamento de sinais (eventos assíncronos) em um programa.
+
+sigaction: Configura o tratamento de sinais avançado em um programa.
+
+sigemptyset, sigaddset: Funções para manipulação de conjuntos de sinais.
+
+kill: Envia um sinal para um processo ou grupo de processos.
+
+exit: Encerra o processo atual e retorna um código de saída.
+
+getcwd: Obtém o diretório de trabalho atual (current working directory).
+
+chdir: Muda o diretório de trabalho atual.
+
+stat, lstat, fstat: Funções para obter informações sobre arquivos (metadados).
+
+unlink: Remove (apaga) um arquivo.
+
+execve: Substitui a imagem do processo atual por um novo programa.
+
+dup, dup2: Funções para duplicação de descritores de arquivo.
+
+pipe: Cria um par de descritores de arquivo associados a um canal de comunicação unidirecional.
+
+opendir: Abre um diretório para leitura.
+
+readdir: Lê o próximo item de um diretório.
+
+closedir: Fecha um diretório previamente aberto.
+
+strerror: Retorna uma string descritiva para um número de erro.
+
+perror: Imprime uma mensagem descritiva para um número de erro.
+
+isatty: Verifica se um descritor de arquivo está associado a um terminal.
+
+ttyname: Obtém o nome do terminal associado a um descritor de arquivo.
+
+ttyslot: Obtém o número do slot do terminal.
+
+ioctl: Controla dispositivos de E/S de baixo nível.
+
+getenv: Obtém o valor de uma variável de ambiente.
+
+===================================================================================================================================================
