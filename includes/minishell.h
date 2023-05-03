@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/14 21:56:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:47:34 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,15 @@
 # include <sys/types.h> //	wait
 # include <sys/wait.h>	//	wait
 # include <errno.h>		//	ERROR
+# include <signal.h>	//	SIG
+# include <readline/readline.h>	//	ReadLine
+# include <readline/history.h>	//	History
+
+typedef struct s_data
+{
+	int		i;
+}			t_data;
+
+void test();
 
 # endif

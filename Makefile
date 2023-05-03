@@ -1,31 +1,33 @@
-GREEN		= \033[0;32m
-RED			= \033[0;31m
-RESET		= \033[0m
+GREEN		= 	\033[0;32m
+RED			= 	\033[0;31m
+RESET		= 	\033[0m
 
 NAME		=	minishell
 
 HEADER		=	./includes
 
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
-SRC			=	src/minishell.c
+
+SRC			=	src/minishell.c \
+				src/parse/parsing_init.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} #-Wall -Wextra -Werror -g -fsanitize=thread
+FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g -fsanitize=thread
 
 all:		obj $(NAME)
 
 $(NAME):	$(OBJ)
-			@$(CC) $(FLAGS) -o $@ $^
+			@$(CC) -o $@ $^ $(FLAGS)
 
 obj:
-			@mkdir -p obj
+			@mkdir -p obj/parse
 
 obj/%.o:	src/%.c ./includes/minishell.h
 			@$(CC) $(FLAGS) -o $@ -c $<
 			@echo "$@ $(GREEN)created$(RESET)"
 
 valgrind:	all
-	valgrind --leak-check=full --show-leak-kinds=all --quiet ./minishell
+			valgrind --leak-check=full --show-leak-kinds=all --quiet ./minishell
 
 clean:
 			@rm -rf $(OBJ) obj
