@@ -9,7 +9,8 @@ HEADER		=	./includes
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 
 SRC			=	src/minishell.c \
-				src/parse/parsing_init.c
+				src/parse/parse_init.c \
+				src/parse/parse_utils.c
 
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g -fsanitize=thread
