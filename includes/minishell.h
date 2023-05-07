@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:39:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:47:12 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
-# define DELIM " \n\t"
+# define TRUE 0
+# define FALSE 1
 
 typedef struct s_data
 {
@@ -36,7 +37,7 @@ typedef struct s_data
 t_data	*data(void);
 
 // Parse_utils
-void	get_token(void);
+void	get_tokens(void);
 char	*ft_strchr(const char *s, int c);
 
 // Parse_init

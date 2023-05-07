@@ -6,17 +6,39 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:41:06 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:47:34 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_token(void)
+// Function to know the numbers of tokens in the str_cmd
+int	nbr_tokens(char	*str)
 {
-	printf("%s\n", data()->str_cmd);
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		while (*str && (*str == ' ' || *str == '\t'))
+			str++;
+	}
+	
 }
 
+int	check_quotes(char *str)
+{
+	
+}
+
+// Function to generate tokens from the str_cmd.
+void	get_tokens(void)
+{
+	
+}
+
+//The ft_strchr() function returns a pointer to the first 
+// occurrence of the character c in the string s.
 char	*ft_strchr(const char *s, int c)
 {
 	char	tmp_c;

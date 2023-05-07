@@ -6,14 +6,15 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:41:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:30:56 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Main function of the parse unit
 void	parse_init(void)
 {
-	printf("%s\n", data()->str_cmd);
-	get_token();
+	get_tokens();
+	printf("%s\n", data()->cmds[0]);
 }
