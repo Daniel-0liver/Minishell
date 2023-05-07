@@ -10,7 +10,8 @@ OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 
 SRC			=	src/minishell.c \
 				src/parse/parse_init.c \
-				src/parse/parse_utils.c
+				src/parse/parse_utils.c \
+				src/pipes/pipes.c
 
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g
@@ -21,7 +22,7 @@ $(NAME):	$(OBJ)
 			@$(CC) -o $@ $^ $(FLAGS)
 
 obj:
-			@mkdir -p obj/parse
+			@mkdir -p obj/parse obj/pipes
 
 obj/%.o:	src/%.c ./includes/minishell.h
 			@$(CC) $(FLAGS) -o $@ -c $<

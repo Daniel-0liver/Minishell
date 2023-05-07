@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:39:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:59:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,7 @@ char	*ft_strchr(const char *s, int c);
 // Parse_init
 void	parse_init(void);
 
+// pipes
+char	*check_path(void);
+void    cmd_to_exec(void);
 # endif
