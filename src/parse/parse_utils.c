@@ -6,13 +6,15 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/04 22:06:03 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:41:06 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_strtok(void)
+#include "minishell.h"
+
+void	get_token(void)
 {
-	
+	printf("%s\n", data()->str_cmd);
 }
 
 char	*ft_strchr(const char *s, int c)

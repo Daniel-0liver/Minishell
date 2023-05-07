@@ -6,13 +6,14 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/04 21:45:05 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:41:18 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void parse_init()
+void	parse_init(void)
 {
-	puts("Worked");
+	printf("%s\n", data()->str_cmd);
+	get_token();
 }

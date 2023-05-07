@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/04 23:07:00 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:39:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,19 @@
 
 typedef struct s_data
 {
-	char		*cmds;
 	char		*token;
+	char		*str_cmd;
+	char		**cmds;
 }			t_data;
 
+//Data init
+t_data	*data(void);
+
 // Parse_utils
-void	ft_strtok(void);
+void	get_token(void);
 char	*ft_strchr(const char *s, int c);
+
+// Parse_init
+void	parse_init(void);
 
 # endif

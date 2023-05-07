@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/04 23:10:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:47:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ t_data	*data(void)
 	static t_data data;
 
 	return (&data);
-}
-
-void	free_program()
-{
-	free(data()->cmds);
 }
 
 static void	inthandler(int sig)
@@ -36,19 +31,17 @@ int	main(int argc, char *argv[], char **envp)
 {
 	(void)	argv;
 	(void)	argc;
-	
-	test();
-	char	*str;
+
 	while (1)
 	{
-		if (str)
-			free(str);
+		if (data()->str_cmd)
+			free(data()->str_cmd);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, inthandler);
-		str = readline("gabriel is gay: ");
-		add_history(str);
-		printf("%s\n", str);
+		data()->str_cmd = readline("gabriel is gay: ");
+		add_history(data()->str_cmd);
+		parse_init();
 	}
-	free(str);
+	free(data()->str_cmd);
 	return (0);
 }

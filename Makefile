@@ -13,7 +13,7 @@ SRC			=	src/minishell.c \
 				src/parse/parse_utils.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g -fsanitize=thread
+FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g
 
 all:		obj $(NAME)
 
