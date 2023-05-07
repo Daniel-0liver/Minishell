@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/14 21:56:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:39:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,26 @@
 # include <sys/types.h> //	wait
 # include <sys/wait.h>	//	wait
 # include <errno.h>		//	ERROR
+# include <signal.h>	//	SIG
+# include <readline/readline.h>	//	ReadLine
+# include <readline/history.h>	//	History
+# define DELIM " \n\t"
+
+typedef struct s_data
+{
+	char		*token;
+	char		*str_cmd;
+	char		**cmds;
+}			t_data;
+
+//Data init
+t_data	*data(void);
+
+// Parse_utils
+void	get_token(void);
+char	*ft_strchr(const char *s, int c);
+
+// Parse_init
+void	parse_init(void);
 
 # endif
