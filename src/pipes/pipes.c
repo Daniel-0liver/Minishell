@@ -6,11 +6,30 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 15:49:45 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:25:40 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_cmds(void)
+{
+	int	i;
+
+	i = 0;
+	while (data()->test[i] != NULL)
+	{
+		if (data()->test[i][0] == '|')
+			printf("Thats a pipe\n");
+		else if (data()->test[i][0] == '<')
+			printf("Thats an input\n");
+		else if (data()->test[i][0] == '>')
+			printf("Thats an output\n");
+		else if (data()->test[i][0] == '$')
+			printf("Thats a dollar sign\n");
+		i++;
+	}
+}
 
 char	*check_path(void)
 {
@@ -20,10 +39,10 @@ char	*check_path(void)
 	char	*path;
 
 	i = 0;
-	while (data()->str_cmd[i] != '\0' && data()->str_cmd[i] != ' ') // Replace the currently str_cmd to cmd matriz when ready
+	while (data()->test[0][i] != '\0' && data()->test[0][i] != ' ') // Replace the currently test[0] to cmd matriz when ready
 	{
-		if (data()->str_cmd[i] == '/')
-			return (&data()->str_cmd[0]);
+		if (data()->test[0][i] == '/')
+			return (&data()->test[0][0]);
 		i++;
 	}
 	rtn = malloc(sizeof(char) * (i + 5));
@@ -32,29 +51,34 @@ char	*check_path(void)
 	while (++j < 5)
 		rtn[j] = path[j];
 	i = 0;
-	while (data()->str_cmd[i] != '\0' && data()->str_cmd[i] != ' ')
-		rtn[j++] = data()->str_cmd[i++];
+	while (data()->test[0][i] != '\0' && data()->test[0][i] != ' ')
+		rtn[j++] = data()->test[0][i++];
 	rtn[j] = '\0';
 	return (rtn);
 }
 
 void cmd_to_exec(void)
 {
+	char    *test2[] = {"ls", "-la", ">", NULL}; //erase this later
+	data()->test = test2; //erase this later
 	char	*env[] = {NULL};
 	char	*path_cmd;
-	char	*flags; // Add flag use
 	int		i;
+	int     pid;
 
-	path_cmd = check_path(); 
-	printf("Cheguei aqui - %s\n", path_cmd);
-	execve(path_cmd, &data()->str_cmd, env);
+	path_cmd = check_path();  //Chck this use when 
+	check_cmds();
+	pid = fork();
+	if (pid == 0)
+		execve(path_cmd, data()->test, env);
+	waitpid(pid, NULL, 0);
 	i = 0;
-	while (data()->str_cmd[i] != '\0' && data()->str_cmd[i] != ' ') // Attention to this free
+	while (data()->test[0][i] != '\0' && data()->test[0][i] != ' ') // Attention to this free
 	{
-		if (data()->str_cmd[i] == '/')
+		if (data()->test[0][i] == '/')
 			break;
 		i++;
-		if (data()->str_cmd[i] == '\0' || data()->str_cmd[i] == ' ')
+		if (data()->test[0][i] == '\0' || data()->test[0][i] == ' ')
 			free(path_cmd);
 	}
 }

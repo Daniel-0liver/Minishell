@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 14:59:57 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:32:24 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
 # define DELIM " \n\t"
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_data
 {
 	char		*token;
 	char		*str_cmd;
 	char		**cmds;
+	char    	**test;
 }			t_data;
 
 //Data init
