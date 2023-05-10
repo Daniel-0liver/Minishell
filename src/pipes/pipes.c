@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/09 23:25:40 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:14:31 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,30 @@ void	check_cmds(void)
 	while (data()->test[i] != NULL)
 	{
 		if (data()->test[i][0] == '|')
-			printf("Thats a pipe\n");
+		{
+			if (data()->test[i][1] == '|')
+				printf("Thats a OR sign\n");
+			else
+				printf("Thats a pipe\n");
+		}
 		else if (data()->test[i][0] == '<')
-			printf("Thats an input\n");
+		{
+			if (data()->test[i][1] == '<')
+				printf("smaller than sign");
+			else
+				printf("Thats an input\n");
+		}
 		else if (data()->test[i][0] == '>')
-			printf("Thats an output\n");
+		{
+			if (data()->test[i][1] == '>')
+				printf("Bigger than sign");
+			else
+				printf("Thats an output\n");
+		}
 		else if (data()->test[i][0] == '$')
 			printf("Thats a dollar sign\n");
+		else if (data()->test[i][0] == '&' && data()->test[i][1] == '&')
+			printf("Thats a AND sign\n");
 		i++;
 	}
 }
@@ -34,7 +51,7 @@ void	check_cmds(void)
 char	*check_path(void)
 {
 	int		i;
-	int		j;
+	int		j; 
 	char	*rtn;
 	char	*path;
 
@@ -59,7 +76,7 @@ char	*check_path(void)
 
 void cmd_to_exec(void)
 {
-	char    *test2[] = {"ls", "-la", ">", NULL}; //erase this later
+	char    *test2[] = {"ls", "-l", NULL}; //erase this later
 	data()->test = test2; //erase this later
 	char	*env[] = {NULL};
 	char	*path_cmd;
