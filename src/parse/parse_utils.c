@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 14:47:34 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:58:31 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	nbr_tokens(char	*str)
 		while (*str && (*str == ' ' || *str == '\t'))
 			str++;
 	}
-	
-}
-
-int	check_quotes(char *str)
-{
 	
 }
 
