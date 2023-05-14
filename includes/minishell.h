@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/09 22:32:24 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:41:15 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*ft_strchr(const char *s, int c);
 void	parse_init(void);
 
 // pipes
-char	*check_path(void);
+char	**check_cmds(void);
+char	*check_path(int v);
+int		check_free(void);
 void    cmd_to_exec(void);
 # endif
