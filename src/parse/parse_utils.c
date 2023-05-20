@@ -23,7 +23,6 @@ int	nbr_tokens(char	*str)
 		while (*str && (*str == ' ' || *str == '\t'))
 			str++;
 	}
-	
 }
 
 // Function to generate tokens from the str_cmd.
