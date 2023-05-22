@@ -21,8 +21,8 @@
 # include <sys/wait.h>	//	wait
 # include <errno.h>		//	ERROR
 # include <signal.h>	//	SIG
-# include <readline/readline.h>	//	ReadLine
-# include <readline/history.h>	//	History
+// # include <readline/readline.h>	//	ReadLine
+// # include <readline/history.h>	//	History
 # define TRUE 0
 # define FALSE 1
 

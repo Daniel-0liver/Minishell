@@ -14,6 +14,6 @@
 
 int main()
 {
-	printf("")
+	printf("Worked\n");
 	return (0);
 }
