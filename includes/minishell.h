@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:41:15 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:16:48 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	char		*str_cmd;
 	char		**cmds;
 	char    	**test;
+	int         fd[2];
 }			t_data;
 
 //Data init
@@ -50,4 +51,8 @@ char	**check_cmds(void);
 char	*check_path(int v);
 int		check_free(void);
 void    cmd_to_exec(void);
+
+// cmds_utils
+int	ft_ptrlen(void);
+char	*ft_strdup(const char *src);
 # endif

@@ -6,42 +6,11 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/14 17:17:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:12:37 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_ptrlen(void)
-{
-	int	i;
-
-	i = 0;
-	while (data()->test[i] != NULL)
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*new;
-	int		i;
-	int		size;
-
-	size = 0;
-	while (src[size])
-		++size;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	i = 0;
-	while (src[i])
-	{
-		new[i] = src[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
 
 char	**check_cmds(void)
 {
@@ -62,14 +31,7 @@ char	**check_cmds(void)
 			if (data()->test[i][1] == '|')
 				printf("Thats a OR sign\n");
 			else
-			{
-				pid = fork();
-				if (pid == 0)
-				{
-					printf("Thats a pipe\n");
-					execve(cmds[0], cmds, NULL);
-				}
-			}
+				printf("Thats a pipe\n");
 		}
 		else if (data()->test[i][0] == '<')
 		{
@@ -102,7 +64,7 @@ char	**check_cmds(void)
 char	*check_path(int v)
 {
 	int		i;
-	int		j; 
+	int		j;
 	char	*rtn;
 	char	*path;
 
@@ -125,7 +87,7 @@ char	*check_path(int v)
 	return (rtn);
 }
 
-int	check_free(void)
+int	check_free(void) // Not using at the moment
 {
 	int		i;
 	
@@ -133,22 +95,20 @@ int	check_free(void)
 	while (data()->test[0][i] != '\0' && data()->test[0][i] != ' ') // Attention to this free
 	{
 		if (data()->test[0][i] == '/')
-			return 0;
+			return (0);
 		i++;
 		if (data()->test[0][i] == '\0' || data()->test[0][i] == ' ')
-			return 1;
+			return (1);
 	}
-	return 1;
+	return (1);
 }
 
 // Changed all data()->test for the real string received by the parse
 
-void cmd_to_exec(void)
+void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"ls", "-l", "|", NULL}; //erase this later
+	char    *test2[] = {"ls", "|", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Changed all data()->test for the real string received by the parse
-	// char	*env[] = {NULL};
-	// char	*path_cmd;
 	char	**cmds;
 	int     pid;
 
@@ -159,6 +119,5 @@ void cmd_to_exec(void)
 		execve(cmds[0], cmds, NULL);
 	}
 	waitpid(pid, NULL, 0);
-	// if (check_free())
-	// 	free(path_cmd);
+	// Add free for each malloc
 }
