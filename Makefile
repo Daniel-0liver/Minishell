@@ -11,8 +11,9 @@ OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/minishell.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
-				src/execution/pipes.c \
-				src/execution/cmds_utils.c
+				src/execution/cmds.c \
+				src/execution/cmds_utils.c \
+				src/execution/split_cmds.c
 
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g

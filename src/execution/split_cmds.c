@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/23 19:12:37 by gateixei         ###   ########.fr       */
+/*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
+/*   Updated: 2023/05/24 18:38:48 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,39 +85,4 @@ char	*check_path(int v)
 		rtn[j++] = data()->test[v][i++];
 	rtn[j] = '\0';
 	return (rtn);
-}
-
-int	check_free(void) // Not using at the moment
-{
-	int		i;
-	
-	i = 0;
-	while (data()->test[0][i] != '\0' && data()->test[0][i] != ' ') // Attention to this free
-	{
-		if (data()->test[0][i] == '/')
-			return (0);
-		i++;
-		if (data()->test[0][i] == '\0' || data()->test[0][i] == ' ')
-			return (1);
-	}
-	return (1);
-}
-
-// Changed all data()->test for the real string received by the parse
-
-void cmd_to_exec(void) // Main Fuction
-{
-	char    *test2[] = {"ls", "|", NULL}; //erase this later
-	data()->test = test2; //erase this later -> Changed all data()->test for the real string received by the parse
-	char	**cmds;
-	int     pid;
-
-	pid = fork();
-	if (pid == 0)
-	{	
-		cmds = check_cmds();
-		execve(cmds[0], cmds, NULL);
-	}
-	waitpid(pid, NULL, 0);
-	// Add free for each malloc
 }
