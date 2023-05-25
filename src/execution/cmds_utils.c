@@ -6,21 +6,11 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/23 18:15:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:59:03 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_ptrlen(void)
-{
-	int	i;
-
-	i = 0;
-	while (data()->test[i] != NULL)
-		i++;
-	return (i);
-}
 
 char	*ft_strdup(const char *src)
 {

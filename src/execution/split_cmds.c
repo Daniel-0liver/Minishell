@@ -6,62 +6,48 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/24 18:38:48 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/25 20:00:11 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**check_cmds(void)
+int	ft_matriz_size(void)
 {
-	int		i;
-	int		j;
-	int		curr;
-	int		pid;
-	char	**cmds;
+	int	i;
+	int	mtz;
 
 	i = 0;
-	curr = 0;
-	pid = 0;
-	cmds = malloc(sizeof(char *) * ft_ptrlen());
+	mtz = 1;
 	while (data()->test[i] != NULL)
 	{
-		if (data()->test[i][0] == '|')
-		{
-			if (data()->test[i][1] == '|')
-				printf("Thats a OR sign\n");
-			else
-				printf("Thats a pipe\n");
-		}
-		else if (data()->test[i][0] == '<')
-		{
-			if (data()->test[i][1] == '<')
-				printf("smaller than sign");
-			else
-				printf("Thats an input\n");
-		}
-		else if (data()->test[i][0] == '>')
-		{
-			if (data()->test[i][1] == '>')
-				printf("Bigger than sign");
-			else
-				printf("Thats an output\n");
-		}
-		else if (data()->test[i][0] == '$')
-			printf("Thats a dollar sign\n");
-		else if (data()->test[i][0] == '&' && data()->test[i][1] == '&')
-			printf("Thats a AND sign\n");
-		else if (data()->test[i][0] == '-')
-			cmds[curr++] = ft_strdup(data()->test[i]);
-		else
-			cmds[curr++] = check_path(i);
+		// Add here String Compare for commands that send string (CD, ECHO...)
+		if(data()->test[i][0] == '<' || data()->test[i][0] == '>'
+		|| data()->test[i][0] == '|' || data()->test[i][0] == '&')
+			mtz++; // Save this index to later run pipes and commands
 		i++;
 	}
-	cmds[curr] = NULL;
-	return (cmds);
+	return (mtz);
 }
 
-char	*check_path(int v)
+int	ft_ptrlen(int v)
+{
+    int i;
+
+    i = 0;
+	while (data()->test[v] != NULL)
+    {
+        // Add here String Compare for commands that send string (CD, ECHO...)
+		if(data()->test[v][0] == '<' || data()->test[v][0] == '>'
+		|| data()->test[v][0] == '|' || data()->test[v][0] == '&')
+            return (i);
+		i++;
+        v++;
+    }
+	return (i);
+}
+
+char	*check_path(int v) // Change this to PATH variable
 {
 	int		i;
 	int		j;
@@ -76,7 +62,7 @@ char	*check_path(int v)
 		i++;
 	}
 	rtn = malloc(sizeof(char) * (i + 5));
-	path = "/bin/"; // Change this to PATH variable
+	path = "/bin/";
 	j = -1;
 	while (++j < 5)
 		rtn[j] = path[j];
