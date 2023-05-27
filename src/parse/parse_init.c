@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 14:30:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:47:35 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@
 void	parse_init(void)
 {
 	get_tokens();
-	printf("%s\n", data()->cmds[0]);
 }
