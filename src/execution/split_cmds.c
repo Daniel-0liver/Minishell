@@ -6,11 +6,57 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/25 20:00:11 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:24:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void ft_spc(int size)
+{
+    int i;
+    int mtz;
+    int *spc;
+
+    i = 0;
+    mtz = 0;
+    spc = malloc(sizeof(int) * (size));
+	while (data()->test[i] != NULL)
+	{
+		// Add here String Compare for commands that send string (CD, ECHO...)
+		if(data()->test[i][0] == '<' || data()->test[i][0] == '>'
+		|| data()->test[i][0] == '|' || data()->test[i][0] == '&')
+			spc[mtz++] = i;
+		i++;
+	}
+    spc[mtz] = '\0';
+    data()->spc = spc;
+}
+
+char	**ft_cmd(void)
+{
+	int 		i;
+	int			size;
+	char		**cmd;
+	
+	i = 0;
+	if(data()->test[data()->curr_cmd][0] == '<' || data()->test[data()->curr_cmd][0] == '>'
+	|| data()->test[data()->curr_cmd][0] == '|' || data()->test[data()->curr_cmd][0] == '&')
+		data()->curr_cmd++;
+	size = ft_ptrlen(data()->curr_cmd);
+	cmd = malloc((size + 1) * sizeof(char *));
+	cmd[i] = check_path(data()->test[data()->curr_cmd]);
+	data()->curr_cmd++;
+	i++;
+	while (--size > 0)
+	{
+		cmd[i] = ft_strdup(data()->test[data()->curr_cmd]);
+		data()->curr_cmd++;
+		i++;
+	}
+	cmd[i] = NULL;
+	return (cmd);
+}
 
 int	ft_matriz_size(void)
 {
@@ -32,22 +78,22 @@ int	ft_matriz_size(void)
 
 int	ft_ptrlen(int v)
 {
-    int i;
+	int i;
 
-    i = 0;
+	i = 0;
 	while (data()->test[v] != NULL)
-    {
-        // Add here String Compare for commands that send string (CD, ECHO...)
+	{
+		// Add here String Compare for commands that send string (CD, ECHO...)
 		if(data()->test[v][0] == '<' || data()->test[v][0] == '>'
 		|| data()->test[v][0] == '|' || data()->test[v][0] == '&')
-            return (i);
+			return (i);
 		i++;
-        v++;
-    }
+		v++;
+	}
 	return (i);
 }
 
-char	*check_path(int v) // Change this to PATH variable
+char	*check_path(char *cmds) // Change this to PATH variable
 {
 	int		i;
 	int		j;
@@ -55,10 +101,10 @@ char	*check_path(int v) // Change this to PATH variable
 	char	*path;
 
 	i = 0;
-	while (data()->test[v][i] != '\0' && data()->test[v][i] != ' ') // Replace the currently test[0] to cmd matriz when ready
+	while (cmds[i] != '\0' && cmds[i] != ' ')
 	{
-		if (data()->test[v][i] == '/')
-			return (&data()->test[v][0]);
+		if (cmds[i] == '/')
+			return (ft_strdup(cmds));
 		i++;
 	}
 	rtn = malloc(sizeof(char) * (i + 5));
@@ -67,8 +113,8 @@ char	*check_path(int v) // Change this to PATH variable
 	while (++j < 5)
 		rtn[j] = path[j];
 	i = 0;
-	while (data()->test[v][i] != '\0' && data()->test[v][i] != ' ')
-		rtn[j++] = data()->test[v][i++];
+	while (cmds[i] != '\0' && cmds[i] != ' ')
+		rtn[j++] = cmds[i++];
 	rtn[j] = '\0';
 	return (rtn);
 }
