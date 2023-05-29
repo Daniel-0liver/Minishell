@@ -13,7 +13,8 @@ SRC			=	src/minishell.c \
 				src/parse/parse_utils.c \
 				src/execution/cmds.c \
 				src/execution/cmds_utils.c \
-				src/execution/split_cmds.c
+				src/execution/split_cmds.c \
+				src/execution/ft_exec.c
 
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 19:24:30 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:52:46 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 	char        ***cmds;
 	int			*spc;
 	int			curr_cmd;
+	int			curr_spc;
 	int         fd[2];
 }			t_data;
 
@@ -56,8 +57,14 @@ int		ft_ptrlen(int v);
 char	*check_path(char *cmd);
 
 // cmds
+void	check_spc(void);
 char	***get_cmds(void);
 void    cmd_to_exec(void);
+
+// ft_exec
+void	ft_exec(void);
+void    ft_exec_pipe_md(void);
+void	ft_exec_pipe_end(void);
 
 // cmds_utils
 char	*ft_strdup(const char *src);
