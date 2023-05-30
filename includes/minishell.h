@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/29 18:52:46 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:06:45 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ typedef struct s_data
 	char		*str_cmd;
 	char    	**test;
 	char        ***cmds;
+	int         **fd;
 	int			*spc;
 	int			curr_cmd;
 	int			curr_spc;
-	int         fd[2];
 }			t_data;
 
 //Data init
@@ -67,5 +67,6 @@ void    ft_exec_pipe_md(void);
 void	ft_exec_pipe_end(void);
 
 // cmds_utils
+void	generate_fds(void);
 char	*ft_strdup(const char *src);
 # endif

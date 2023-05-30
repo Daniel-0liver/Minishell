@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/29 19:07:25 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:13:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,23 @@
 
 void	check_spc(void)
 {
-	int	pid;
-
-	pipe(data()->fd);
-	pid = fork();
-	if (pid == 0)
+	generate_fds();
+	ft_exec();
+	while (data()->spc && data()->spc[data()->curr_spc + 1] != '\0')
 	{
-		ft_exec();
-		while (data()->spc && data()->spc[data()->curr_spc + 1] != '\0')
-		{
-			if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
-			{
-				ft_exec_pipe_md();
-				printf("Got here\n");
-			}
-			else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
-				printf("Work in progress!\n");
-			else
-				printf("Not pipe or >\n");
-			data()->curr_cmd++;
-			data()->curr_spc++;
-		}
 		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
-		{
-			ft_exec_pipe_end();
-		}
+			ft_exec_pipe_md();
 		else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
-			printf("2Work in progress!\n");
+			printf("Work in progress!\n");
 		else
-			printf("2Not pipe or >\n");
+			printf("Not pipe or >\n");
 	}
-	close(data()->fd[0]);
-	close(data()->fd[1]);
-	waitpid(pid, NULL, 0);
+	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+		ft_exec_pipe_end();
+	else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
+		printf("2Work in progress!\n");
+	else
+		printf("2Not pipe or >\n");
 }
 
 char	***get_cmds(void)
@@ -86,20 +70,16 @@ void cmd_to_exec(void) // Main Fuction
 	// for (int k = 0; data()->cmds[k] != NULL; k++)
 	// 	for (int f = 0; data()->cmds[k][f] != NULL; f++)
 	// 		printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
-	// while (data()->cmds[data()->curr_cmd] != NULL)
-	// {
-		if (data()->spc && data()->spc[data()->curr_spc] != '\0')
-			check_spc();
-		else
+	if (data()->spc && data()->spc[data()->curr_spc] != '\0')
+		check_spc();
+	else
+	{
+		pid = fork();
+		if (pid == 0)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
-				waitpid(pid, NULL, 0);
-			}
+			execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+			waitpid(pid, NULL, 0);
 		}
-	// 	data()->curr_cmd++;
-	// }
+	}
 	// Add free for each malloc
 }
