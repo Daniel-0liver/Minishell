@@ -6,13 +6,53 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/30 20:13:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:33:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Change all data()->test for the real string received by the parse
+
+int    is_builtins(char *cmd)
+{
+    if (ft_strcpm(cmd, "echo"))
+        return (1);
+    else if (ft_strcpm(cmd, "cd"))
+        return (1);
+    else if (ft_strcpm(cmd, "pwd"))
+        return (1);
+    else if (ft_strcpm(cmd, "export"))
+        return (1);
+    else if (ft_strcpm(cmd, "unset"))
+        return (1);
+    else if (ft_strcpm(cmd, "env"))
+        return (1);
+    else if (ft_strcpm(cmd, "exit"))
+        return (1);
+    return (0);
+}
+
+int is_spc(char *cmd) // Not using yet >>  Need to separate when is on the same string with the exec
+{
+    if (ft_strcpm(cmd, "|"))
+        return (1);
+    else if (ft_strcpm(cmd , "||"))
+        return (1);
+    else if (ft_strcpm(cmd, ">"))
+        return (1);
+    else if (ft_strcpm(cmd , ">>"))
+        return (1);
+    else if (ft_strcpm(cmd, "<"))
+        return (1);
+    else if (ft_strcpm(cmd , "<<"))
+        return (1);
+    else if (ft_strcpm(cmd, "&&"))
+        return (1);
+    else if (ft_strcpm(cmd , "*"))
+        return (1);
+    return (0);
+}
 
 void	check_spc(void)
 {
@@ -35,28 +75,9 @@ void	check_spc(void)
 		printf("2Not pipe or >\n");
 }
 
-char	***get_cmds(void)
-{
-	int     curr;
-	int		size;
-	char	***cmds;
-
-	curr = 0;
-	data()->curr_cmd = 0;
-	size = ft_matriz_size();
-	if (size > 1)
-		ft_spc(size);
-	cmds = malloc((size + 1) * sizeof(char *));
-	while (size-- > 0)
-		cmds[curr++] = ft_cmd();
-	cmds[curr] = NULL;
-	return (cmds);
-}
-
-
 void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"ls", "-la", "|", "grep", "gateixei", "|", "grep", "Make", NULL}; //erase this later
+	char    *test2[] = {"echo", "Ola", "|", "exit", "|", "echo", ">", "|", "exit ", "|", "ls", "-ls", "|", "pwd", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
 	int		i;
 	int     j;
@@ -67,9 +88,10 @@ void cmd_to_exec(void) // Main Fuction
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_spc = 0;
-	// for (int k = 0; data()->cmds[k] != NULL; k++)
-	// 	for (int f = 0; data()->cmds[k][f] != NULL; f++)
-	// 		printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
+    for (int k = 0; data()->cmds[k] != NULL; k++)
+        for (int f = 0; data()->cmds[k][f] != NULL; f++)
+            printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
+    return ;
 	if (data()->spc && data()->spc[data()->curr_spc] != '\0')
 		check_spc();
 	else
@@ -78,8 +100,11 @@ void cmd_to_exec(void) // Main Fuction
 		if (pid == 0)
 		{
 			execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
-			waitpid(pid, NULL, 0);
 		}
+			waitpid(pid, NULL, 0);
 	}
 	// Add free for each malloc
 }
+
+// Check echo > vs echo ">"
+// Handle spc when they're toguether with the exec

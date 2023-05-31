@@ -6,11 +6,27 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/30 20:06:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:19:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_strcpm(char *s1, char *s2)
+{
+	int	i;
+	
+	i = 0;
+	while (s1 && s2 && s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if (s1[i] != s2[i])
+		return (0);
+	return (1);
+}
 
 void	generate_fds(void)
 {
@@ -30,6 +46,24 @@ void	generate_fds(void)
 		j++;
 	}
 	data()->fd[j] = NULL;
+}
+
+char	***get_cmds(void)
+{
+	int     curr;
+	int		size;
+	char	***cmds;
+
+	curr = 0;
+	data()->curr_cmd = 0;
+	size = ft_matriz_size();
+	if (size > 1)
+		ft_spc(size);
+	cmds = malloc((size + 1) * sizeof(char *));
+	while (size-- > 0)
+		cmds[curr++] = ft_cmd();
+	cmds[curr] = NULL;
+	return (cmds);
 }
 
 char	*ft_strdup(const char *src)

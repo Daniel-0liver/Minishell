@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 19:24:16 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:27:49 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ char	*check_path(char *cmds) // Change this to PATH variable
 	char	*path;
 
 	i = 0;
+    // Add here is_builtins -> return strdup
+    if (is_builtins(cmds))
+        return (ft_strdup(cmds)); 
 	while (cmds[i] != '\0' && cmds[i] != ' ')
 	{
 		if (cmds[i] == '/')
