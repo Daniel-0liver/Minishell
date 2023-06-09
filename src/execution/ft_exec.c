@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/30 20:04:25 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:59:20 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	ft_exec(void)
 {
 	int pid;
 
+    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+    {
+        call_builtins(data()->cmds[data()->curr_cmd]);
+        data()->curr_cmd++;
+        return ;
+    }        
 	pid = fork();
 	if (pid == 0)
 	{
@@ -35,6 +41,12 @@ void	ft_exec_pipe_md(void)
 {
 	int pid;
 	
+    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+    {
+        call_builtins(data()->cmds[data()->curr_cmd]);
+        data()->curr_cmd++;
+        return ;
+    }
 	pid = fork();
 	if (pid == 0)
 	{
@@ -56,6 +68,12 @@ void	ft_exec_pipe_end(void)
 {
 	int pid;
 
+    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+    {
+        call_builtins(data()->cmds[data()->curr_cmd]);
+        data()->curr_cmd++;
+        return ;
+    }
 	pid = fork();
 	if (pid == 0)
 	{

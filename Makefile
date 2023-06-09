@@ -11,10 +11,18 @@ OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/minishell.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
-				src/execution/cmds.c \
-				src/execution/cmds_utils.c \
-				src/execution/split_cmds.c \
-				src/execution/ft_exec.c
+				src/cmd_handler/cmds.c \
+				src/cmd_handler/cmds_utils.c \
+				src/cmd_handler/split_cmds.c \
+				src/execution/ft_exec.c \
+				src/builtins/ft_echo.c \
+				src/builtins/ft_cd.c \
+				src/builtins/ft_env.c \
+				src/builtins/ft_exit.c \
+				src/builtins/ft_unset.c \
+				src/builtins/ft_pwd.c \
+				src/builtins/ft_export.c \
+				src/builtins/check_builtins.c
 
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g
@@ -25,7 +33,7 @@ $(NAME):	$(OBJ)
 			@$(CC) -o $@ $^ $(FLAGS)
 
 obj:
-			@mkdir -p obj/parse obj/execution
+			@mkdir -p obj/parse obj/execution obj/builtins obj/cmd_handler
 
 obj/%.o:	src/%.c ./includes/minishell.h
 			@$(CC) $(FLAGS) -o $@ -c $<
