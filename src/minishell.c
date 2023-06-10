@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:06:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:23:55 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	main(int argc, char *argv[], char **envp)
 		signal(SIGINT, inthandler);
 		data()->str_cmd = readline("gabriel is gay: ");
 		add_history(data()->str_cmd);
+		if (strcmp(data()->str_cmd, "exit") == 0)
+			break;
 		parse_init();
 	}
 	free(data()->str_cmd);
-	free(data()->cmds[0]);
-	free(data()->cmds[1]);
 	return (0);
 }

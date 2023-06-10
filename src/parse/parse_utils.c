@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 18:26:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:54:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ int	count_tokens(char *str)
 	return (i);
 }
 
+// Function to allocate the tokens
+void	alloc_tokens(char **tokens, char *str, int nbr_tokens)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while (*str)
+	{
+		j = 0;
+		while (*str == ' ' || *str == '\n' || *str == '\t')
+			str++;
+		while (*str && (*str != ' ' && *str != '\n' && *str != '\t'))
+		{
+			tokens[i][j] = *str;
+			str++;
+			j++;
+		}
+		i++;
+	}
+	tokens[i] = NULL;
+}
+
 // Function to generate tokens from the str_cmd.
 int	get_tokens(void)
 {
@@ -66,13 +89,19 @@ int	get_tokens(void)
 	
 	data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
 	nbr_tokens = count_tokens(data()->str_cmd);
-	data()->tokens = (char *)malloc((nbr_tokens + 1) * sizeof(char));
+	data()->tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
 	if (!data()->tokens)
 	{
 		printf("Error while allocating tokens\n");
 		return (1);
 	}
-	
+	alloc_tokens(data()->tokens, data()->str_cmd, nbr_tokens);
+	int i = 0;
+	while (data()->tokens[i])
+	{
+		printf("%s\n", data()->tokens[i]);
+		i++;
+	}
 	return (0);
 }
 

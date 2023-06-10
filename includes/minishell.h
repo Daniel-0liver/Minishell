@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 18:07:52 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:58:01 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_data
 {
 	int			nbr_pipe_sig;
 	int			nbr_tokes;
-	char		*tokens;
+	char		**tokens;
 	char		*str_cmd;
-	char		**cmds;
+	char		***cmds;
 }			t_data;
 
 //Data init

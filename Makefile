@@ -14,7 +14,7 @@ SRC			=	src/minishell.c \
 				src/parse/parse_quotes.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g
+FLAGS		=	-I${HEADER} -lreadline -g #-fsanitize=address -Wall -Wextra -Werror
 
 all:		obj $(NAME)
 
