@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 18:25:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:54:51 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	check_spc(void)
 	else if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
 		ft_exec_pipe_end();
 	else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
-		printf("2Work in progress!\n");
+		ft_red_end();
     else
 		printf("2Not pipe or >\n");
 }
 
 void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"ls", ">", "output", NULL}; //erase this later
+	char    *test2[] = {"ls", "-la", ">", "output", ">", "output2", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
 	int		i;
 	int     j;
@@ -53,6 +53,7 @@ void cmd_to_exec(void) // Main Fuction
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_spc = 0;
+	data()->curr_fd = 0;
 	// for (int k = 0; data()->cmds[k] != NULL; k++)
 	//     for (int f = 0; data()->cmds[k][f] != NULL; f++)
 	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);

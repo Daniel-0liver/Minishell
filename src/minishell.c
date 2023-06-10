@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/09 21:30:24 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:45:37 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char *argv[], char **envp)
 		signal(SIGINT, inthandler);
 		data()->str_cmd = readline("minihell: ");
 		add_history(data()->str_cmd);
+        if (ft_strcpm(data()->str_cmd, "exit"))
+            break;
 		parse_init();
 	}
 	free(data()->str_cmd);

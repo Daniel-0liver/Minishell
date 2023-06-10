@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 18:12:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:21:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void ft_spc(int size)
     spc = malloc(sizeof(int) * (size));
 	while (data()->test[i] != NULL)
 	{
-		// Add here String Compare for commands that send string (CD, ECHO...)
-		if(data()->test[i][0] == '<' || data()->test[i][0] == '>'
-		|| data()->test[i][0] == '|' || data()->test[i][0] == '&')
+		if(is_spc(data()->test[i]))
 			spc[mtz++] = i;
 		i++;
 	}
@@ -66,9 +64,8 @@ int	ft_matriz_size(void)
 	mtz = 1;
 	while (data()->test[i] != NULL)
 	{
-		// Add here String Compare for commands that send string (CD, ECHO...)
 		if(is_spc(data()->test[i]))
-			mtz++; // Save this index to later run pipes and commands
+			mtz++;
 		i++;
 	}
 	return (mtz);
@@ -81,7 +78,6 @@ int	ft_ptrlen(int v)
 	i = 0;
 	while (data()->test[v] != NULL)
 	{
-		// Add here String Compare for commands that send string (CD, ECHO...)
 		if(is_spc(data()->test[v]))
 			return (i);
 		i++;
