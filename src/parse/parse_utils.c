@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 19:16:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:26:20 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ int	count_tokens(char *str)
 	i = 0;
 	while (*str)
 	{
-		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
-			str++;
-		while (*str && (*str != ' ' && *str != '\t' && *str != '\n'))
+		while (*str == ' ' || *str == '\n' || *str == '\t')
 		{
-			if (*str == '\'' || *str == '\"')
+			str++;
+			if (!*str)
+				return (i);
+		}
+		while (*str && (*str != ' ' && *str != '\n' && *str != '\t'))
+		{
+			if ((*str == '>' || *str == '<' || *str == '|') && str[i] != ' ')
+				i++;
+			if (*str == '\"' || *str == '\'')
 			{
-					str = handle_quote(str, *str);
-				if (*str == '\0')
-					return (i);
-				else 
-					i++;
+				if (*str == str[1])
+					i--;
+				str = handle_quote(str, *str);
 			}
 			str++;
 		}
@@ -56,12 +60,20 @@ int	count_tokens(char *str)
 }
 
 // Function to generate tokens from the str_cmd.
-void	get_tokens(void)
+int	get_tokens(void)
 {
 	int	nbr_tokens;
+	
 	data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
 	nbr_tokens = count_tokens(data()->str_cmd);
-	printf("%d\n", nbr_tokens);
+	data()->tokens = (char *)malloc((nbr_tokens + 1) * sizeof(char));
+	if (!data()->tokens)
+	{
+		printf("Error while allocating tokens\n");
+		return (1);
+	}
+	
+	return (0);
 }
 
 //The ft_strchr() function returns a pointer to the first 

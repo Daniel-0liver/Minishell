@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 19:12:19 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 17:59:37 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ int	check_quotes(char *str)
 char	*handle_quote(char	*str, char c)
 {
 	str++;
-	if (*str == c)
+	if (*str != c)
 	{
 		str++;
-		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
+		while (*str == ' ' || *str == '\t' || *str == '\n')
 			str++;
-		return (str);
 	}
-	while (*str && *str != c)
-		str++;
 	return (str);
 }
