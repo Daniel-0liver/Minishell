@@ -6,11 +6,32 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/31 13:19:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:14:41 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int is_spc(char *cmd)
+{
+	if (ft_strcpm(cmd, "|"))
+		return (1);
+	else if (ft_strcpm(cmd , "||"))
+		return (1);
+	else if (ft_strcpm(cmd, ">"))
+		return (1);
+	else if (ft_strcpm(cmd , ">>"))
+		return (1);
+	else if (ft_strcpm(cmd, "<"))
+		return (1);
+	else if (ft_strcpm(cmd , "<<"))
+		return (1);
+	else if (ft_strcpm(cmd, "&&"))
+		return (1);
+	else if (ft_strcpm(cmd , "*"))
+		return (1);
+	return (0);
+}
 
 int	ft_strcpm(char *s1, char *s2)
 {

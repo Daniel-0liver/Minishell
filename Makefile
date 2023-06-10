@@ -15,6 +15,7 @@ SRC			=	src/minishell.c \
 				src/cmd_handler/cmds_utils.c \
 				src/cmd_handler/split_cmds.c \
 				src/execution/ft_exec.c \
+				src/execution/ft_redirect.c \
 				src/builtins/ft_echo.c \
 				src/builtins/ft_cd.c \
 				src/builtins/ft_env.c \

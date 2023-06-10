@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/09 16:15:56 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:14:59 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int		ft_ptrlen(int v);
 char	*check_path(char *cmd);
 
 // cmds
-int		is_spc(char *cmd);
 void	check_spc(void);
 void    cmd_to_exec(void);
 
@@ -66,7 +65,13 @@ void	ft_exec(void);
 void    ft_exec_pipe_md(void);
 void	ft_exec_pipe_end(void);
 
+// ft_redirect
+void	ft_red(void);
+void	ft_red_md(void);
+void	ft_red_end(void);
+
 // cmds_utils
+int		is_spc(char *cmd);
 int		ft_strcpm(char *s1, char *s2);
 void	generate_fds(void);
 char	***get_cmds(void);

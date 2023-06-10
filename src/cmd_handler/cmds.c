@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/09 16:28:15 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:25:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,14 @@
 
 // Change all data()->test for the real string received by the parse
 
-int is_spc(char *cmd) // Not using yet >>  Need to separate when is on the same string with the exec
-{
-	if (ft_strcpm(cmd, "|"))
-		return (1);
-	else if (ft_strcpm(cmd , "||"))
-		return (1);
-	else if (ft_strcpm(cmd, ">"))
-		return (1);
-	else if (ft_strcpm(cmd , ">>"))
-		return (1);
-	else if (ft_strcpm(cmd, "<"))
-		return (1);
-	else if (ft_strcpm(cmd , "<<"))
-		return (1);
-	else if (ft_strcpm(cmd, "&&"))
-		return (1);
-	else if (ft_strcpm(cmd , "*"))
-		return (1);
-	return (0);
-}
-
 void	check_spc(void)
 {
 	generate_fds();
-	ft_exec();
-	while (data()->spc && data()->spc[data()->curr_spc + 1] != '\0')
+	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+	    ft_exec();
+    else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
+        ft_red();
+	while (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
 	{
 		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
 			ft_exec_pipe_md();
@@ -48,17 +30,19 @@ void	check_spc(void)
 		else
 			printf("Not pipe or >\n");
 	}
-	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+	if (data()->spc[data()->curr_spc] == '\0')
+        return ;
+	else if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
 		ft_exec_pipe_end();
 	else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
 		printf("2Work in progress!\n");
-	else
+    else
 		printf("2Not pipe or >\n");
 }
 
 void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"echo", "-n", "Ola", "|", "ls", NULL}; //erase this later
+	char    *test2[] = {"ls", ">", "output", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
 	int		i;
 	int     j;

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/05/31 13:27:49 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:12:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char	**ft_cmd(void)
 	char		**cmd;
 	
 	i = 0;
-	if(data()->test[data()->curr_cmd][0] == '<' || data()->test[data()->curr_cmd][0] == '>'
-	|| data()->test[data()->curr_cmd][0] == '|' || data()->test[data()->curr_cmd][0] == '&')
+	if(is_spc(data()->test[data()->curr_cmd]))
 		data()->curr_cmd++;
 	size = ft_ptrlen(data()->curr_cmd);
 	cmd = malloc((size + 1) * sizeof(char *));
@@ -68,8 +67,7 @@ int	ft_matriz_size(void)
 	while (data()->test[i] != NULL)
 	{
 		// Add here String Compare for commands that send string (CD, ECHO...)
-		if(data()->test[i][0] == '<' || data()->test[i][0] == '>'
-		|| data()->test[i][0] == '|' || data()->test[i][0] == '&')
+		if(is_spc(data()->test[i]))
 			mtz++; // Save this index to later run pipes and commands
 		i++;
 	}
@@ -84,8 +82,7 @@ int	ft_ptrlen(int v)
 	while (data()->test[v] != NULL)
 	{
 		// Add here String Compare for commands that send string (CD, ECHO...)
-		if(data()->test[v][0] == '<' || data()->test[v][0] == '>'
-		|| data()->test[v][0] == '|' || data()->test[v][0] == '&')
+		if(is_spc(data()->test[v]))
 			return (i);
 		i++;
 		v++;
@@ -101,9 +98,10 @@ char	*check_path(char *cmds) // Change this to PATH variable
 	char	*path;
 
 	i = 0;
-    // Add here is_builtins -> return strdup
     if (is_builtins(cmds))
-        return (ft_strdup(cmds)); 
+        return (ft_strdup(cmds));
+    if (data()->curr_cmd > 0 && (data()->test[data()->curr_cmd - 1][0] == '>' || data()->test[data()->curr_cmd - 1][0] == '<'))
+        return (ft_strdup(cmds));
 	while (cmds[i] != '\0' && cmds[i] != ' ')
 	{
 		if (cmds[i] == '/')
