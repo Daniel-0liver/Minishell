@@ -23,7 +23,6 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
-# define DELIM " \n\t"
 
 typedef struct s_data
 {
