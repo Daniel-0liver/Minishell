@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:20:16 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:04:24 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_exec(void)
 		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, NULL, 0);
 		data()->curr_cmd++;
+		data()->curr_spc++;
 	}
 }
 
