@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:41:53 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:17:39 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ typedef struct s_data
 {
 	int			nbr_pipe_sig;
 	int			nbr_tokes;
-	char		*token;
+	char		**tokens;
 	char		*str_cmd;
-	char		**cmds;
+	char		***cmds;
 }			t_data;
 
 //Data init
 t_data	*data(void);
 
 // Parse_utils
-void	get_tokens(void);
+int		get_tokens(void);
 int		nbr_char(char	*str, char	c);
 char	*ft_strchr(const char *s, int c);
 
