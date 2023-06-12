@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 11:44:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:45:35 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,10 @@ void	ft_red(void)
 	data()->fd[data()->curr_fd][1] = open(data()->cmds[tmp_cmd][0], O_RDWR | O_CREAT | O_TRUNC, 0664);
 		if (data()->fd[data()->curr_fd][1] < 0)
 			printf("Error to create/read the redirected file named: %s\n", data()->cmds[tmp_cmd][0]);
-	pid = fork();
-	if (pid == 0)
-	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
-	}
-	else
-	{
-		close(data()->fd[data()->curr_fd][1]);
-		waitpid(pid, NULL, 0);
-		data()->curr_cmd = tmp_cmd;
-		data()->curr_spc = tmp_spc;
-		data()->curr_fd++;
-	}
+	ft_exec();
+	data()->curr_cmd = tmp_cmd;
+	data()->curr_spc = tmp_spc;
+	data()->curr_fd++;
 }
 
 // Edit accordingly
