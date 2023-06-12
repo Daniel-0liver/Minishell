@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 11:30:09 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:40:26 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ char	*ft_strchr(const char *s, int c);
 // Parse_init
 void	parse_init(void);
 
-<<<<<<< HEAD
 // Parse_quotes
 int		check_quotes(char *str);
 char	*handle_quote(char	*str, char c);
 
 # endif
-=======
-# endif
->>>>>>> main
