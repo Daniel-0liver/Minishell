@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:47:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:06:46 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		if (data()->str_cmd)
 			free(data()->str_cmd);
-		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, inthandler);
 		data()->str_cmd = readline("gabriel is gay: ");
 		add_history(data()->str_cmd);
 		parse_init();
 	}
 	free(data()->str_cmd);
+	free(data()->cmds[0]);
+	free(data()->cmds[1]);
 	return (0);
 }

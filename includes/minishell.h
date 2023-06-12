@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/07 13:39:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:30:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,35 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
+# define TRUE 0
+# define FALSE 1
 
 typedef struct s_data
 {
-	char		*token;
+	int			nbr_pipe_sig;
+	int			nbr_tokes;
+	char		**tokens;
 	char		*str_cmd;
-	char		**cmds;
+	char		***cmds;
 }			t_data;
 
 //Data init
 t_data	*data(void);
 
 // Parse_utils
-void	get_token(void);
+int		get_tokens(void);
+int		nbr_char(char	*str, char	c);
 char	*ft_strchr(const char *s, int c);
 
 // Parse_init
 void	parse_init(void);
 
+<<<<<<< HEAD
+// Parse_quotes
+int		check_quotes(char *str);
+char	*handle_quote(char	*str, char c);
+
 # endif
+=======
+# endif
+>>>>>>> main
