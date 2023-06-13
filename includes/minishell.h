@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 12:14:41 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:35:41 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	ft_exec_pipe_end(void);
 void	ft_red(void);
 void	ft_red_end(void);
 
+// ft_input
+void	ft_input(void);
+void	ft_input_end(void);
+
 // cmds_utils
 int		is_spc(char *cmd);
 int		ft_strcpm(char *s1, char *s2);
@@ -87,6 +91,8 @@ void    call_builtins(char **cmd);
 void    call_builtins_exec(char **cmd);
 
 //  ft_cd
+void	cd_to(char *str);
+int		ft_check_cd(char **str);
 void    ft_cd(char **str);
 
 // ft_echo
@@ -105,6 +111,7 @@ void    ft_export(char **str);
 
 // ft_pwd
 void    ft_pwd(char **str);
+void    ft_pwd_exec(char **str);
 
 // ft_unset
 void    ft_unset(char **str);
