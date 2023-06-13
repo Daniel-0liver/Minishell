@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 15:53:25 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:17:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_spc(void)
 
 void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"ls", "-la", "|", "grep", ">", "output", "Makefile", ">", "output2", ">", "output3", NULL}; //erase this later
+	char    *test2[] = {"echo", "Hello World!", ">", "here.txt", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
 	int		i;
 	int     j;
@@ -63,7 +63,7 @@ void cmd_to_exec(void) // Main Fuction
 	else
 	{
 		if (is_builtins(data()->cmds[data()->curr_cmd][0]))
-			call_builtins(data()->cmds[data()->curr_cmd]);
+			call_builtins_exec(data()->cmds[data()->curr_cmd]);
 		else
 		{
 			pid = fork();

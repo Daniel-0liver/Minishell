@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 12:04:24 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:44:19 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_exec(void)
     {
         call_builtins(data()->cmds[data()->curr_cmd]);
         data()->curr_cmd++;
+		data()->curr_spc++;
         return ;
     }
 	pid = fork();
