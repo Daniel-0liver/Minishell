@@ -11,7 +11,7 @@ OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/minishell.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
-				src/parse/parse_quotes.c
+				src/parse/parse_quotes.c \
 				src/cmd_handler/cmds.c \
 				src/cmd_handler/cmds_utils.c \
 				src/cmd_handler/cmds_utils2.c \
