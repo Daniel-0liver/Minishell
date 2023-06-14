@@ -6,13 +6,34 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 14:41:36 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:52:15 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Change all data()->test for the real string received by the parse
+
+void    free_cmds(char ***cmds)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (cmds && cmds[i] != NULL)
+    {
+        j = 0;
+        while (cmds[i] && cmds[i][j] != NULL)
+        {
+            free(cmds[i][j]);
+            cmds[i][j] = NULL;
+            j++;
+        }
+        free(cmds[i]);
+        cmds[i] = NULL;
+        i++;
+    }
+}
 
 void	check_spc(void)
 {
@@ -73,7 +94,7 @@ void cmd_to_exec(void) // Main Fuction
 				waitpid(pid, NULL, 0);
 		}
 	}
-	// Add free for each malloc
+    free_cmds(data()->cmds);
 }
 
 // Check echo > vs echo ">"
