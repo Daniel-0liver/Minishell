@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 15:52:54 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:17:58 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
-# define DELIM " \n\t"
-# define TRUE 1
-# define FALSE 0
 
 typedef struct s_data
 {
@@ -119,6 +116,5 @@ void    ft_pwd_exec(char **str);
 
 // ft_unset
 void    ft_unset(char **str);
-
 
 # endif
