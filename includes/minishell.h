@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 16:25:10 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:26:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_data
 	int			nbr_tokes;
 	char		**tokens;
 	char		*str_cmd;
-	char		***cmds;
+	char		**cmds;
 }			t_data;
 
 //Data init
@@ -45,9 +45,5 @@ char	*ft_strchr(const char *s, int c);
 
 // Parse_init
 void	parse_init(void);
-
-// Parse_quotes
-int		check_quotes(char *str);
-char	*handle_quote(char	*str, char c);
 
 # endif

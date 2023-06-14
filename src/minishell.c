@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:06:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:28:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ int	main(int argc, char *argv[], char **envp)
 	(void)	argv;
 	(void)	argc;
 
-	while (1)
+    data()->env_p = envp;
+	while (TRUE)
 	{
 		if (data()->str_cmd)
 			free(data()->str_cmd);
 		signal(SIGINT, inthandler);
-		data()->str_cmd = readline("gabriel is gay: ");
+		data()->str_cmd = readline("minihell: ");
 		add_history(data()->str_cmd);
+        if (ft_strcpm(data()->str_cmd, "exit"))
+            break;
 		parse_init();
 	}
 	free(data()->str_cmd);
