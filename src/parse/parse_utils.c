@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/05/27 19:16:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:23:20 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,36 @@ int	count_tokens(char *str)
 	i = 0;
 	while (*str)
 	{
-		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
+		while (*str == ' ' || *str == '\n' || *str == '\t')
 			str++;
-		while (*str && (*str != ' ' && *str != '\t' && *str != '\n'))
+		if (*str == '\0')
+			return (i);
+		if (*str == '\'' || *str == '\"')
 		{
-			if (*str == '\'' || *str == '\"')
+			if (str[1] != *str)
 			{
-					str = handle_quote(str, *str);
+				str = handle_quote(str, *str);
+				i++;
 				if (*str == '\0')
-					return (i);
-				else 
-					i++;
+					return(i);
+			}
+			else if (str[2] && str[2] != ' ' && str[2] != '\n' && str[2] != '\t')
+		 		i++;
+			else
+				str++;
+		}
+		else
+			i++;
+		while (*str && *str != ' ' && *str != '\n' && *str != '\t')
+		{
+			if ((*str == '|' || *str == '<' || *str == '>') && str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
+			{
+				if ((*str == '<' || *str == '>') &&e)
+					str++;
+				i++;
 			}
 			str++;
 		}
-		i++;
 	}
 	return (i);
 }
@@ -64,7 +79,7 @@ void	get_tokens(void)
 	printf("%d\n", nbr_tokens);
 }
 
-//The ft_strchr() function returns a pointer to the first 
+// The ft_strchr() function returns a pointer to the first 
 // occurrence of the character c in the string s.
 char	*ft_strchr(const char *s, int c)
 {
