@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 16:35:41 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:34:51 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	char		*token;
 	char		*str_cmd;
 	char    	**test;
+	char    	**env_p;
 	char        ***cmds;
 	int         **fd;
 	int			*spc;
@@ -102,6 +103,7 @@ void    ft_echo_exec(char **str);
 
 // ft_env
 void    ft_env(char **str);
+void    ft_env_exec(char **str);
 
 // ft_exit
 void    ft_exit(char **str);

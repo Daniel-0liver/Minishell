@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:43 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/09 14:44:11 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:14:30 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void    ft_exit(char **str)
 {
-    printf("Exit command here!\n");
+    exit(0);
 }

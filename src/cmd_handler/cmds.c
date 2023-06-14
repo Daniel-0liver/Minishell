@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 15:45:23 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:41:36 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_spc(void)
 
 void cmd_to_exec(void) // Main Fuction
 {
-	char    *test2[] = {"cd", "..", NULL}; //erase this later
+	char    *test2[] = {"env", ">", "output_env", NULL}; //erase this later
 	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
 	int		i;
 	int     j;

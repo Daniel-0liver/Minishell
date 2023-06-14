@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 15:20:35 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:10:10 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void    call_builtins_exec(char **cmd)
     else if (ft_strcpm(cmd[0], "unset"))
         ft_unset(cmd);
     else if (ft_strcpm(cmd[0], "env"))
-        ft_env(cmd);
+        ft_env_exec(cmd);
     else if (ft_strcpm(cmd[0], "exit"))
         ft_exit(cmd);
 }
