@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 16:39:52 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:39:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
-# define TRUE 0
-# define FALSE 1
-
+# include "../libft/include/libft.h"
+# define TRUE 1
+# define FALSE 0
 typedef struct s_data
 {
 	int			nbr_pipe_sig;
@@ -66,6 +66,7 @@ char	*check_path(char *cmd);
 
 // cmds
 void    free_cmds(char ***cmds);
+void    free_fds(int **fds);
 void	check_spc(void);
 void    cmd_to_exec(void);
 

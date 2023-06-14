@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:42:13 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/09 14:42:37 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:23:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void    ft_unset(char **str)
 {
+	(void) str;
+
     printf("UNSET SHIT HERE\n");
 }

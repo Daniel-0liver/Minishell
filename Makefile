@@ -4,7 +4,9 @@ RESET		= 	\033[0m
 
 NAME		=	minishell
 
-HEADER		=	./includes
+LFT			=	libft/libft.a
+
+HEADER		=	./includes -I ./libft/includes
 
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 
@@ -29,12 +31,17 @@ SRC			=	src/minishell.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline #-Wall -Wextra -Werror -g
+FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g -fsanitize=address
 
-all:		obj $(NAME)
+all:		$(LFT) obj $(NAME)
 
 $(NAME):	$(OBJ)
 			@$(CC) -o $@ $^ $(FLAGS)
+
+$(LFT):		
+			@echo " [ .. ] | Compiling libft.."
+			@make -s -C libft
+			@echo " [ $(GREEN)OK$(RESET) ] | Libft ready!"
 
 obj:
 			@mkdir -p obj/parse obj/execution obj/builtins obj/cmd_handler

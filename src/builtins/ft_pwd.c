@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:40:09 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 15:22:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:22:32 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    ft_pwd(char **str)
 	int	pid;
     char dir[1024];
     
+	(void) str;
     getcwd(dir, (sizeof(char) * 1024));
 	pid = fork();
 	if (pid == 0)
@@ -37,6 +38,7 @@ void    ft_pwd_exec(char **str)
 {
     char dir[1024];
     
+	(void) str;
     getcwd(dir, (sizeof(char) * 1024));
     printf("%s\n", dir);
 }
