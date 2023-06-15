@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 12:23:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:27:08 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,8 @@ int	count_tokens(char *str)
 // Function to generate tokens from the str_cmd.
 void	get_tokens(void)
 {
-	int	nbr_tokens;
-	data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
-	nbr_tokens = count_tokens(data()->str_cmd);
-	printf("%d\n", nbr_tokens);
-}
-
-// The ft_strchr() function returns a pointer to the first 
-// occurrence of the character c in the string s.
-char	*ft_strchr(const char *s, int c)
-{
-	char	tmp_c;
-
-	tmp_c = c;
-	while (*s)
-	{
-		if (*s == tmp_c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == tmp_c)
-		return ((char *)s);
-	return ((void *)0);
+	// int	nbr_tokens;
+	// data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
+	// nbr_tokens = count_tokens(data()->str_cmd);
+	return ;
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_init.c                                       :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:42:30 by dateixei         ###   ########.fr       */
+/*   Created: 2023/06/09 14:42:13 by gateixei          #+#    #+#             */
+/*   Updated: 2023/06/14 17:23:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-// Main function of the parse unit
-void	parse_init(void)
+void    ft_unset(char **str)
 {
-    cmd_to_exec();
+	(void) str;
+
+    printf("UNSET SHIT HERE\n");
 }

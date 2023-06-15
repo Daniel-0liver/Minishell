@@ -6,16 +6,16 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 11:50:34 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:26:49 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_quotes(char *str)
-{
-	return (0);
-}
+// int	check_quotes(char *str)
+// {
+// 	return (0);
+// }
 
 char	*handle_quote(char	*str, char c)
 {
