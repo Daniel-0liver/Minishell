@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 16:23:00 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:39:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@
 # include <signal.h>	//	SIG
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
-
+# include "../libft/include/libft.h"
+# define TRUE 1
+# define FALSE 0
 typedef struct s_data
 {
-	char		*token;
+	int			nbr_pipe_sig;
+	int			nbr_tokes;
+	char		**tokens;
 	char		*str_cmd;
 	char    	**test;
 	char    	**env_p;
@@ -42,11 +46,16 @@ typedef struct s_data
 t_data	*data(void);
 
 // Parse_utils
-void	get_token(void);
+void	get_tokens(void);
+int		nbr_char(char	*str, char	c);
 char	*ft_strchr(const char *s, int c);
 
 // Parse_init
 void	parse_init(void);
+
+// Parse_quotes
+int		check_quotes(char *str);
+char	*handle_quote(char	*str, char c);
 
 //split_cmds
 void	ft_spc(int size);
@@ -57,6 +66,7 @@ char	*check_path(char *cmd);
 
 // cmds
 void    free_cmds(char ***cmds);
+void    free_fds(int **fds);
 void	check_spc(void);
 void    cmd_to_exec(void);
 
@@ -81,8 +91,8 @@ char	***get_cmds(void);
 char	*ft_strdup(const char *src);
 
 // cmds_utils2
-int	is_redirect(char *cmd);
-int is_exec(char *cmd);
+int		is_redirect(char *cmd);
+int 	is_exec(char *cmd);
 
 // check_builtins
 int		is_builtins(char *cmd);

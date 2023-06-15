@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 14:42:13 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:23:33 by dateixei         ###   ########.fr       */
+/*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
+/*   Updated: 2023/06/14 17:15:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_unset(char **str)
-{
-	(void) str;
+// int	check_quotes(char *str)
+// {
+// 	return (0);
+// }
 
-    printf("UNSET SHIT HERE\n");
+char	*handle_quote(char	*str, char c)
+{
+	str++;
+	if (*str == c)
+	{
+		str++;
+		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
+			str++;
+		return (str);
+	}
+	while (*str && *str != c)
+		str++;
+	return (str);
 }

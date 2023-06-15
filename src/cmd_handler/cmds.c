@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 15:52:15 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:29:24 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ void    free_cmds(char ***cmds)
         cmds[i] = NULL;
         i++;
     }
+	free(cmds);
+	cmds = NULL;
+}
+
+void    free_fds(int **fds)
+{
+    int i;
+
+    i = 0;
+    while (fds && fds[i] != NULL)
+    {
+        free(fds[i]);
+        fds[i] = NULL;
+        i++;
+    }
+	free(fds);
+	fds = NULL;
 }
 
 void	check_spc(void)
@@ -41,7 +58,9 @@ void	check_spc(void)
 	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
 	    ft_exec();
     else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
-        ft_red();
+    {
+	    ft_red();
+	}
 	while (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
 	{
 		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
@@ -62,15 +81,10 @@ void	check_spc(void)
 }
 
 void cmd_to_exec(void) // Main Fuction
-{
-	char    *test2[] = {"env", ">", "output_env", NULL}; //erase this later
-	data()->test = test2; //erase this later -> Change all data()->test for the real string received by the parse
-	int		i;
-	int     j;
+{  
+	data()->test = ft_split(data()->str_cmd, ' '); //erase this later -> Change all data()->test for the real string received by the parse
 	int		pid;
 
-	i = 0;
-	j = 0;
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_spc = 0;
@@ -80,7 +94,12 @@ void cmd_to_exec(void) // Main Fuction
 	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
 	// return ;
 	if (data()->spc && data()->spc[data()->curr_spc] != '\0')
+	{
 		check_spc();
+		free_fds(data()->fd);
+		free(data()->spc);
+		data()->spc = NULL;
+	}
 	else
 	{
 		if (is_builtins(data()->cmds[data()->curr_cmd][0]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 17:46:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:11:46 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ char	*check_path(char *cmds) // Change this to PATH variable
 		return (ft_strdup(cmds));
 	if (data()->curr_cmd > 0 && is_redirect(data()->test[data()->curr_cmd - 1]))
 		return (ft_strdup(cmds));
-	while (cmds[i] != '\0' && cmds[i] != ' ')
+	while (cmds[i] != '\0')
 	{
 		if (cmds[i] == '/')
 			return (ft_strdup(cmds));
 		i++;
 	}
-	rtn = malloc(sizeof(char) * (i + 5));
+	rtn = malloc(sizeof(char) * (i + 6));
 	path = "/bin/";
 	j = -1;
 	while (++j < 5)
