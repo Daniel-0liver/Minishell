@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 10:28:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:38:59 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*check_path(char *cmd);
 
 // cmds
 void    free_cmds(char ***cmds);
+void    free_test(void);
 void    free_fds(int **fds);
 void	check_spc(void);
 void    cmd_to_exec(void);
@@ -91,6 +92,8 @@ char	***get_cmds(void);
 char	*ft_strdup(const char *src);
 
 // cmds_utils2
+void	free_all(void);
+void	free_exec(void);
 int		is_redirect(char *cmd);
 int 	is_exec(char *cmd);
 
@@ -100,7 +103,7 @@ void    call_builtins(char **cmd);
 void    call_builtins_exec(char **cmd);
 
 //  ft_cd
-void	get_parent(char *dir);
+void	get_parent(void);
 void	cd_to(char *str);
 int		ft_check_cd(char **str);
 void    ft_cd(char **str);

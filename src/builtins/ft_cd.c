@@ -6,49 +6,46 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/13 16:16:07 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:28:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_parent(char *dir)
+void	get_parent(void)
 {
 	int		i;
 	int		j;
-	int		size;
 	char	*new_path;
-
+    char dir[1024];
+    
 	i = 0;
 	j = 0;
-	size = 0;
+    getcwd(dir, (sizeof(char) * 1024));
 	while (dir[i] != '\0')
-	{
-		if (dir[i] == '/')
-			j++;
 		i++;
-	}
-	i = 0;
-	while(i < j)
-	{
-		if (dir[size] == '/')
-			i++;
-		size++;
-	}
-	new_path = malloc(sizeof(char) * size);
-	i = -1;
-	while (++i < (size - 1))
-		new_path[i] = dir[i];
+	while (dir[i] != '/')
+        i--;
+    if (i <= 1)
+    {
+        return ;
+    }
+	new_path = malloc(sizeof(char) * (i + 1));
+	while (j < i)
+    {
+		new_path[j] = dir[j];
+        j++;
+    }
+    new_path[j] = '\0';
 	printf("%s\n", new_path); // Go to this, need to test and improve after merge with parse
+    free(new_path);
+    new_path = NULL;
 }
 
 void	cd_to(char *str)
 {
-	char dir[1024];
-    
-    getcwd(dir, (sizeof(char) * 1024));
 	if (ft_strcpm(str, ".."))
-		get_parent(dir);
+		get_parent();
 	else if (ft_strcpm(str, "."))
 		return ;
 	else if (ft_strcpm(str, "~"))

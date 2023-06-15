@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 18:31:14 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:59:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_exec(void)
     {
         call_builtins(data()->cmds[data()->curr_cmd]);
         data()->curr_cmd++;
-		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
-			return ;
 		data()->curr_spc++;
         return ;
     }
@@ -30,15 +28,14 @@ void	ft_exec(void)
 	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL) == -1)
+            free_all();
 	}
 	else
 	{
 		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, NULL, 0);
 		data()->curr_cmd++;
-		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
-			return ;
 		data()->curr_spc++;
 	}
 }
