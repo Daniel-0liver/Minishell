@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:14:44 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:27:08 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,36 @@ int	count_tokens(char *str)
 	i = 0;
 	while (*str)
 	{
-		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
+		while (*str == ' ' || *str == '\n' || *str == '\t')
 			str++;
-		while (*str && (*str != ' ' && *str != '\t' && *str != '\n'))
+		if (*str == '\0')
+			return (i);
+		if (*str == '\'' || *str == '\"')
 		{
-			if (*str == '\'' || *str == '\"')
+			if (str[1] != *str)
 			{
-					str = handle_quote(str, *str);
+				str = handle_quote(str, *str);
+				i++;
 				if (*str == '\0')
-					return (i);
-				else 
-					i++;
+					return(i);
+			}
+			else if (str[2] && str[2] != ' ' && str[2] != '\n' && str[2] != '\t')
+		 		i++;
+			else
+				str++;
+		}
+		else
+			i++;
+		while (*str && *str != ' ' && *str != '\n' && *str != '\t')
+		{
+			if ((*str == '|' || *str == '<' || *str == '>') && str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
+			{
+				if ((*str == '<' || *str == '>') &&e)
+					str++;
+				i++;
 			}
 			str++;
 		}
-		i++;
 	}
 	return (i);
 }
