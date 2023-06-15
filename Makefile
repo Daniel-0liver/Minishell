@@ -4,7 +4,7 @@ RESET		= 	\033[0m
 
 NAME		=	minishell
 
-LFT			=	libft/libft.a
+LFT			=	libft/obj libft/libft.a
 
 HEADER		=	./includes -I ./libft/includes
 
@@ -33,15 +33,15 @@ SRC			=	src/minishell.c \
 CC			=	cc
 FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g -fsanitize=address
 
-all:		$(LFT) obj $(NAME)
+all:		$(LFT) obj $(NAME) 
 
 $(NAME):	$(OBJ)
 			@$(CC) -o $@ $^ $(FLAGS)
 
 $(LFT):		
-			@echo " [ .. ] | Compiling libft.."
-			@make -s -C libft
-			@echo " [ $(GREEN)OK$(RESET) ] | Libft ready!"
+			@@echo " [ .. ] | Compiling libft.."
+			@$(MAKE) -C libft -f Makefile all --no-print-directory
+			@@echo " [ $(GREEN)OK$(RESET) ] | Libft ready!"
 
 obj:
 			@mkdir -p obj/parse obj/execution obj/builtins obj/cmd_handler
@@ -55,10 +55,12 @@ valgrind:	all
 
 clean:
 			@rm -rf $(OBJ) obj
+			@$(MAKE) -C libft -f Makefile clean --no-print-directory
 			@echo "Object files $(RED)removed.$(RESET)"
 
 fclean:		clean
 			@rm -rf $(NAME)
+			@$(MAKE) -C libft -f Makefile fclean --no-print-directory
 
 re:			fclean all
 
