@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:02:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:15:44 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (data()->str_cmd)
 			free(data()->str_cmd);
 		signal(SIGINT, inthandler);
-		data()->str_cmd = readline("minihell: ");
+		data()->str_cmd = readline("minishell: ");
 		add_history(data()->str_cmd);
         if (ft_strcpm(data()->str_cmd, "exit"))
             break;
