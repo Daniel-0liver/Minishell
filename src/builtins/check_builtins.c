@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/16 13:13:38 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:05:03 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    call_builtins(char **cmd)
     else if (ft_strcpm(cmd[0], "pwd"))
         ft_pwd(cmd);
     else if (ft_strcpm(cmd[0], "export"))
-        ft_export(data()->env_p);
+        ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
         ft_unset(data()->env_p);
     else if (ft_strcpm(cmd[0], "env"))
@@ -58,7 +58,7 @@ void    call_builtins_exec(char **cmd)
     else if (ft_strcpm(cmd[0], "pwd"))
         ft_pwd_exec(cmd);
     else if (ft_strcpm(cmd[0], "export"))
-        ft_export(data()->env_p);
+        ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
         ft_unset(data()->env_p);
     else if (ft_strcpm(cmd[0], "env"))

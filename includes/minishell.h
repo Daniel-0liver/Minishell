@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/19 14:55:50 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:04:35 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ void    ft_env_exec(char **str);
 void    ft_exit(char **str);
 
 // ft_export
-void    ft_export(char **str);
+void	check_env_name(char **env, char *str, int size);
+int		check_export(char **str);
+void    ft_export(void);
 
 // ft_pwd
 void    ft_pwd(char **str);
