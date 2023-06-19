@@ -3,18 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:23:41 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:19:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_export(char **str)
+void    ft_export(char **env)
 {
-	(void) str;
+	int	j;
+	char	**new_str;
 
-    printf("Whatever export does\n");
+	j = 0;
+	while (env && env[j] != NULL)
+		j++;
+	new_str = malloc(sizeof(char *) * (j + 2));
+	j = 0;
+	while (env && env[j] != NULL)
+	{
+		new_str[j] = ft_strdup(env[j]);
+		j++;
+	}
+	new_str[j++] = ft_strdup(data()->cmds[data()->curr_cmd][1]);
+	new_str[j] = NULL;
+    free_double_ptr(data()->env_p);
+    data()->env_p = new_str;
 }

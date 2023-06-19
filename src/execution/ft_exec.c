@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 14:59:43 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:40:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_exec(void)
 	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL) == -1)
+		if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd],  data()->env_p) == -1)
             free_all();
 	}
 	else
@@ -55,7 +55,7 @@ void	ft_exec_pipe_md(void)
 	{
 		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
 		dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 	}
 	else
 	{
@@ -82,7 +82,7 @@ void	ft_exec_pipe_end(void)
 	if (pid == 0)
 	{
 		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 	}
 	else
     {

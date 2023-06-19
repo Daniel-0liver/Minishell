@@ -6,66 +6,13 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 15:04:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:16:54 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Change all data()->test for the real string received by the parse
-
-void    free_cmds(char ***cmds)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (cmds && cmds[i] != NULL)
-	{
-		j = 0;
-		while (cmds[i] && cmds[i][j] != NULL)
-		{
-			free(cmds[i][j]);
-			cmds[i][j] = NULL;
-			j++;
-		}
-		free(cmds[i]);
-		cmds[i] = NULL;
-		i++;
-	}
-	free(cmds);
-	cmds = NULL;
-}
-
-void    free_test(void)
-{
-	int i;
-
-	i = 0;
-	while (data()->test && data()->test[i] != NULL)
-	{
-		free(data()->test[i]);
-		data()->test[i] = NULL;
-		i++;
-	}
-	free(data()->test);
-	data()->test = NULL;
-}
-
-void    free_fds(int **fds)
-{
-	int i;
-
-	i = 0;
-	while (fds && fds[i] != NULL)
-	{
-		free(fds[i]);
-		fds[i] = NULL;
-		i++;
-	}
-	free(fds);
-	fds = NULL;
-}
 
 void	check_spc(void)
 {
@@ -123,7 +70,7 @@ void cmd_to_exec(void) // Main Fuction
 		{
 			pid = fork();
 			if (pid == 0)
-				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 			else
 				waitpid(pid, NULL, 0);
 		}
