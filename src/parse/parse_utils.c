@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 12:44:34 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:10:41 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	count_tokens(char *str)
 			i++;
 		while (*str && *str != ' ' && *str != '\n' && *str != '\t')
 		{
-			if ((*str == '|' || *str == '<' || *str == '>') && str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
+			if ((*str == '|' || *str == '<' || *str == '>') && str[1] != ' ' && str[1] != '\n' && str[1] != '\t' && str[1] != '\0')
 			{
 				if ((*str == '<' || *str == '>'))
 					str++;
@@ -70,11 +70,43 @@ int	count_tokens(char *str)
 	return (i);
 }
 
-// Function to generate tokens from the str_cmd.
-void	get_tokens(void)
+char	**alloc_tokens(char *str, int nbr_tokens)
 {
-	// int	nbr_tokens;
-	// data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
-	// nbr_tokens = count_tokens(data()->str_cmd);
-	return ;
+	int		i;
+	int		j;
+	int		size;
+	char	**tokens;
+
+	i = 0;
+	tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
+	if (!tokens)
+	{
+		perror("Error while malloc tokens.");
+		return (NULL);
+	}
+	while (*str)
+	{
+		if (*str == ' ' || *str == '\n' || *str == '\t')
+			str++;
+		// else if (*str == '\'' || *str == '\"')
+		// {
+		// 	nbr_inside_quotes(str);
+		// }
+	}
+	return (tokens);
+}
+
+// Function to generate tokens from the str_cmd.
+int	get_tokens(void)
+{
+	int	nbr_tokens;
+	data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
+	nbr_tokens = count_tokens(data()->str_cmd);
+	data()->tokens = alloc_tokens(data()->str_cmd, nbr_tokens);
+	if (!data()->tokens)
+	{
+		perror("Error while malloc tokens.");
+		return (0);
+	}
+	return (0);
 }

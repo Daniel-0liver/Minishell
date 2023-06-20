@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/16 12:25:40 by dateixei         ###   ########.fr       */
+/*   Created: 2023/06/19 11:00:16 by dateixei          #+#    #+#             */
+/*   Updated: 2023/06/19 11:04:25 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void    ft_export(char **str)
+void	ft_free_array(char **array)
 {
-	(void) str;
+	int	i;
 
-    printf("Whatever export does\n");
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+	*array = NULL;
 }
