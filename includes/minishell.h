@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/19 20:04:35 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:08:21 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ char	***get_cmds(void);
 char	*ft_strdup(const char *src);
 
 // cmds_utils2
+char	*ft_getenv(char **env, char *str, int size);
 void	free_all(void);
 void	free_exec(void);
 int		is_redirect(char *cmd);
@@ -106,7 +107,8 @@ void    call_builtins(char **cmd);
 void    call_builtins_exec(char **cmd);
 
 //  ft_cd
-void	get_parent(void);
+void	add_cd_to_env(char *path);
+void	apply_cd(char *oldcd, char *newcd);
 void	cd_to(char *str);
 int		ft_check_cd(char **str);
 void    ft_cd(char **str);

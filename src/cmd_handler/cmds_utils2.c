@@ -6,11 +6,38 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/19 14:17:52 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:06:58 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_getenv(char **env, char *str, int size)
+{
+	int		i;
+	int		j;
+	char	*value;
+
+	i = 0;
+	j = 0;
+	while (env && env[i] != NULL)
+	{
+		if (!ft_strncmp(env[i], str, size) && env[i][size] == '=')
+		{
+			while (env[i][++size] != '\0')
+				j++;
+			value = malloc(sizeof(char) * (j + 1));
+			size = size - j;
+			j = 0;
+			while (env[i][size] != '\0')
+				value[j++] = env[i][size++];
+			value[j] = '\0';
+			return (value);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 void	free_all(void)
 {
