@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 13:02:39 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:10:45 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	ft_red(void)
 		if (data()->fd[data()->curr_fd][1] < 0)
 			printf("Error to create/read the redirected file named: %s\n", data()->cmds[tmp_cmd][0]);
 	ft_exec();
-	data()->curr_cmd = tmp_cmd;
+	data()->curr_cmd = tmp_cmd + 1;
 	data()->curr_spc = tmp_spc;
-	data()->curr_fd++;
+	// data()->curr_fd++;
 }
 
 void	ft_red_end(void)
@@ -61,5 +61,5 @@ void	ft_red_end(void)
 	ft_exec_pipe_md();
 	data()->curr_cmd = tmp_cmd;
 	data()->curr_spc = tmp_spc;
-	data()->curr_fd++;
+	// data()->curr_fd++;
 }

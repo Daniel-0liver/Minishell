@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:32:19 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 18:23:18 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:25:02 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ void	ft_input(void)
 	data()->fd[data()->curr_fd][0] = open(data()->cmds[tmp_cmd][0], O_RDONLY);
 		if (data()->fd[data()->curr_fd][0] < 0)
 			printf("Error to create/read the redirected file named: %s\n", data()->cmds[tmp_cmd][0]);
-    if (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
-        ft_exec_pipe_md();
-    else
-	    ft_exec_pipe_end();
-	data()->curr_cmd = tmp_cmd;
+	if (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
+	{
+		ft_exec_pipe_md();
+		tmp_spc++;
+	}
+	else
+		ft_exec_pipe_end();
+	data()->curr_cmd = tmp_cmd + 1;
 	data()->curr_spc = tmp_spc;
-	// data()->curr_fd++;
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 19:35:22 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:27:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_exec(void)
 	}
 }
 
-void	ft_exec_pipe_md(void)
+void	    ft_exec_pipe_md(void)
 {
 	int pid;
 	

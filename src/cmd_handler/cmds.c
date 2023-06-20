@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 19:41:31 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:27:50 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,9 @@
 void	exec_type_end(void)
 {
 	if (data()->spc[data()->curr_spc] == '\0')
-	{
-		if (is_exec(data()->test[data()->spc[data()->curr_spc - 1]]) == 1)
-			ft_exec_pipe_end();
-		else	
-			return ;
-	}
+		ft_exec_pipe_end();
 	else if (is_redirect(data()->test[data()->spc[data()->curr_spc]]) == 1)
 		ft_red_end();
-	else if (is_exec(data()->test[data()->spc[data()->curr_spc]]) == 1)
-		ft_exec_pipe_end();
 	else
 		printf("2Not pipe or >\n");
 }
@@ -34,11 +27,9 @@ void	exec_type_end(void)
 void	exec_type_md(void)
 {
 	if (is_exec(data()->test[data()->spc[data()->curr_spc]]) == 1)
-		ft_exec_pipe_md();
+			ft_exec_pipe_md();
 	else if (is_redirect(data()->test[data()->spc[data()->curr_spc]]) == 1)
 		ft_red_end();
-	else
-		printf("Not pipe or >\n");
 }
 
 void    exec_type(void)
@@ -55,10 +46,24 @@ void	check_spc(void)
 {
 	generate_fds();
 	exec_type();
+	// printf("FIRST: curr_fd: %d\ncurr_cmd: %d\ncurr_spc: %d\n", data()->curr_fd, data()->curr_cmd, data()->curr_spc);
 	while (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc] != '\0')
+	{
+		// sleep(1);
+		if (is_exec(data()->test[data()->spc[data()->curr_spc]]) && data()->spc[data()->curr_spc + 1] == '\0')
+		{
+			ft_exec_pipe_end();
+			return ;
+		}
+		// printf("WHILE: curr_fd: %d\ncurr_cmd: %d\ncurr_spc: %d\n", data()->curr_fd, data()->curr_cmd, data()->curr_spc);
 		exec_type_md();
-	exec_type_end();
+	}
+	// printf("LAST: curr_fd: %d\ncurr_cmd: %d\ncurr_spc: %d\n", data()->curr_fd, data()->curr_cmd, data()->curr_spc);
+	if (is_redirect(data()->test[data()->spc[data()->curr_spc]]))
+		exec_type_end();
 }
+// ls -la | grep gateixei | grep gateixei | grep Makefile > output > output2 > output3
+// cat < output4 | grep Makefile > output5
 
 void cmd_to_exec(void) // Main Fuction
 {  
@@ -93,6 +98,3 @@ void cmd_to_exec(void) // Main Fuction
 		free_exec();
 	}
 }
-
-// Check echo > vs echo ">"
-// Handle spc when they're toguether with the exec
