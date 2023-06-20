@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 16:08:21 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:43:27 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ int		ft_ptrlen(int v);
 char	*check_path(char *cmd);
 
 // cmds
+void	exec_type_end(void);
+void	exec_type_md(void);
+void    exec_type(void);
 void	check_spc(void);
 void    cmd_to_exec(void);
 
