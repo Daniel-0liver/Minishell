@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 21:40:03 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 17:05:30 by dateixei         ###   ########.fr       */
+/*   Created: 2023/06/21 17:06:25 by dateixei          #+#    #+#             */
+/*   Updated: 2023/06/21 18:29:51 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-// Allocates (with malloc(3)) and returns a new
-// string, which is the result of the concatenation
-// of ’s1’ and ’s2’.
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*strjoin_here(char *s1, char *s2)
 {
 	char	*s_final;
 	size_t	size;
 	size_t	i;
 	size_t	j;
 
-	if (!s1 || !s2)
-		return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2);
-	s_final = (char *)malloc(size + 1);
+	s_final = (char *)malloc(size + 2);
 	if (!s_final)
 		return (NULL);
 	i = 0;
@@ -38,6 +32,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	while (i < size)
 		s_final[i++] = s2[j++];
+	s_final[i++] = '\n';
 	s_final[i] = '\0';
+	free(s1);
+	free(s2);
 	return (s_final);
 }

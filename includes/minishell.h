@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 16:14:25 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:31:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define TRUE 1
 # define FALSE 0
 # define GREEN "\033[0;32m"
+# define TEMP_FILE "./.temp"
 
 typedef struct s_data
 {
@@ -62,6 +63,9 @@ int		nbr_inside_quotes(char *str, char c);
 char	*check_envp(char	*str);
 char	*handle_quote(char	*str, char c);
 
+// Utils
+char	*strjoin_here(char *s1, char *s2);
+
 //split_cmds
 void	ft_spc(int size);
 char	**ft_cmd(void);
@@ -94,7 +98,8 @@ void	ft_red_end(void);
 
 // ft_input
 void	ft_input(void);
-void	ft_input_end(void);
+int		handle_here(char *exit);
+
 
 // cmds_utils
 int		is_spc(char *cmd);

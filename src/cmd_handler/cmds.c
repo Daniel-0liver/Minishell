@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 16:01:39 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:33:00 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void    exec_type(void)
 	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
 		ft_red();
 	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 3)
+		ft_input();
+	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 4)
 		ft_input();
 }
 

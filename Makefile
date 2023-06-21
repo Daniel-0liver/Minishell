@@ -11,6 +11,7 @@ HEADER		=	./includes -I ./libft/includes
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 
 SRC			=	src/minishell.c \
+				src/parse/utils.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
 				src/parse/parse_quotes.c \
@@ -22,12 +23,12 @@ SRC			=	src/minishell.c \
 				src/execution/ft_exec.c \
 				src/execution/ft_redirect.c \
 				src/execution/ft_input.c \
-				src/builtins/ft_echo.c \
 				src/builtins/ft_cd.c \
+				src/builtins/ft_pwd.c \
 				src/builtins/ft_env.c \
 				src/builtins/ft_exit.c \
+				src/builtins/ft_echo.c \
 				src/builtins/ft_unset.c \
-				src/builtins/ft_pwd.c \
 				src/builtins/ft_export.c \
 				src/builtins/check_builtins.c
 
