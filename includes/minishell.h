@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:36:31 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:14:25 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data
 {
 	int			nbr_tokes;
 	char		**tokens;
-	char		**test;
 	char		*str_cmd;
 	char		**env_p;
 	char		***cmds;
@@ -41,7 +40,7 @@ typedef struct s_data
 	int			curr_cmd;
 	int			curr_fd;
 	int			warning;
-	char		*teste;
+	char		**here_doc;
 }			t_data;
 
 //Data init

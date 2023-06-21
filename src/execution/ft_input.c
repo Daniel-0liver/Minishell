@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:32:19 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:43:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:27:39 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_input(void)
 	int tmp_fd;
 
 	tmp_cmd = data()->curr_cmd + 1;
-	while (data()->test[data()->spc[data()->curr_cmd]][0] == '<' && data()->test[data()->spc[tmp_cmd]][0] == '<')
+	while (data()->tokens[data()->spc[data()->curr_cmd]][0] == '<' && data()->tokens[data()->spc[tmp_cmd]][0] == '<')
 	{
 		tmp_fd = open(data()->cmds[tmp_cmd][0], O_RDONLY);
 		if (tmp_fd < 0)

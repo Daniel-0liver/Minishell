@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 17:51:45 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:01:52 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	free_all(void)
 		free(data()->spc);
 		data()->spc = NULL;
 	}
-	if (data()->test && data()->test != NULL)
-		free_double_ptr(data()->test);
+	if (data()->tokens && data()->tokens != NULL)
+		free_double_ptr(data()->tokens);
 }
 
 void	free_exec(void)
 {
 	if (data()->cmds && data()->cmds != NULL)
 		free_cmds(data()->cmds);
-	if (data()->test && data()->test != NULL)
-		free_double_ptr(data()->test);
+	if (data()->tokens && data()->tokens != NULL)
+		free_double_ptr(data()->tokens);
 }
 
 int is_redirect(char *cmd)
