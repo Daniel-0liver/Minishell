@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 00:25:19 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:35:30 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char *argv[], char **envp)
 	(void)	argc;
 
 	data()->env_p = envp;
+    alloc_env(envp);
 	while (TRUE)
 	{
 		signal(SIGINT, inthandler);
@@ -47,5 +48,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
 			free(data()->str_cmd);
 	}
+	free(data()->str_cmd);
+    free_double_ptr(data()->env_p);
 	return (0);
 }

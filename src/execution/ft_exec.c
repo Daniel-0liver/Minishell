@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 16:12:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:43:07 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void	ft_exec(void)
     {
         call_builtins(data()->cmds[data()->curr_cmd]);
         data()->curr_cmd++;
-		if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
-			return ;
-		data()->curr_spc++;
         return ;
     }
 	pid = fork();
@@ -30,20 +27,18 @@ void	ft_exec(void)
 	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd],  data()->env_p) == -1)
+            free_all();
 	}
 	else
 	{
 		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, NULL, 0);
 		data()->curr_cmd++;
-		if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
-			return ;
-		data()->curr_spc++;
 	}
 }
 
-void	ft_exec_pipe_md(void)
+void	    ft_exec_pipe_md(void)
 {
 	int pid;
 	
@@ -58,7 +53,7 @@ void	ft_exec_pipe_md(void)
 	{
 		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
 		dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 	}
 	else
 	{
@@ -66,7 +61,6 @@ void	ft_exec_pipe_md(void)
 		close(data()->fd[data()->curr_fd][0]);
 		waitpid(pid, NULL, 0);
         data()->curr_cmd++;
-		data()->curr_spc++;
 		data()->curr_fd++;
 	}
 }
@@ -85,7 +79,7 @@ void	ft_exec_pipe_end(void)
 	if (pid == 0)
 	{
 		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 	}
 	else
     {

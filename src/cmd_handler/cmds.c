@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 01:16:15 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:42:05 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,48 @@
 
 // Change all data()->tokens for the real string received by the parse
 
-void    free_cmds(char ***cmds)
+void	exec_type_end(void)
 {
-    int i;
-    int j;
-
-    i = 0;
-    while (cmds && cmds[i] != NULL)
-    {
-        j = 0;
-        while (cmds[i] && cmds[i][j] != NULL)
-        {
-            free(cmds[i][j]);
-            cmds[i][j] = NULL;
-            j++;
-        }
-        free(cmds[i]);
-        cmds[i] = NULL;
-        i++;
-    }
-	free(cmds);
-	cmds = NULL;
+	if (is_exec(data()->test[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == '\0')
+		ft_exec_pipe_end();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 1)
+		ft_red_end();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 2)
+		ft_red_end();
 }
 
-void    free_fds(int **fds)
+void	exec_type_md(void)
 {
-    int i;
+	if (is_exec(data()->test[data()->spc[data()->curr_cmd]]) == 1)
+			ft_exec_pipe_md();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 1)
+		ft_red_end();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 2)
+		ft_red_end();
+}
 
-    i = 0;
-    while (fds && fds[i] != NULL)
-    {
-        free(fds[i]);
-        fds[i] = NULL;
-        i++;
-    }
-	free(fds);
-	fds = NULL;
+void    exec_type(void)
+{
+	if (is_exec(data()->test[data()->spc[data()->curr_cmd]]) == 1)
+		ft_exec();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 1)
+		ft_red();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 2)
+		ft_red();
+	else if (is_redirect(data()->test[data()->spc[data()->curr_cmd]]) == 3)
+		ft_input();
 }
 
 void	check_spc(void)
 {
 	generate_fds();
-	if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
-	    ft_exec();
-    else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
-    {
-	    ft_red();
-	}
-	while (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
-	{
-		if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
-			ft_exec_pipe_md();
-		else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
-			ft_red_end();
-		else
-			printf("Not pipe or >\n");
-	}
-	if (data()->spc[data()->curr_spc] == '\0')
-        return ;
-	if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
-		ft_exec_pipe_end();
-	else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
-		ft_red_end();
-    else
-		printf("2Not pipe or >\n");
+	exec_type();
+	while (data()->spc && data()->spc[data()->curr_cmd] != '\0' && data()->spc[data()->curr_cmd] != '\0')
+		exec_type_md();
+	exec_type_end();
 }
+// ls -la | grep gateixei | grep gateixei | grep Makefile > output > output2 > output3
+// cat < output4 | grep Makefile > output5
 
 void cmd_to_exec(void) // Main Fuction
 {
@@ -86,18 +63,15 @@ void cmd_to_exec(void) // Main Fuction
 
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
-	data()->curr_spc = 0;
 	data()->curr_fd = 0;
 	// for (int k = 0; data()->cmds[k] != NULL; k++)
 	//     for (int f = 0; data()->cmds[k][f] != NULL; f++)
 	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
 	// return ;
-	if (data()->spc && data()->spc[data()->curr_spc] != '\0')
+	if (data()->spc && data()->spc[data()->curr_cmd] != '\0')
 	{
 		check_spc();
-		free_fds(data()->fd);
-		free(data()->spc);
-		data()->spc = NULL;
+		free_all();
 	}
 	else
 	{
@@ -107,13 +81,10 @@ void cmd_to_exec(void) // Main Fuction
 		{
 			pid = fork();
 			if (pid == 0)
-				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], NULL);
+				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
 			else
 				waitpid(pid, NULL, 0);
 		}
+		free_exec();
 	}
-    free_cmds(data()->cmds);
 }
-
-// Check echo > vs echo ">"
-// Handle spc when they're toguether with the exec

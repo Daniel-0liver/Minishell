@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/16 13:13:47 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:40:42 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void    call_builtins(char **cmd)
     else if (ft_strcpm(cmd[0], "pwd"))
         ft_pwd(cmd);
     else if (ft_strcpm(cmd[0], "export"))
-        ft_export(cmd);
+        ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
-        ft_unset(cmd);
+        ft_unset(data()->env_p);
     else if (ft_strcpm(cmd[0], "env"))
         ft_env(data()->env_p);
     else if (ft_strcpm(cmd[0], "exit"))
@@ -58,9 +58,9 @@ void    call_builtins_exec(char **cmd)
     else if (ft_strcpm(cmd[0], "pwd"))
         ft_pwd_exec(cmd);
     else if (ft_strcpm(cmd[0], "export"))
-        ft_export(cmd);
+        ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
-        ft_unset(cmd);
+        ft_unset(data()->env_p);
     else if (ft_strcpm(cmd[0], "env"))
         ft_env_exec(data()->env_p);
     else if (ft_strcpm(cmd[0], "exit"))

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 12:05:43 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:36:31 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_data
 	int			**fd;
 	int			*spc;
 	int			curr_cmd;
-	int			curr_spc;
 	int			curr_fd;
 	int			warning;
 	char		*teste;
@@ -74,8 +73,16 @@ char	*check_path(char *cmd);
 // cmds
 void	free_cmds(char ***cmds);
 void	free_fds(int **fds);
+void	exec_type_end(void);
+void	exec_type_md(void);
+void    exec_type(void);
 void	check_spc(void);
 void	cmd_to_exec(void);
+
+// free
+void    free_cmds(char ***cmds);
+void    free_double_ptr(char **str);
+void    free_fds(int **fds);
 
 // ft_exec
 void	ft_exec(void);
@@ -98,8 +105,13 @@ char	***get_cmds(void);
 char	*ft_strdup(const char *src);
 
 // cmds_utils2
+char	*ft_getenv(char **env, char *str, int size);
+void	free_all(void);
+void	free_exec(void);
 int		is_redirect(char *cmd);
 int		is_exec(char *cmd);
+int 	is_exec(char *cmd);
+void	alloc_env(char **env);
 
 // check_builtins
 int		is_builtins(char *cmd);
@@ -107,7 +119,8 @@ void	call_builtins(char **cmd);
 void	call_builtins_exec(char **cmd);
 
 //  ft_cd
-void	get_parent(char *dir);
+void	add_cd_to_env(char *path);
+void	apply_cd(char *oldcd, char *newcd);
 void	cd_to(char *str);
 int		ft_check_cd(char **str);
 void	ft_cd(char **str);
@@ -125,7 +138,9 @@ void	ft_env_exec(char **str);
 void	ft_exit(char **str);
 
 // ft_export
-void	ft_export(char **str);
+void	check_env_name(char **env, char *str, int size);
+int		check_export(char **str);
+void    ft_export(void);
 
 // ft_pwd
 void	ft_pwd(char **str);
@@ -133,5 +148,7 @@ void	ft_pwd_exec(char **str);
 
 // ft_unset
 void	ft_unset(char **str);
+void	unset_var(char **env, int skip);
+void    ft_unset(char **str);
 
 #endif
