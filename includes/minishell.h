@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 18:43:27 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:39:12 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_data
 	int         **fd;
 	int			*spc;
 	int			curr_cmd;
-	int			curr_spc;
 	int			curr_fd;
 }			t_data;
 
