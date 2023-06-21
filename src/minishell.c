@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 15:39:32 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:23:13 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char *argv[], char **envp)
 	(void)	argv;
 	(void)	argc;
 
-    data()->env_p = envp;
+    alloc_env(envp);
 	while (TRUE)
 	{
 		if (data()->str_cmd)
@@ -45,5 +45,6 @@ int	main(int argc, char *argv[], char **envp)
 		parse_init();
 	}
 	free(data()->str_cmd);
+    free_double_ptr(data()->env_p);
 	return (0);
 }
