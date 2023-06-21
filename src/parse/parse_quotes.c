@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 00:09:54 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:17:35 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,29 @@
 
 int	nbr_inside_quotes(char *str, char c)
 {
-	int	nbr;
+	int		i;
+	char	*tmp;
 	
-	nbr = 0;
-	data()->warning = 0;
+	i = 0;
 	str++;
+	data()->warning = 0;
 	while (*str && *str != c)
 	{
+		if (*str == '$' && c == '\"')
+		{
+			tmp = check_envp(str);
+			if (tmp[0] != '\0')
+			{
+				i += ft_strlen(tmp);
+				while (*str != ' ' || *str != '\n' || *str != '\t' || *str != '\"')
+					str++;
+				data()->warning = -1;
+			}
+		}
 		str++;
-		nbr++;
-			if (*str == '\0')
-		data()->warning = -1;
+		i++;
 	}
-	return (nbr);
+	return (i);
 }
 
 int	nbr_outside_quotes(char *str)
@@ -80,4 +90,10 @@ int	check_quotes(char *str)
 		i++;
 	}
 	return (1);
+}
+
+char	*check_envp(char	*str)
+{
+	printf("%s\n", str);
+	return (str);
 }

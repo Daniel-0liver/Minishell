@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 22:43:02 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:05:43 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*my_getenv(char *str);
 int		check_quotes(char *str);
 int		nbr_outside_quotes(char *str);
 int		nbr_inside_quotes(char *str, char c);
+char	*check_envp(char	*str);
 char	*handle_quote(char	*str, char c);
 
 //split_cmds

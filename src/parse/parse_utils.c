@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 01:15:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:50:25 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,15 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 			if (str[1] != *str)
 			{
 				size = nbr_inside_quotes(str, *str);
-				tokens[i++] = ft_substr(++str, 0, size);
-				str += (size + 1);
+				if (data()->warning == 1)
+				{
+					
+				}
+				else
+				{
+					tokens[i++] = ft_substr(++str, 0, size);
+					str += (size + 1);
+				}
 			}
 			else
 				str += 2;
