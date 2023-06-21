@@ -13,7 +13,7 @@ CC 			= gcc
 FLAGS 		= -Wall -Wextra -Werror
 
 MKDIR		= mkdir -p
-REMOVE 		= rm -f
+REMOVE 		= rm -rf
 
 SRC_FILES 	= 	ft_isalpha.c 				\
 				ft_isdigit.c 				\
@@ -70,33 +70,33 @@ SRC_FILES 	= 	ft_isalpha.c 				\
 				ft_print_s.c				\
 				ft_print_u.c				\
 				ft_print_x.c				\
-				ft_printf.c
+				ft_printf.c					\
+				ft_free_array.c
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_FILES))
 OBJ_FILES = $(patsubst %.c, %.o, $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 
-all: init $(NAME)
+all: obj $(NAME)
 
-init:
-	@$(MKDIR) $(SRC_PATH) $(OBJ_PATH)
+obj :
+		@$(MKDIR) $(OBJ_PATH)
 
-$(NAME): 	$(OBJ)
+$(NAME): $(OBJ)
 		@echo "\n$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 		@ar -rcs $(NAME) $(OBJ)
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c $(INCLUDE)*.h
 		@${CC} ${FLAGS} -I $(INCLUDE) -c $< -o $@
+#@echo "$@ $(GREEN)created$(RESET)"
 		
 clean:
-		@echo "\n$(NAME): $(RED)object files were deleted$(RESET)"
-		@$(REMOVE) $(OBJ)
-		@echo
+#@echo "Libft: $(RED)object files were deleted$(RESET)"
+		@$(REMOVE) $(OBJ) obj
 
-fclean:		clean
+fclean:	clean
 		@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
 		@$(REMOVE) $(NAME)
-		@echo
 
 re :		fclean all
 

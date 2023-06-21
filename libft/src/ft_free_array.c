@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 01:51:47 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/15 12:44:51 by dateixei         ###   ########.fr       */
+/*   Created: 2023/06/19 11:00:16 by dateixei          #+#    #+#             */
+/*   Updated: 2023/06/20 18:40:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// If  c is a lowercase letter, toupper() returns its uppercase 
-// equivalent, if an uppercase representation exists in the 
-// current locale.  Otherwise, it returns c.
-
-int	ft_toupper(int c)
+void	ft_free_array(char **array)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
+	int	i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+	array = NULL;
 }

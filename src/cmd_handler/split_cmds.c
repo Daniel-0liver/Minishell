@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 18:11:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:18:28 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void ft_spc(int size)
 	i = 0;
 	mtz = 0;
 	spc = malloc(sizeof(int) * (size));
-	while (data()->test[i] != NULL)
+	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->test[i]))
+		if(is_spc(data()->tokens[i]))
 			spc[mtz++] = i;
 		i++;
 	}
@@ -39,29 +39,30 @@ char	**ft_cmd(void)
 	char		**cmd;
 	
 	i = 0;
-	if(is_spc(data()->test[data()->curr_cmd]))
+	if(is_spc(data()->tokens[data()->curr_cmd]))
 		data()->curr_cmd++;
 	size = ft_ptrlen(data()->curr_cmd);
 	cmd = malloc((size + 1) * sizeof(char *));
-	cmd[i] = check_path(data()->test[data()->curr_cmd]);
+	cmd[i] = check_path(data()->tokens[data()->curr_cmd]);
 	data()->curr_cmd++;
 	i++;
 	tmp_curr = data()->curr_cmd;
 	while (--size > 0)
 	{
-		if (is_redirect(data()->test[tmp_curr]))
+
+		if (is_redirect(data()->tokens[tmp_curr]))
 		{
 			tmp_curr = tmp_curr + 2;
 			size++;
 		}
 		else
 		{
-			cmd[i] = ft_strdup(data()->test[tmp_curr]);
+			cmd[i] = ft_strdup(data()->tokens[tmp_curr]);
 			tmp_curr++;
 			i++;
 		}
 	}
-	while (data()->test[data()->curr_cmd] != NULL && !is_spc(data()->test[data()->curr_cmd]))
+	while (data()->tokens[data()->curr_cmd] != NULL && !is_spc(data()->tokens[data()->curr_cmd]))
 		data()->curr_cmd++;
 	cmd[i] = NULL;
 	return (cmd);
@@ -74,9 +75,9 @@ int	ft_matriz_size(void)
 
 	i = 0;
 	mtz = 1;
-	while (data()->test[i] != NULL)
+	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->test[i]))
+		if(is_spc(data()->tokens[i]))
 			mtz++;
 		i++;
 	}
@@ -88,16 +89,16 @@ int	ft_ptrlen(int v)
 	int i;
 
 	i = 0;
-	if (v > 0 && is_redirect(data()->test[v - 1]))
+	if (v > 0 && is_redirect(data()->tokens[v - 1]))
 		return (1);
-	while (data()->test[v] != NULL)
+	while (data()->tokens[v] != NULL)
 	{
-		if(is_exec(data()->test[v]))
+		if(is_exec(data()->tokens[v]))
 			return (i);
-		else if (is_redirect(data()->test[v]))
+		else if (is_redirect(data()->tokens[v]))
 		{
 			v++;
-			if (data()->test[v] == NULL)
+			if (data()->tokens[v] == NULL)
 				return (i);
 			i--;
 		}
@@ -117,7 +118,7 @@ char	*check_path(char *cmds) // Change this to PATH variable
 	i = 0;
 	if (is_builtins(cmds))
 		return (ft_strdup(cmds));
-	if (data()->curr_cmd > 0 && is_redirect(data()->test[data()->curr_cmd - 1]))
+	if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
 		return (ft_strdup(cmds));
 	while (cmds[i] != '\0')
 	{

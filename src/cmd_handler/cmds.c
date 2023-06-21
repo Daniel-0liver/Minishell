@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 13:16:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:42:05 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Change all data()->test for the real string received by the parse
+// Change all data()->tokens for the real string received by the parse
 
 void	exec_type_end(void)
 {
@@ -58,8 +58,7 @@ void	check_spc(void)
 // cat < output4 | grep Makefile > output5
 
 void cmd_to_exec(void) // Main Fuction
-{  
-	data()->test = ft_split(data()->str_cmd, ' '); //erase this later -> Change all data()->test for the real string received by the parse
+{
 	int		pid;
 
 	data()->cmds = get_cmds();
