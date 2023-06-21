@@ -31,7 +31,7 @@ SRC			=	src/minishell.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft #-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g -fsanitize=address
 
 all:		$(LFT) obj $(NAME) 
 

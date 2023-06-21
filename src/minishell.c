@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 12:53:06 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:25:19 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ int	main(int argc, char *argv[], char **envp)
 	data()->env_p = envp;
 	while (TRUE)
 	{
-		if (data()->str_cmd)
-			free(data()->str_cmd);
 		signal(SIGINT, inthandler);
 		data()->str_cmd = readline("minishell: ");
 		add_history(data()->str_cmd);
         if (ft_strcpm(data()->str_cmd, "exit"))
+		{
+			free(data()->str_cmd);
             break;
+		}
 		parse_init();
+		if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
+			free(data()->str_cmd);
 	}
-	free(data()->str_cmd);
 	return (0);
 }

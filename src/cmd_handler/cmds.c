@@ -6,13 +6,13 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 18:29:24 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:16:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Change all data()->test for the real string received by the parse
+// Change all data()->tokens for the real string received by the parse
 
 void    free_cmds(char ***cmds)
 {
@@ -55,34 +55,33 @@ void    free_fds(int **fds)
 void	check_spc(void)
 {
 	generate_fds();
-	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+	if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
 	    ft_exec();
-    else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
+    else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
     {
 	    ft_red();
 	}
 	while (data()->spc && data()->spc[data()->curr_spc] != '\0' && data()->spc[data()->curr_spc + 1] != '\0')
 	{
-		if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+		if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
 			ft_exec_pipe_md();
-		else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
+		else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
 			ft_red_end();
 		else
 			printf("Not pipe or >\n");
 	}
 	if (data()->spc[data()->curr_spc] == '\0')
         return ;
-	if (data()->test[data()->spc[data()->curr_spc]][0] == '|')
+	if (data()->tokens[data()->spc[data()->curr_spc]][0] == '|')
 		ft_exec_pipe_end();
-	else if (data()->test[data()->spc[data()->curr_spc]][0] == '>')
+	else if (data()->tokens[data()->spc[data()->curr_spc]][0] == '>')
 		ft_red_end();
     else
 		printf("2Not pipe or >\n");
 }
 
 void cmd_to_exec(void) // Main Fuction
-{  
-	data()->test = ft_split(data()->str_cmd, ' '); //erase this later -> Change all data()->test for the real string received by the parse
+{
 	int		pid;
 
 	data()->cmds = get_cmds();

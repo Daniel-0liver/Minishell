@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 02:11:50 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:16:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,33 @@
 // Main function of the parse unit
 void	parse_init(void)
 {
-	// get_tokens();
-	cmd_to_exec();
+	if (get_tokens() == 0)
+		return ;
+	int i = 0;
+	while (data()->tokens[i])
+		printf("%s\n", data()->tokens[i++]);
+	if (data()->tokens)
+		cmd_to_exec();
+	ft_free_array(data()->tokens);
 }
 
 char	*my_getenv(char *str)
 {
-	int		str_len;
+	int		size;
 	int		i;
-	char	*var;
+	char	*tmp;
 
 	if (str == NULL || *str == '\0')
 		return (NULL);
-	str_len = ft_strlen(str);
+	size = ft_strlen(str);
 	while (*data()->env_p)
 	{
-		var = *data()->env_p;
+		tmp = *data()->env_p;
 		i = 0;
-		while (var[i] != '=' && var[i] != '\0')
+		while (tmp[i] != '=' && tmp[i] != '\0')
 			i++;
-		if (var[i] == '=' && i == str_len && ft_strncmp(str, var, i) == 0)
-			return (&var[i + 1]);
+		if (tmp[i] == '=' && i == size && ft_strncmp(str, tmp, i) == 0)
+			return (&tmp[i + 1]);
 		data()->env_p++;
 	}
 	return (NULL);

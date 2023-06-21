@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 02:09:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:43:02 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include "../libft/include/libft.h"
 # define TRUE 1
 # define FALSE 0
+# define GREEN "\033[0;32m"
 
 typedef struct s_data
 {
-	int			nbr_pipe_sig;
 	int			nbr_tokes;
 	char		**tokens;
-	char		*str_cmd;
 	char		**test;
+	char		*str_cmd;
 	char		**env_p;
 	char		***cmds;
 	int			**fd;
@@ -41,6 +41,7 @@ typedef struct s_data
 	int			curr_cmd;
 	int			curr_spc;
 	int			curr_fd;
+	int			warning;
 	char		*teste;
 }			t_data;
 
@@ -58,6 +59,8 @@ char	*my_getenv(char *str);
 
 // Parse_quotes
 int		check_quotes(char *str);
+int		nbr_outside_quotes(char *str);
+int		nbr_inside_quotes(char *str, char c);
 char	*handle_quote(char	*str, char c);
 
 //split_cmds

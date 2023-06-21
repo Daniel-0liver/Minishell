@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 14:20:35 by dateixei          #+#    #+#             */
-/*   Updated: 2021/12/10 23:10:14 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:08:01 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	ft_free_array(char **array);
 
 #endif

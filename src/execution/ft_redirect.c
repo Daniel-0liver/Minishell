@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/12 12:07:24 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:13:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_red(void)
 
 	tmp_cmd = data()->curr_cmd + 1;
 	tmp_spc = data()->curr_spc + 1;
-	while (data()->test[data()->spc[data()->curr_spc]][0] == '>' && data()->test[data()->spc[tmp_spc]][0] == '>')
+	while (data()->tokens[data()->spc[data()->curr_spc]][0] == '>' && data()->tokens[data()->spc[tmp_spc]][0] == '>')
 	{
 		tmp_fd = open(data()->cmds[tmp_cmd][0], O_RDWR | O_CREAT | O_TRUNC, 0664);
 		if (tmp_fd < 0)
@@ -46,7 +46,7 @@ void	ft_red_end(void)
 
 	tmp_cmd = data()->curr_cmd + 1;
 	tmp_spc = data()->curr_spc + 1;
-	while (data()->test[data()->spc[data()->curr_spc]][0] == '>' && data()->test[data()->spc[tmp_spc]][0] == '>')
+	while (data()->tokens[data()->spc[data()->curr_spc]][0] == '>' && data()->tokens[data()->spc[tmp_spc]][0] == '>')
 	{
 		tmp_fd = open(data()->cmds[tmp_cmd][0], O_RDWR | O_CREAT | O_TRUNC, 0664);
 		if (tmp_fd < 0)
