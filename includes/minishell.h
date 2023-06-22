@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 18:31:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:18:30 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	int			curr_cmd;
 	int			curr_fd;
 	int			warning;
+	int			shlvl;
 	char		**here_doc;
 }			t_data;
 
@@ -65,6 +66,7 @@ char	*handle_quote(char	*str, char c);
 
 // Utils
 char	*strjoin_here(char *s1, char *s2);
+void	handle_shlvl(char c);
 
 //split_cmds
 void	ft_spc(int size);
@@ -151,8 +153,7 @@ void	ft_pwd(char **str);
 void	ft_pwd_exec(char **str);
 
 // ft_unset
-void	ft_unset(char **str);
+void	ft_unset(char **str, char *find);
 void	unset_var(char **env, int skip);
-void    ft_unset(char **str);
 
 #endif

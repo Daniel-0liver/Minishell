@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:12:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/19 14:15:28 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:02:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void    free_double_ptr(char **str)
 	while (str && str[i] != NULL)
 	{
 		free(str[i]);
-		str[i] = NULL;
 		i++;
 	}
 	free(str);

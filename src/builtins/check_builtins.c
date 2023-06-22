@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:40:42 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/22 00:13:01 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    call_builtins(char **cmd)
     else if (ft_strcpm(cmd[0], "export"))
         ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
-        ft_unset(data()->env_p);
+        ft_unset(data()->env_p, data()->cmds[data()->curr_cmd][1]);
     else if (ft_strcpm(cmd[0], "env"))
         ft_env(data()->env_p);
     else if (ft_strcpm(cmd[0], "exit"))
@@ -60,7 +60,7 @@ void    call_builtins_exec(char **cmd)
     else if (ft_strcpm(cmd[0], "export"))
         ft_export();
     else if (ft_strcpm(cmd[0], "unset"))
-        ft_unset(data()->env_p);
+        ft_unset(data()->env_p, data()->cmds[data()->curr_cmd][1]);
     else if (ft_strcpm(cmd[0], "env"))
         ft_env_exec(data()->env_p);
     else if (ft_strcpm(cmd[0], "exit"))

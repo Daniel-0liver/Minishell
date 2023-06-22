@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:06:25 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 18:29:51 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:34:35 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,23 @@ char	*strjoin_here(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (s_final);
+}
+
+void	handle_shlvl(char c)
+{
+	int		shlvl;
+	char	*str;
+	char	*nbr;
+
+	shlvl = ft_atoi(my_getenv("SHLVL"));
+	if (c == '-')
+		shlvl--;
+	else if (c == '+')
+		shlvl++;
+	nbr = ft_itoa(shlvl);
+	str = ft_strjoin("SHLVL=", nbr);
+	ft_unset(data()->env_p, "SHLVL");
+	add_cd_to_env(str);
+	free(nbr);
+	free(str);
 }
