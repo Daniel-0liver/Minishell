@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:54:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/25 16:51:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,89 +36,111 @@ int	count_tokens(char *str)
 	i = 0;
 	while (*str)
 	{
-		while (*str == ' ' || *str == '\n' || *str == '\t')
-		{
+		if (*str == ' ' || *str == '\n' || *str == '\t')
 			str++;
-			if (!*str)
-				return (i);
-		}
-		while (*str && (*str != ' ' && *str != '\n' && *str != '\t'))
+		else if (*str == '\'' || *str == '\"')
 		{
-			if ((*str == '>' || *str == '<' || *str == '|') && str[i] != ' ')
-				i++;
-			if (*str == '\"' || *str == '\'')
+			if (str[1] != *str)
 			{
-				if (*str == str[1])
-					i--;
 				str = handle_quote(str, *str);
+				i++;
+				if (*str == '\0')
+					return(i);
 			}
-			str++;
+			else
+				str += 2;
 		}
-		i++;
+		else if ((*str == '|' || *str == '<' || *str == '>'))
+		{
+			if ((*str == '<' || *str == '>') && (str[1] == *str))
+				str += 2;
+			else
+				str++;
+			i++;
+		}
+		else
+		{
+			while (*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '|' && *str != '<' && *str != '>')
+				str++;
+			i++;
+		}
 	}
 	return (i);
 }
 
-// Function to allocate the tokens
-void	alloc_tokens(char **tokens, char *str, int nbr_tokens)
+char	**alloc_tokens(char *str, int nbr_tokens)
 {
-	int	i;
-	int j;
+	int		i;
+	int		size;
+	char	**tokens;
 
 	i = 0;
+	tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
+	if (!tokens)
+	{
+		perror("Error while malloc tokens.");
+		return (NULL);
+	}
 	while (*str)
 	{
-		j = 0;
-		while (*str == ' ' || *str == '\n' || *str == '\t')
+		if (*str == ' ' || *str == '\n' || *str == '\t')
 			str++;
-		while (*str && (*str != ' ' && *str != '\n' && *str != '\t'))
+		else if (*str == '\'' || *str == '\"')
 		{
-			tokens[i][j] = *str;
-			str++;
-			j++;
+			if (str[1] != *str)
+			{
+				size = nbr_inside_quotes(str, *str);
+				if (data()->warning == 1)
+				{
+					
+				}
+				else
+				{
+					tokens[i++] = ft_substr(++str, 0, size);
+					str += (size + 1);
+				}
+			}
+			else
+				str += 2;
 		}
-		i++;
+		else if ((*str == '|' || *str == '>' || *str == '<'))
+		{
+			if (str[1] == *str && (*str == '>' || *str == '<'))
+			{
+				tokens[i++] = ft_substr(str, 0, 2);
+				str += 2;
+			}
+			else
+				tokens[i++] = ft_substr(str++, 0, 1);
+		}
+		else
+		{
+			size = nbr_outside_quotes(str);
+			tokens[i++] = ft_substr(str, 0, (size + 1));
+			str += (size + 1);
+		}
 	}
 	tokens[i] = NULL;
+	return (tokens);
 }
 
 // Function to generate tokens from the str_cmd.
 int	get_tokens(void)
 {
 	int	nbr_tokens;
-	
-	data()->nbr_pipe_sig = nbr_char(data()->str_cmd, '|');
+
+	while (*data()->str_cmd == ' ' || *data()->str_cmd == '\n' || *data()->str_cmd == '\t')
+		data()->str_cmd++;
+	if (*data()->str_cmd == '\0')
+		return(0);
+	if (check_quotes(data()->str_cmd) == 0)
+	{
+		perror("Error unclosed quotes");
+		return (0);
+	}
 	nbr_tokens = count_tokens(data()->str_cmd);
-	data()->tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
-	if (!data()->tokens)
-	{
-		printf("Error while allocating tokens\n");
-		return (1);
-	}
-	alloc_tokens(data()->tokens, data()->str_cmd, nbr_tokens);
-	int i = 0;
-	while (data()->tokens[i])
-	{
-		printf("%s\n", data()->tokens[i]);
-		i++;
-	}
-	return (0);
-}
-
-//The ft_strchr() function returns a pointer to the first 
-// occurrence of the character c in the string s.
-char	*ft_strchr(const char *s, int c)
-{
-	char	tmp_c;
-
-	tmp_c = c;
-	while (*s)
-	{
-		if (*s == tmp_c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == tmp_c)
-		return ((char *)s);
-	return ((void *)0);
+	data()->tokens = alloc_tokens(data()->str_cmd, nbr_tokens);
+	if (*data()->tokens == NULL)
+		return (0);
+	return (1);
 }

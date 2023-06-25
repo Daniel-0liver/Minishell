@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/10 18:18:01 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/25 16:51:02 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,34 @@
 // Main function of the parse unit
 void	parse_init(void)
 {
-	get_tokens();
+	if (get_tokens() == 0)
+		return ;
+	int i = 0;
+	while (data()->tokens[i])
+		printf("%s\n", data()->tokens[i++]);
+	if (data()->tokens)
+		cmd_to_exec();
+	ft_free_array(data()->tokens);
 }
+
+// char	*my_getenv(char *str)
+// {
+// 	int		size;
+// 	int		i;
+// 	char	*tmp;
+
+// 	if (str == NULL || *str == '\0')
+// 		return (NULL);
+// 	size = ft_strlen(str);
+// 	while (*data()->env_p)
+// 	{
+// 		tmp = *data()->env_p;
+// 		i = 0;
+// 		while (tmp[i] != '=' && tmp[i] != '\0')
+// 			i++;
+// 		if (tmp[i] == '=' && i == size && ft_strncmp(str, tmp, i) == 0)
+// 			return (&tmp[i + 1]);
+// 		data()->env_p++;
+// 	}
+// 	return (NULL);
+// }
