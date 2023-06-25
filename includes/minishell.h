@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/22 10:18:30 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:57:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 	int			warning;
 	int			shlvl;
 	char		**here_doc;
+	char		*str_tmp;
 }			t_data;
 
 //Data init
@@ -65,8 +66,11 @@ char	*check_envp(char	*str);
 char	*handle_quote(char	*str, char c);
 
 // Utils
-char	*strjoin_here(char *s1, char *s2);
+char	*env_var(char *str);
 void	handle_shlvl(char c);
+char	*strjoin_var(char *s1, char s2);
+char	*strjoin_here(char *s1, char *s2);
+char	*strjoin_null(char const *s1, char const *s2);
 
 //split_cmds
 void	ft_spc(int size);

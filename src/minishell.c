@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/22 10:27:47 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/25 00:10:17 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char *argv[], char **envp)
 {
 	(void)	argv;
 	(void)	argc;
+	(void)	envp;
 
     alloc_env(envp);
 	ft_unset(data()->env_p, "SHELL");

@@ -33,7 +33,7 @@ SRC			=	src/minishell.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g #-fsanitize=leak
 
 all:		$(LFT) obj $(NAME) 
 
@@ -53,7 +53,7 @@ obj/%.o:	src/%.c ./includes/minishell.h
 			@echo "$@ $(GREEN)created$(RESET)"
 
 valgrind:	all
-			valgrind --leak-check=full --show-leak-kinds=all --quiet ./minishell
+			valgrind --leak-check=full --show-leak-kinds=all ./minishell
 
 clean:
 			@rm -rf $(OBJ) obj

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 12:17:35 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:17:28 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	nbr_inside_quotes(char *str, char c)
 {
 	int		i;
-	char	*tmp;
 	
 	i = 0;
 	str++;
@@ -24,14 +23,9 @@ int	nbr_inside_quotes(char *str, char c)
 	{
 		if (*str == '$' && c == '\"')
 		{
-			tmp = check_envp(str);
-			if (tmp[0] != '\0')
-			{
-				i += ft_strlen(tmp);
-				while (*str != ' ' || *str != '\n' || *str != '\t' || *str != '\"')
-					str++;
+			data()->str_tmp = check_envp(str);
+			if (data()->str_tmp)
 				data()->warning = -1;
-			}
 		}
 		str++;
 		i++;
@@ -94,6 +88,21 @@ int	check_quotes(char *str)
 
 char	*check_envp(char	*str)
 {
-	printf("%s\n", str);
-	return (str);
+	int	i;
+	char	*tmp;
+	char	*output;
+
+	i = 0;
+	str++;
+	tmp = NULL;
+	while(*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '\"')
+	{
+		tmp = strjoin_var(tmp, *str);
+		i++;
+		str++;
+	}
+	tmp[i] = '\0';
+	output = my_getenv(tmp);
+	free(tmp);
+	return (output);
 }
