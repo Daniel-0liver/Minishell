@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/25 00:10:17 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:22:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_data	*data(void)
 static void	inthandler(int sig)
 {
 	(void) sig;
+	data()->error = EOWNERDEAD;
+	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("\n", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/23 17:57:09 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:22:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 	int			shlvl;
 	char		**here_doc;
 	char		*str_tmp;
+	int			error;
 }			t_data;
 
 //Data init

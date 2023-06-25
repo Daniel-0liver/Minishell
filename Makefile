@@ -33,12 +33,12 @@ SRC			=	src/minishell.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g #-fsanitize=leak
+FLAGS		=	-I${HEADER} -Wall -Wextra -Werror -g -fsanitize=address
 
 all:		$(LFT) obj $(NAME) 
 
 $(NAME):	$(OBJ)
-			@$(CC) -o $@ $^ $(FLAGS)
+			@$(CC) -o $@ $^ $(FLAGS) -lreadline -L ./libft -lft
 
 $(LFT):		
 			@@echo " [ .. ] | Compiling libft.."
