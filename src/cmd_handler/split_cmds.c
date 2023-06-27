@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 17:18:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:03:30 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,92 @@ void ft_spc(int size)
 	while (data()->tokens[i] != NULL)
 	{
 		if(is_spc(data()->tokens[i]))
+		{
+			if (mtz == size)
+			{
+				printf("ADD ERROR MANY SPC ADDED\n");
+				spc[mtz] = -1;
+				data()->spc = spc;
+				return ;
+			}
 			spc[mtz++] = i;
+		}
 		i++;
 	}
-	spc[mtz] = '\0';
+	spc[mtz] = -1;
 	data()->spc = spc;
 }
 
 char	**ft_cmd(void)
 {
-	int 		i;
-	int			size;
-	int			tmp_curr;
-	char		**cmd;
+	int 	i;
+	char	**cmd;
 	
 	i = 0;
-	if(is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	size = ft_ptrlen(data()->curr_cmd);
-	cmd = malloc((size + 1) * sizeof(char *));
-	cmd[i] = check_path(data()->tokens[data()->curr_cmd]);
-	data()->curr_cmd++;
-	i++;
-	tmp_curr = data()->curr_cmd;
-	while (--size > 0)
-	{
-
-		if (is_redirect(data()->tokens[tmp_curr]))
+	data()->count = -1;
+	while (data()->tokens[i] != NULL && data()->count < 0)
+	{	
+		if (!is_spc(data()->tokens[i]) && (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
 		{
-			tmp_curr = tmp_curr + 2;
-			size++;
+			data()->count++;
+			if (data()->count == data()->curr_cmd)
+				return (get_exec_cmd(i));
+			else
+			{
+				while (data()->tokens[i] != NULL && !is_spc(data()->tokens[i]))
+					i++;
+				i--;
+			}
 		}
-		else
-		{
-			cmd[i] = ft_strdup(data()->tokens[tmp_curr]);
-			tmp_curr++;
-			i++;
-		}
+		i++;
 	}
-	while (data()->tokens[data()->curr_cmd] != NULL && !is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	cmd[i] = NULL;
-	return (cmd);
+	cmd = check_input();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_cmd_exec();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_red_cmd();
+	if (cmd != NULL)
+		return (cmd);
+	return (NULL);
+	// i = 0;
+	// while (data()->tokens[i] != NULL)
+	// {
+	// 	if (is_redirect(data()->tokens[i]) == 3 || is_redirect(data()->tokens[i]) == 4)
+	// 	{
+	// 		data()->spc[count] = i;
+	// 		count++;
+	// 	}
+	// 	i++;
+	// 	if (count == data()->curr_cmd)
+	// 		return (get_red_cmd(i));
+	// }
+	// i = 0;
+	// while (data()->tokens[i] != NULL)
+	// {
+	// 	if (is_exec(data()->tokens[i]) == 1)
+	// 	{
+	// 		data()->spc[count] = i;
+	// 		count++;
+	// 	}
+	// 	i++;
+	// 	if (count == data()->curr_cmd)
+	// 		return (get_exec_cmd(i));
+	// }
+	// i = 0;
+	// while (data()->tokens[i] != NULL)
+	// {
+	// 	if (is_redirect(data()->tokens[i]) == 1 || is_redirect(data()->tokens[i]) == 2)
+	// 	{
+	// 		data()->spc[count] = i;
+	// 		count++;
+	// 	}
+	// 	i++;
+	// 	if (count == data()->curr_cmd)
+	// 		return (get_red_cmd(i));
+	// }
+	// return (NULL);
 }
 
 int	ft_matriz_size(void)
@@ -118,8 +162,8 @@ char	*check_path(char *cmds) // Change this to PATH variable
 	i = 0;
 	if (is_builtins(cmds))
 		return (ft_strdup(cmds));
-	if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
-		return (ft_strdup(cmds));
+	// if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
+	// 	return (ft_strdup(cmds));
 	while (cmds[i] != '\0')
 	{
 		if (cmds[i] == '/')

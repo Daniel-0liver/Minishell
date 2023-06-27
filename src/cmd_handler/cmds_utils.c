@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:40:54 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:09:50 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	generate_fds(void)
 
 	i = 0;
 	j = 0;
-	while (data()->spc && data()->spc[i] != '\0')
+	while (data()->spc && data()->spc[i] != -1)
 		i++;
 	data()->fd = malloc(sizeof (int *) * (i + 1));
 	while (j < i)

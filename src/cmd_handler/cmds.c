@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 18:33:00 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:04:14 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 void	exec_type_end(void)
 {
-	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == '\0')
+	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == -1)
 		ft_exec_pipe_end();
-	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
+	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
 		ft_red_end();
-	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
+	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
 		ft_red_end();
 }
 
@@ -52,7 +52,7 @@ void	check_spc(void)
 {
 	generate_fds();
 	exec_type();
-	while (data()->spc && data()->spc[data()->curr_cmd] != '\0' && data()->spc[data()->curr_cmd] != '\0')
+	while (data()->spc && data()->spc[data()->curr_cmd] != -1)
 		exec_type_md();
 	exec_type_end();
 }
@@ -69,8 +69,14 @@ void cmd_to_exec(void) // Main Fuction
 	// for (int k = 0; data()->cmds[k] != NULL; k++)
 	//     for (int f = 0; data()->cmds[k][f] != NULL; f++)
 	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
+    // int  m = 0;
+    // while (data()->spc && data()->spc[m] != -1)
+    // {
+    //     printf("SPC CARACTER INDEX: %d\n", data()->spc[m]);
+    //     m++;
+    // }
 	// return ;
-	if (data()->spc && data()->spc[data()->curr_cmd] != '\0')
+	if (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
 		check_spc();
 		free_all();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/25 18:22:21 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:00:32 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
+    int         count;
 	int			warning;
 	int			shlvl;
 	char		**here_doc;
@@ -106,6 +107,7 @@ void	ft_red_end(void);
 // ft_input
 void	ft_input(void);
 int		handle_here(char *exit);
+void	ft_red_input(int tmp_cmd);
 
 
 // cmds_utils
@@ -123,6 +125,13 @@ int		is_redirect(char *cmd);
 int		is_exec(char *cmd);
 int 	is_exec(char *cmd);
 void	alloc_env(char **env);
+
+// cmd_utils3
+char    **get_exec_cmd(int i);
+char	**get_red_cmd(int i);
+char	**check_input(void);
+char	**check_cmd_exec(void);
+char	**check_red_cmd(void);
 
 // check_builtins
 int		is_builtins(char *cmd);
