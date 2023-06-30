@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/27 15:01:31 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/30 11:47:10 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ char	**check_red_cmd(void)
 		{
 			data()->spc[data()->count] = i;
 			data()->count++;
-			// printf("data()->count: %d\ncurr: %d\n", data()->count, data()->curr_cmd);
 		}
 		i++;
 		if (data()->count == data()->curr_cmd)

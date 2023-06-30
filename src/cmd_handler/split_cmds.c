@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/27 15:03:30 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/06/30 11:59:06 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void ft_spc(int size)
 		{
 			if (mtz == size)
 			{
-				printf("ADD ERROR MANY SPC ADDED\n");
 				spc[mtz] = -1;
 				data()->spc = spc;
 				return ;
@@ -73,43 +72,6 @@ char	**ft_cmd(void)
 	if (cmd != NULL)
 		return (cmd);
 	return (NULL);
-	// i = 0;
-	// while (data()->tokens[i] != NULL)
-	// {
-	// 	if (is_redirect(data()->tokens[i]) == 3 || is_redirect(data()->tokens[i]) == 4)
-	// 	{
-	// 		data()->spc[count] = i;
-	// 		count++;
-	// 	}
-	// 	i++;
-	// 	if (count == data()->curr_cmd)
-	// 		return (get_red_cmd(i));
-	// }
-	// i = 0;
-	// while (data()->tokens[i] != NULL)
-	// {
-	// 	if (is_exec(data()->tokens[i]) == 1)
-	// 	{
-	// 		data()->spc[count] = i;
-	// 		count++;
-	// 	}
-	// 	i++;
-	// 	if (count == data()->curr_cmd)
-	// 		return (get_exec_cmd(i));
-	// }
-	// i = 0;
-	// while (data()->tokens[i] != NULL)
-	// {
-	// 	if (is_redirect(data()->tokens[i]) == 1 || is_redirect(data()->tokens[i]) == 2)
-	// 	{
-	// 		data()->spc[count] = i;
-	// 		count++;
-	// 	}
-	// 	i++;
-	// 	if (count == data()->curr_cmd)
-	// 		return (get_red_cmd(i));
-	// }
-	// return (NULL);
 }
 
 int	ft_matriz_size(void)
@@ -162,8 +124,6 @@ char	*check_path(char *cmds) // Change this to PATH variable
 	i = 0;
 	if (is_builtins(cmds))
 		return (ft_strdup(cmds));
-	// if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
-	// 	return (ft_strdup(cmds));
 	while (cmds[i] != '\0')
 	{
 		if (cmds[i] == '/')
