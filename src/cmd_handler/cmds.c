@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 18:33:00 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:29:25 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,43 @@
 
 // Change all data()->tokens for the real string received by the parse
 
+int	is_valid(void)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	while (data()->tokens[i] != NULL)
+	{
+		if (i == 0 && is_exec(data()->tokens[i]) == 1)
+		{
+			printf("bash: syntax error near unexpected token `|'\n");
+			return (1);
+		}
+		if (is_spc(data()->tokens[i]))
+		{
+			j--;
+			if (data()->tokens[i + 1] != NULL && is_spc(data()->tokens[i + 1]))
+				return (1);
+		}
+		else
+			j++;
+		i++;
+	}
+	if (j >= 0)
+		return (0);
+	else
+		return (1);
+}
+
 void	exec_type_end(void)
 {
-	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == '\0')
+	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == -1)
 		ft_exec_pipe_end();
-	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
+	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
 		ft_red_end();
-	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
+	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
 		ft_red_end();
 }
 
@@ -52,7 +82,7 @@ void	check_spc(void)
 {
 	generate_fds();
 	exec_type();
-	while (data()->spc && data()->spc[data()->curr_cmd] != '\0' && data()->spc[data()->curr_cmd] != '\0')
+	while (data()->spc && data()->spc[data()->curr_cmd] != -1)
 		exec_type_md();
 	exec_type_end();
 }
@@ -63,14 +93,22 @@ void cmd_to_exec(void) // Main Fuction
 {
 	int		pid;
 
+	if (is_valid())
+		return ;
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_fd = 0;
 	// for (int k = 0; data()->cmds[k] != NULL; k++)
 	//     for (int f = 0; data()->cmds[k][f] != NULL; f++)
 	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
+	// int  m = 0;
+	// while (data()->spc && data()->spc[m] != -1)
+	// {
+	//     printf("SPC CARACTER INDEX: %d\n", data()->spc[m]);
+	//     m++;
+	// }
 	// return ;
-	if (data()->spc && data()->spc[data()->curr_cmd] != '\0')
+	if (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
 		check_spc();
 		free_all();
@@ -83,7 +121,10 @@ void cmd_to_exec(void) // Main Fuction
 		{
 			pid = fork();
 			if (pid == 0)
-				execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
+			{	
+				if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+					printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
+			}
 			else
 				waitpid(pid, NULL, 0);
 		}

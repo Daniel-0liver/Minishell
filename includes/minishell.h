@@ -6,23 +6,24 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 15:01:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:41:42 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>//  write, dup2, close
-# include <fcntl.h>//  O_RDONLY, O_...
-# include <stdlib.h>//  EXIT_FAILURE, malloc, free
-# include <stdio.h>//  STDIN
-# include <sys/types.h>//	wait
-# include <sys/wait.h>//	wait
-# include <errno.h>//	ERROR
-# include <signal.h>//	SIG
-# include <readline/readline.h>//	ReadLine
-# include <readline/history.h>//	History
+# include <unistd.h>    //  write, dup2, close
+# include <fcntl.h>     //  O_RDONLY, O_...
+# include <stdlib.h>    //  EXIT_FAILURE, malloc, free
+# include <stdio.h>     //  STDIN
+# include <sys/types.h> //	wait
+# include <sys/wait.h>	//	wait
+# include <errno.h>		//	ERROR
+# include <signal.h>	//	SIG
+# include <dirent.h>    //	DIR
+# include <readline/readline.h>	//	ReadLine
+# include <readline/history.h>	//	History
 # include "../libft/include/libft.h"
 # define TRUE 1
 # define FALSE 0
@@ -40,6 +41,7 @@ typedef struct s_data
 	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
+	int         count;
 	int			warning;
 	int			shlvl;
 	char		**here_doc;
@@ -87,8 +89,7 @@ int		ft_ptrlen(int v);
 char	*check_path(char *cmd);
 
 // cmds
-void	free_cmds(char ***cmds);
-void	free_fds(int **fds);
+int     is_valid(void);
 void	exec_type_end(void);
 void	exec_type_md(void);
 void	exec_type(void);
@@ -97,7 +98,7 @@ void	cmd_to_exec(void);
 
 // free
 void	free_cmds(char ***cmds);
-void	free_double_ptr(char **str);
+void    free_double_ptr(char **str);
 void	free_fds(int **fds);
 
 // ft_exec
@@ -112,6 +113,7 @@ void	ft_red_end(void);
 // ft_input
 void	ft_input(void);
 int		handle_here(char *exit);
+void	ft_red_input(int tmp_cmd);
 
 // cmds_utils
 int		is_spc(char *cmd);
@@ -129,6 +131,13 @@ int		is_exec(char *cmd);
 int		is_exec(char *cmd);
 void	alloc_env(char **env);
 
+// cmd_utils3
+char    **get_exec_cmd(int i);
+char	**get_red_cmd(int i);
+char	**check_input(void);
+char	**check_cmd_exec(void);
+char	**check_red_cmd(void);
+
 // check_builtins
 int		is_builtins(char *cmd);
 void	call_builtins(char **cmd);
@@ -142,7 +151,7 @@ int		ft_check_cd(char **str);
 void	ft_cd(char **str);
 
 // ft_echo
-void	ft_echo_beg(char *str, int flag);
+void	ft_echo_beg(char **str, int flag);
 void	ft_echo(char **str);
 void	ft_echo_exec(char **str);
 

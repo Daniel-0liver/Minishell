@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:18:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:05:06 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo_beg(char *str, int flag)
+void	ft_echo_beg(char **str, int flag)
 {
 	int	pid;
+    int i;
 	
 	pid = fork();
 	if (pid == 0)
@@ -22,9 +23,24 @@ void	ft_echo_beg(char *str, int flag)
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 		if (flag == 1)
-			printf("%s", str);
+        {
+            i = 2;
+            while (str[i] != NULL)
+            {
+                printf("%s", str[i]);
+                i++;
+            }
+        }
 		else
-			printf("%s\n", str);
+        {
+            i = 1;
+            while (str[i] != NULL)
+            {
+                printf("%s", str[i]);
+                i++;
+            }
+            printf("\n");
+        }
 		exit(0);
 	}
 	else
@@ -36,16 +52,33 @@ void	ft_echo_beg(char *str, int flag)
 
 void    ft_echo(char **str)
 {
-	if (ft_strcpm(str[1], "-n"))
-		ft_echo_beg(str[2], 1);
-	else
-		ft_echo_beg(str[1], 0);
+	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
+		ft_echo_beg(str, 1);
+	else if (str[1] != NULL)
+		ft_echo_beg(str, 0);
 }
 
 void    ft_echo_exec(char **str)
 {
-	if (ft_strcpm(str[1], "-n"))
-		printf("%s", str[2]);
-	else
-		printf("%s\n", str[1]);
+    int i;
+    
+	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
+    {
+        i = 2;
+        while (str[i] != NULL)
+        {
+		    printf("%s", str[i]);
+            i++;
+        }
+    }
+	else if (str[1] != NULL)
+    {
+        i = 1;
+        while (str[i] != NULL)
+        {
+		    printf("%s", str[i]);
+            i++;
+        }
+		printf("\n");
+    }
 }
