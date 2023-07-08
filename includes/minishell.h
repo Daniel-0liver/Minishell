@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 15:53:07 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:09:49 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		ft_check_cd(char **str);
 void	ft_cd(char **str);
 
 // ft_echo
-void	ft_echo_beg(char *str, int flag);
+void	ft_echo_beg(char **str, int flag);
 void	ft_echo(char **str);
 void	ft_echo_exec(char **str);
 
