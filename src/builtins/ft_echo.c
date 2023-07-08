@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/14 17:18:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:45:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ void	ft_echo_beg(char *str, int flag)
 
 void    ft_echo(char **str)
 {
-	if (ft_strcpm(str[1], "-n"))
+	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
+    {
 		ft_echo_beg(str[2], 1);
-	else
+    }
+	else if (str[1] != NULL)
 		ft_echo_beg(str[1], 0);
 }
 
 void    ft_echo_exec(char **str)
 {
-	if (ft_strcpm(str[1], "-n"))
+	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
 		printf("%s", str[2]);
-	else
+	else if (str[1] != NULL)
 		printf("%s\n", str[1]);
 }

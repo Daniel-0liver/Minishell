@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/30 12:11:49 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:53:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>	//	wait
 # include <errno.h>		//	ERROR
 # include <signal.h>	//	SIG
+# include <dirent.h>    //	DIR
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
 # include "../libft/include/libft.h"
@@ -40,7 +41,7 @@ typedef struct s_data
 	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
-    int         count;
+	int         count;
 	int			warning;
 	int			shlvl;
 	char		**here_doc;

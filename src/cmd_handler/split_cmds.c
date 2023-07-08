@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/30 11:59:06 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:22:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,46 @@ int	ft_ptrlen(int v)
 	return (i);
 }
 
-char	*check_path(char *cmds) // Change this to PATH variable
+char	*get_path(char *cmd)
+{
+	int		i;
+	DIR		*dir;
+	char	*rtn;
+	char	**path;
+	struct	dirent *entry;
+	
+	i = 0;
+	rtn = ft_getenv(data()->env_p, "PATH", 4);
+	path = ft_split(rtn, ':');
+	free(rtn);
+	while (path[i] != NULL)
+	{
+		dir = opendir(path[i]);
+		if (dir != NULL)
+		{
+			while ((entry = readdir(dir)) != NULL)
+			{
+				if (ft_strcpm(entry->d_name, cmd))
+				{
+					rtn = ft_strdup(path[i]);
+					free_double_ptr(path);
+					closedir(dir);
+					return (rtn);
+				}
+			}
+		}
+		closedir(dir);
+		i++;
+	}
+	free_double_ptr(path);
+	return (NULL);
+}
+
+char	*check_path(char *cmds)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*rtn;
 	char	*path;
 
@@ -130,14 +166,19 @@ char	*check_path(char *cmds) // Change this to PATH variable
 			return (ft_strdup(cmds));
 		i++;
 	}
-	rtn = malloc(sizeof(char) * (i + 6));
-	path = "/bin/";
+	path = get_path(cmds);
+	if (path == NULL)
+		return (ft_strdup(cmds));
+	k = ft_strlen(path);
+	rtn = malloc(sizeof(char) * (i + 2 + k));
 	j = -1;
-	while (++j < 5)
+	while (++j < k)
 		rtn[j] = path[j];
+	rtn[j++] = '/';
 	i = 0;
 	while (cmds[i] != '\0' && cmds[i] != ' ')
 		rtn[j++] = cmds[i++];
 	rtn[j] = '\0';
+	free(path);
 	return (rtn);
 }
