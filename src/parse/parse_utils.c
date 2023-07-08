@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 15:57:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:49:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,21 @@ void	handle_special_characters(char **str, int *count)
 	}
 }
 
+int	handle_dollar_sign(char *str)
+{
+	int	i;
+
+	i = 0;
+	str++;
+	handle_env(str);
+	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t'
+		&& str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != '$')
+		i++;
+	if (!data()->str_tmp)
+		data()->warning = -1;
+	return (i);
+}
+
 char	**alloc_tokens(char *str, int nbr_tokens)
 {
 	int		i;
@@ -89,6 +104,7 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 	}
 	while (*str)
 	{
+		data()->warning = 0;
 		if (*str == ' ' || *str == '\n' || *str == '\t')
 			str++;
 		else if (*str == '\'' || *str == '\"')
@@ -115,12 +131,27 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 			else
 				tokens[i++] = ft_substr(str++, 0, 1);
 		}
+		else if (*str == '$')
+		{
+			size = handle_dollar_sign(str);
+			if (data()->warning != -1)
+			{
+				if (data()->str_tmp != NULL)
+					tokens[i++] = ft_substr(data()->str_tmp, 0, ft_strlen(data()->str_tmp));
+			}
+			else if (nbr_tokens > 0)
+				continue ;
+			else
+				tokens[i++] = ft_substr(" ", 0, 1);
+			str += (size + 1);
+		}
 		else
 		{
 			size = nbr_outside_quotes(str);
 			tokens[i++] = ft_substr(str, 0, (size + 1));
 			str += (size + 1);
 		}
+		nbr_tokens--;
 	}
 	tokens[i] = NULL;
 	return (tokens);
