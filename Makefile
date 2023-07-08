@@ -20,6 +20,7 @@ SRC			=	src/minishell.c \
 				src/cmd_handler/free.c \
 				src/cmd_handler/cmds_utils.c \
 				src/cmd_handler/cmds_utils2.c \
+				src/cmd_handler/cmds_utils3.c \
 				src/cmd_handler/split_cmds.c \
 				src/execution/ft_exec.c \
 				src/execution/ft_redirect.c \

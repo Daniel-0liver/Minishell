@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 17:18:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:22:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,54 @@ void ft_spc(int size)
 	while (data()->tokens[i] != NULL)
 	{
 		if(is_spc(data()->tokens[i]))
+		{
+			if (mtz == size)
+			{
+				spc[mtz] = -1;
+				data()->spc = spc;
+				return ;
+			}
 			spc[mtz++] = i;
+		}
 		i++;
 	}
-	spc[mtz] = '\0';
+	spc[mtz] = -1;
 	data()->spc = spc;
 }
 
 char	**ft_cmd(void)
 {
-	int 		i;
-	int			size;
-	int			tmp_curr;
-	char		**cmd;
+	int 	i;
+	char	**cmd;
 	
 	i = 0;
-	if(is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	size = ft_ptrlen(data()->curr_cmd);
-	cmd = malloc((size + 1) * sizeof(char *));
-	cmd[i] = check_path(data()->tokens[data()->curr_cmd]);
-	data()->curr_cmd++;
-	i++;
-	tmp_curr = data()->curr_cmd;
-	while (--size > 0)
-	{
-
-		if (is_redirect(data()->tokens[tmp_curr]))
+	data()->count = -1;
+	while (data()->tokens[i] != NULL && data()->count < 0)
+	{	
+		if (!is_spc(data()->tokens[i]) && (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
 		{
-			tmp_curr = tmp_curr + 2;
-			size++;
+			data()->count++;
+			if (data()->count == data()->curr_cmd)
+				return (get_exec_cmd(i));
+			else
+			{
+				while (data()->tokens[i] != NULL && !is_spc(data()->tokens[i]))
+					i++;
+				i--;
+			}
 		}
-		else
-		{
-			cmd[i] = ft_strdup(data()->tokens[tmp_curr]);
-			tmp_curr++;
-			i++;
-		}
+		i++;
 	}
-	while (data()->tokens[data()->curr_cmd] != NULL && !is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	cmd[i] = NULL;
-	return (cmd);
+	cmd = check_input();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_cmd_exec();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_red_cmd();
+	if (cmd != NULL)
+		return (cmd);
+	return (NULL);
 }
 
 int	ft_matriz_size(void)
@@ -108,17 +114,51 @@ int	ft_ptrlen(int v)
 	return (i);
 }
 
-char	*check_path(char *cmds) // Change this to PATH variable
+char	*get_path(char *cmd)
+{
+	int		i;
+	DIR		*dir;
+	char	*rtn;
+	char	**path;
+	struct	dirent *entry;
+	
+	i = 0;
+	rtn = ft_getenv(data()->env_p, "PATH", 4);
+	path = ft_split(rtn, ':');
+	free(rtn);
+	while (path[i] != NULL)
+	{
+		dir = opendir(path[i]);
+		if (dir != NULL)
+		{
+			while ((entry = readdir(dir)) != NULL)
+			{
+				if (ft_strcpm(entry->d_name, cmd))
+				{
+					rtn = ft_strdup(path[i]);
+					free_double_ptr(path);
+					closedir(dir);
+					return (rtn);
+				}
+			}
+		}
+		closedir(dir);
+		i++;
+	}
+	free_double_ptr(path);
+	return (NULL);
+}
+
+char	*check_path(char *cmds)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*rtn;
 	char	*path;
 
 	i = 0;
 	if (is_builtins(cmds))
-		return (ft_strdup(cmds));
-	if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
 		return (ft_strdup(cmds));
 	while (cmds[i] != '\0')
 	{
@@ -126,14 +166,19 @@ char	*check_path(char *cmds) // Change this to PATH variable
 			return (ft_strdup(cmds));
 		i++;
 	}
-	rtn = malloc(sizeof(char) * (i + 6));
-	path = "/bin/";
+	path = get_path(cmds);
+	if (path == NULL)
+		return (ft_strdup(cmds));
+	k = ft_strlen(path);
+	rtn = malloc(sizeof(char) * (i + 2 + k));
 	j = -1;
-	while (++j < 5)
+	while (++j < k)
 		rtn[j] = path[j];
+	rtn[j++] = '/';
 	i = 0;
 	while (cmds[i] != '\0' && cmds[i] != ' ')
 		rtn[j++] = cmds[i++];
 	rtn[j] = '\0';
+	free(path);
 	return (rtn);
 }
