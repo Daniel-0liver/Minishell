@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 18:40:58 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:36:11 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 // Main function of the parse unit
 void	parse_init(void)
 {
-	int	i;
+	// int	i;
 
 	if (get_tokens() == 0)
 		return ;
-	i = 0;
-	while (data()->tokens[i])
-		printf("%s\n", data()->tokens[i++]);
+	// i = 0;
+	// while (data()->tokens[i])
+	// 	printf("%s\n", data()->tokens[i++]);
 	if (data()->tokens)
 		cmd_to_exec();
 }

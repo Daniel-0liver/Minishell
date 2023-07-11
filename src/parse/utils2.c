@@ -6,16 +6,20 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 17:43:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:58:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_whitespace(char **str)
+int	skip_whitespace(char *str)
 {
-	while (**str && (**str == ' ' || **str == '\n' || **str == '\t'))
-		(*str)++;
+	int i;
+
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'))
+		i++;
+	return (i);
 }
 
 void	skip_non_whitespace_and_dolar_sign(char **str)

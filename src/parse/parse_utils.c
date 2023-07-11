@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 17:49:21 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:46:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_tokens(char *str)
 	i = 0;
 	while (*str)
 	{
-		skip_whitespace(&str);
+		str += skip_whitespace(str);
 		if (*str == '\'' || *str == '\"')
 		{
 			if (str[1] != *str)
@@ -157,11 +157,47 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 	return (tokens);
 }
 
+void	check_echo(void)
+{
+	int	i;
+
+	i = 0;
+	while (data()->tokens[i] != NULL)
+	{
+		if (ft_strncmp(data()->tokens[i], "echo", 5) == 0)
+		{
+			if (ft_strncmp(data()->tokens[i + 1], "-n", 3) == 0)
+				i += 2;
+			else
+				i++;
+			// if (ft_strncmp(data()->tokens[i], ">", 2) == 0)
+			// {
+			// 	data()->tokens[i] = strjoin_var(data()->tokens[i], '\"');
+			// }
+			while (data()->tokens[i] && ft_strncmp(data()->tokens[i], "|", 2) != 0 && ft_strncmp(data()->tokens[i], ">", 2) != 0
+				&& ft_strncmp(data()->tokens[i], "<", 2) != 0 && ft_strncmp(data()->tokens[i], "|", 2) != 0
+				&& ft_strncmp(data()->tokens[i], "$", 2) != 0 && ft_strncmp(data()->tokens[i], "\'", 2) != 0
+				&& ft_strncmp(data()->tokens[i], "\"", 2) != 0 && ft_strncmp(data()->tokens[i], ">>", 3)
+				&& ft_strncmp(data()->tokens[i], "<<", 3))
+			{
+				data()->tokens[i] = strjoin_var(data()->tokens[i], ' ');
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+}
+
 // Function to generate tokens from the str_cmd.
 int	get_tokens(void)
 {
-	skip_whitespace(&data()->str_cmd);
-	if (*data()->str_cmd == '\0')
+	int	i;
+
+	i = 0;
+	while (data()->str_cmd[i] && (data()->str_cmd[i] == ' ' || data()->str_cmd[i] == '\n' || data()->str_cmd[i] == '\t'))
+		i++;
+	if (data()->str_cmd[i] == '\0')
 		return (0);
 	if (check_quotes(data()->str_cmd) == 0)
 	{
@@ -172,5 +208,6 @@ int	get_tokens(void)
 	data()->tokens = alloc_tokens(data()->str_cmd, data()->nbr_tokens);
 	if (*data()->tokens == NULL)
 		return (0);
+	check_echo();
 	return (1);
 }

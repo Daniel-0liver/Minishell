@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 18:41:42 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:55:18 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*strjoin_null(char const *s1, char const *s2);
 
 // Utils 2
 void	handle_env(char *str);
-void	skip_whitespace(char **str);
+int		skip_whitespace(char *str);
 void	skip_non_whitespace_and_dolar_sign(char **str);
 
 //split_cmds
