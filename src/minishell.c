@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 14:29:07 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:26:19 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int	main(int argc, char *argv[], char **envp)
 {
 	(void) argv;
 	(void) argc;
-	(void) envp;
+
 	alloc_env(envp);
+    data()->error = 0;
 	ft_unset(data()->env_p, "SHELL");
 	add_cd_to_env("SHELL=minishell");
 	handle_shlvl('+');
@@ -45,11 +46,18 @@ int	main(int argc, char *argv[], char **envp)
 		add_history(data()->str_cmd);
 		if (ft_strncmp(data()->str_cmd, "exit", 5) == 0)
 			break ;
-		parse_init();
-		if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
-			free(data()->str_cmd);
+        else if (ft_strncmp(data()->str_cmd, "$?", 3) == 0)
+        {
+			printf("%i\n",  data()->error);
+            free(data()->str_cmd);
+        }
+        else
+        {          
+            parse_init();
+            if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
+                free(data()->str_cmd);
+            }
 	}
-	handle_shlvl('-');
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
 	return (0);
