@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 23:08:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:56:00 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse_init(void)
 {
 	// int	i;
 
-	
+	handle_error_var();
 	if (get_tokens() == 0)
 		return ;
 	// i = 0;

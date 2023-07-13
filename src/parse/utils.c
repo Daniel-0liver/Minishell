@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:06:25 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 15:01:34 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:11:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ void	handle_shlvl(char c)
 	nbr = ft_itoa(shlvl);
 	str = ft_strjoin("SHLVL=", nbr);
 	ft_unset(data()->env_p, "SHLVL");
+	add_cd_to_env(str);
+	free(nbr);
+	free(str);
+}
+
+void	handle_error_var(void)
+{
+	char	*str;
+	char	*nbr;
+
+	nbr = ft_itoa(data()->error);
+	str = ft_strjoin("?=", nbr);
 	add_cd_to_env(str);
 	free(nbr);
 	free(str);

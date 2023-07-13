@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 21:08:34 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:45:29 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void cmd_to_exec(void) // Main Fuction
 			{	
 				if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p) == -1)
                 {
-					printf("%s: command not found (TESTE)\n", data()->cmds[data()->curr_cmd][0]);
+					printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
                     exit(127);
                 }
 			}

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/11 20:55:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:00:19 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*handle_quote(char	*str, char c);
 
 // Utils
 char	*env_var(char *str);
+void	handle_error_var(void);
 void	handle_shlvl(char c);
 char	*strjoin_var(char *s1, char s2);
 char	*strjoin_here(char *s1, char *s2);

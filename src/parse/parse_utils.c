@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 22:59:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:06:27 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	handle_special_characters(char **str, int *count)
 	}
 	else
 	{
-		while (**str && **str != ' ' && **str != '\n' 
+		while (**str && **str != ' ' && **str != '\n'
 			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
 			(*str)++;
 		(*count)++;
@@ -148,7 +148,10 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 		else
 		{
 			size = nbr_outside_quotes(str);
-			tokens[i++] = ft_substr(str, 0, (size + 1));
+			// if ((str[size + 1] == '\'' || str[size + 1] == '\"') && (str[size + 2] == '\'' || str[size + 2] == '\"'))
+			// 	tokens[i] = ft_substr(str, 0, (size + 1));
+			// else
+				tokens[i++] = ft_substr(str, 0, (size + 1));
 			str += (size + 1);
 		}
 		nbr_tokens--;
@@ -170,22 +173,12 @@ void	check_echo(void)
 				i += 2;
 			else
 				i++;
-			// if (ft_strncmp(data()->tokens[i], ">", 2) == 0)
-			// {
-			// 	data()->tokens[i] = strjoin_var(data()->tokens[i], '\"');
-			// }
 			while (data()->tokens[i] && ft_strncmp(data()->tokens[i], "|", 2) != 0 && ft_strncmp(data()->tokens[i], ">", 2) != 0
 				&& ft_strncmp(data()->tokens[i], "<", 2) != 0 && ft_strncmp(data()->tokens[i], "|", 2) != 0
 				&& ft_strncmp(data()->tokens[i], "\'", 2) != 0
 				&& ft_strncmp(data()->tokens[i], "\"", 2) != 0 && ft_strncmp(data()->tokens[i], ">>", 3)
 				&& ft_strncmp(data()->tokens[i], "<<", 3))
 			{
-				printf("%s\n", data()->tokens[i]);
-				if (ft_strncmp(data()->tokens[i], "$?", 3) == 0)
-				{
-					free(data()->tokens[i]);
-					data()->tokens[i] = ft_substr("0", 0, 2);
-				}
 				if (data()->tokens[i + 1] == NULL)
 				{
 					i++;
@@ -221,5 +214,6 @@ int	get_tokens(void)
 	if (*data()->tokens == NULL)
 		return (0);
 	check_echo();
+	ft_unset(data()->env_p, "?");
 	return (1);
 }
