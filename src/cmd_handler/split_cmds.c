@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 17:22:43 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:59:54 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ char	*get_path(char *cmd)
 	
 	i = 0;
 	rtn = ft_getenv(data()->env_p, "PATH", 4);
+    if (rtn == NULL)
+    {
+        return (NULL);
+    }
 	path = ft_split(rtn, ':');
 	free(rtn);
 	while (path[i] != NULL)
