@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 22:26:19 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:46:49 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ int	main(int argc, char *argv[], char **envp)
 		add_history(data()->str_cmd);
 		if (ft_strncmp(data()->str_cmd, "exit", 5) == 0)
 			break ;
-        else if (ft_strncmp(data()->str_cmd, "$?", 3) == 0)
-        {
-			printf("%i\n",  data()->error);
-            free(data()->str_cmd);
-        }
         else
         {          
             parse_init();

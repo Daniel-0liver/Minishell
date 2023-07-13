@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 22:31:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:59:20 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,16 +176,23 @@ void	check_echo(void)
 			// }
 			while (data()->tokens[i] && ft_strncmp(data()->tokens[i], "|", 2) != 0 && ft_strncmp(data()->tokens[i], ">", 2) != 0
 				&& ft_strncmp(data()->tokens[i], "<", 2) != 0 && ft_strncmp(data()->tokens[i], "|", 2) != 0
-				&& ft_strncmp(data()->tokens[i], "$", 2) != 0 && ft_strncmp(data()->tokens[i], "\'", 2) != 0
+				&& ft_strncmp(data()->tokens[i], "\'", 2) != 0
 				&& ft_strncmp(data()->tokens[i], "\"", 2) != 0 && ft_strncmp(data()->tokens[i], ">>", 3)
 				&& ft_strncmp(data()->tokens[i], "<<", 3))
 			{
+				printf("%s\n", data()->tokens[i]);
+				if (ft_strncmp(data()->tokens[i], "$?", 3) == 0)
+				{
+					free(data()->tokens[i]);
+					data()->tokens[i] = ft_substr("0", 0, 2);
+				}
 				if (data()->tokens[i + 1] == NULL)
 				{
 					i++;
 					break ;
 				}
-				data()->tokens[i] = strjoin_var(data()->tokens[i], ' ');
+				else
+					data()->tokens[i] = strjoin_var(data()->tokens[i], ' ');
 				i++;
 			}
 		}
