@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 22:54:20 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:08:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char *argv[], char **envp)
 	free_double_ptr(data()->env_p);
 	return (0);
 }
-
         // else if (ft_strncmp(data()->str_cmd, "$?", 3) == 0)
         // {
 		// 	printf("%i\n", data()->error);
