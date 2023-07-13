@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 22:38:31 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:08:34 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	check_spc(void)
 void cmd_to_exec(void) // Main Fuction
 {
 	int		pid;
+	int		status;
 
 	if (is_valid())
 		return ;
@@ -123,10 +124,18 @@ void cmd_to_exec(void) // Main Fuction
 			if (pid == 0)
 			{	
 				if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p) == -1)
-					printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
+                {
+					printf("%s: command not found (TESTE)\n", data()->cmds[data()->curr_cmd][0]);
+                    exit(127);
+                }
 			}
 			else
-				waitpid(pid, NULL, 0);
+				waitpid(pid, &status, 0);
+            if (status > 0)
+                data()->error = status/256;
+            else
+                data()->error = 0;
+            
 		}
 		free_exec();
 	}

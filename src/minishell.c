@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/12 22:46:49 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:13:06 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,9 @@ int	main(int argc, char *argv[], char **envp)
 	free_double_ptr(data()->env_p);
 	return (0);
 }
+
+        // else if (ft_strncmp(data()->str_cmd, "$?", 3) == 0)
+        // {
+		// 	printf("%i\n", data()->error);
+        //     free(data()->str_cmd);
+        // }
