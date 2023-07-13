@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/08 18:05:06 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:07:47 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void    ft_echo(char **str)
 		ft_echo_beg(str, 1);
 	else if (str[1] != NULL)
 		ft_echo_beg(str, 0);
+    data()->error = 0;
 }
 
 void    ft_echo_exec(char **str)
@@ -81,4 +82,5 @@ void    ft_echo_exec(char **str)
         }
 		printf("\n");
     }
+    data()->error = 0;
 }

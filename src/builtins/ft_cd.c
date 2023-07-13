@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 16:07:39 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:04:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	apply_cd(char *oldcd, char *newcd)
 	if (chdir(newcd) < 0)
 	{
 		printf("Minishell: cd: %s: No such file or directory\n", newcd);
+        data()->error = 1;
 		return ;
 	}
 	path = ft_strjoin("OLDPWD=", oldcd);
@@ -53,6 +54,7 @@ void	apply_cd(char *oldcd, char *newcd)
 	add_cd_to_env(path);
 	free(path);
 	path = NULL;
+    data()->error = 0;
 }
 
 void	cd_to(char *str)
@@ -100,7 +102,10 @@ void    ft_cd(char **str)
 	getcwd(dir, (sizeof(char) * 1024));
 	size = ft_check_cd(str);
 	if (size > 2)
+    {
+        data()->error = 1;
 		printf("cd: too many arguments\n");
+    }
 	else
 		cd_to(str[1]);
 }
