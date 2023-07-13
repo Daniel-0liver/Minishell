@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 22:51:58 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:54:20 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[], char **envp)
             parse_init();
             if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
                 free(data()->str_cmd);
-            }
+        }
 	}
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
