@@ -6,24 +6,24 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 21:59:54 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:51:21 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_spc(int size)
+void	ft_spc(int size)
 {
-	int i;
-	int mtz;
-	int *spc;
+	int	i;
+	int	mtz;
+	int	*spc;
 
 	i = 0;
 	mtz = 0;
 	spc = malloc(sizeof(int) * (size));
 	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->tokens[i]))
+		if (is_spc(data()->tokens[i]))
 		{
 			if (mtz == size)
 			{
@@ -41,14 +41,15 @@ void ft_spc(int size)
 
 char	**ft_cmd(void)
 {
-	int 	i;
 	char	**cmd;
-	
+	int		i;
+
 	i = 0;
 	data()->count = -1;
 	while (data()->tokens[i] != NULL && data()->count < 0)
 	{	
-		if (!is_spc(data()->tokens[i]) && (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
+		if (!is_spc(data()->tokens[i]) \
+		&& (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
 		{
 			data()->count++;
 			if (data()->count == data()->curr_cmd)
@@ -83,7 +84,7 @@ int	ft_matriz_size(void)
 	mtz = 1;
 	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->tokens[i]))
+		if (is_spc(data()->tokens[i]))
 			mtz++;
 		i++;
 	}
@@ -92,14 +93,14 @@ int	ft_matriz_size(void)
 
 int	ft_ptrlen(int v)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (v > 0 && is_redirect(data()->tokens[v - 1]))
 		return (1);
 	while (data()->tokens[v] != NULL)
 	{
-		if(is_exec(data()->tokens[v]))
+		if (is_exec(data()->tokens[v]))
 			return (i);
 		else if (is_redirect(data()->tokens[v]))
 		{
@@ -116,18 +117,18 @@ int	ft_ptrlen(int v)
 
 char	*get_path(char *cmd)
 {
-	int		i;
-	DIR		*dir;
-	char	*rtn;
-	char	**path;
-	struct	dirent *entry;
-	
+	int				i;
+	DIR				*dir;
+	char			*rtn;
+	char			**path;
+	struct dirent	*entry;
+
 	i = 0;
 	rtn = ft_getenv(data()->env_p, "PATH", 4);
-    if (rtn == NULL)
-    {
-        return (NULL);
-    }
+	if (rtn == NULL)
+	{
+		return (NULL);
+	}
 	path = ft_split(rtn, ':');
 	free(rtn);
 	while (path[i] != NULL)

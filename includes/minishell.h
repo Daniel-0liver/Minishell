@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 22:00:19 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 21:46:19 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <sys/wait.h>	//	wait
 # include <errno.h>		//	ERROR
 # include <signal.h>	//	SIG
-# include <dirent.h>    //	DIR
+# include <dirent.h>	//	DIR
+# include <limits.h>	// MAX / MIN VALUES
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
 # include "../libft/include/libft.h"
@@ -144,6 +145,9 @@ int		is_builtins(char *cmd);
 void	call_builtins(char **cmd);
 void	call_builtins_exec(char **cmd);
 
+// error_msg
+void    builtins_error(char *option, char *var_option, char *msg, int err);
+
 //  ft_cd
 void	add_cd_to_env(char *path);
 void	apply_cd(char *oldcd, char *newcd);
@@ -161,7 +165,9 @@ void	ft_env(char **str);
 void	ft_env_exec(char **str);
 
 // ft_exit
+long long int	ft_atoli(const char *nptr);
 void	ft_exit(char **str);
+void    ft_exit_exec(char **str);
 
 // ft_export
 void	check_env_name(char **env, char *str, int size);

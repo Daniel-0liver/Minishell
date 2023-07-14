@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 23:08:54 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:44:13 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_valid(void)
 	{
 		if (i == 0 && is_exec(data()->tokens[i]) == 1)
 		{
-			printf("bash: syntax error near unexpected token `|'\n");
+            builtins_error(NULL, NULL, "bash: syntax error near unexpected token `|'", 2);
 			return (1);
 		}
 		if (is_spc(data()->tokens[i]))
@@ -83,11 +83,17 @@ void	check_spc(void)
 	generate_fds();
 	exec_type();
 	while (data()->spc && data()->spc[data()->curr_cmd] != -1)
+    {
+        if (data()->error != 0)
+            return ;
 		exec_type_md();
+    }
+    if (data()->error != 0)
+    {
+        return ;
+    }
 	exec_type_end();
 }
-// ls -la | grep gateixei | grep gateixei | grep Makefile > output > output2 > output3
-// cat < output4 | grep Makefile > output5
 
 void cmd_to_exec(void) // Main Fuction
 {
@@ -99,16 +105,6 @@ void cmd_to_exec(void) // Main Fuction
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_fd = 0;
-	// for (int k = 0; data()->cmds[k] != NULL; k++)
-	//     for (int f = 0; data()->cmds[k][f] != NULL; f++)
-	//         printf("Matriz: %d, Array: %d, String: %s\n", k, f, data()->cmds[k][f]);
-	// int  m = 0;
-	// while (data()->spc && data()->spc[m] != -1)
-	// {
-	//     printf("SPC CARACTER INDEX: %d\n", data()->spc[m]);
-	//     m++;
-	// }
-	// return ;
 	if (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
 		check_spc();

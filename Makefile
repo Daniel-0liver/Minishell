@@ -32,6 +32,7 @@ SRC			=	src/minishell.c \
 				src/builtins/ft_echo.c \
 				src/builtins/ft_unset.c \
 				src/builtins/ft_export.c \
+				src/builtins/error_msg.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc

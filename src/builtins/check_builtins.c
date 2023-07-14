@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:07:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/22 00:13:01 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:21:42 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ void    call_builtins_exec(char **cmd)
     else if (ft_strcpm(cmd[0], "env"))
         ft_env_exec(data()->env_p);
     else if (ft_strcpm(cmd[0], "exit"))
-        ft_exit(cmd);
+        ft_exit_exec(cmd);
 }
