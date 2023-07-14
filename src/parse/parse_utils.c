@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 23:06:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:50:06 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	count_tokens(char *str)
 	int	i;
 
 	i = 0;
+	str += skip_whitespace(str);
 	while (*str)
 	{
-		str += skip_whitespace(str);
 		if (*str == '\'' || *str == '\"')
 		{
 			if (str[1] != *str)
@@ -51,6 +51,7 @@ int	count_tokens(char *str)
 		}
 		else
 			handle_special_characters(&str, &i);
+		str += skip_whitespace(str);
 	}
 	return (i);
 }
@@ -96,26 +97,27 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 	char	**tokens;
 
 	i = 0;
-	tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
+	tokens = (char **)calloc((nbr_tokens + 1), sizeof(char *));
+	tokens[nbr_tokens] = NULL;
 	if (!tokens)
 	{
 		perror("Error while malloc tokens.");
 		return (NULL);
 	}
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
+		str++;
 	while (*str)
 	{
 		data()->warning = 0;
-		if (*str == ' ' || *str == '\n' || *str == '\t')
-			str++;
-		else if (*str == '\'' || *str == '\"')
+		if (*str == '\'' || *str == '\"')
 		{
 			if (str[1] != *str)
 			{
 				size = nbr_inside_quotes(str, *str);
 				if (data()->warning == -1)
-					tokens[i++] = env_var(str++);
+					tokens[i] = strjoin_null(tokens[i], env_var(str++));
 				else
-					tokens[i++] = ft_substr(++str, 0, size);
+					tokens[i] = strjoin_null(tokens[i], ft_substr(++str, 0, size));
 				str += (size + 1);
 			}
 			else
@@ -125,11 +127,11 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 		{
 			if (str[1] == *str && (*str == '>' || *str == '<'))
 			{
-				tokens[i++] = ft_substr(str, 0, 2);
+				tokens[i] = strjoin_null(tokens[i], ft_substr(str, 0, 2));
 				str += 2;
 			}
 			else
-				tokens[i++] = ft_substr(str++, 0, 1);
+				tokens[i] = strjoin_null(tokens[i], ft_substr(str++, 0, 1));
 		}
 		else if (*str == '$')
 		{
@@ -137,26 +139,29 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 			if (data()->warning != -1)
 			{
 				if (data()->str_tmp != NULL)
-					tokens[i++] = ft_substr(data()->str_tmp, 0, ft_strlen(data()->str_tmp));
+					tokens[i] = strjoin_null(tokens[i], 
+					ft_substr(data()->str_tmp, 0, ft_strlen(data()->str_tmp)));
 			}
 			else if (nbr_tokens > 0)
 				continue ;
 			else
-				tokens[i++] = ft_substr(" ", 0, 1);
+				tokens[i] = strjoin_null(tokens[i], ft_substr(" ", 0, 1));
 			str += (size + 1);
+		}
+		else if (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
+		{
+			if (str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
+				i++;
+			str++;
 		}
 		else
 		{
 			size = nbr_outside_quotes(str);
-			// if ((str[size + 1] == '\'' || str[size + 1] == '\"') && (str[size + 2] == '\'' || str[size + 2] == '\"'))
-			// 	tokens[i] = ft_substr(str, 0, (size + 1));
-			// else
-				tokens[i++] = ft_substr(str, 0, (size + 1));
+			tokens[i] = strjoin_null(tokens[i], ft_substr(str, 0, (size + 1)));
 			str += (size + 1);
 		}
 		nbr_tokens--;
 	}
-	tokens[i] = NULL;
 	return (tokens);
 }
 
@@ -167,7 +172,7 @@ void	check_echo(void)
 	i = 0;
 	while (data()->tokens[i] != NULL)
 	{
-		if (ft_strncmp(data()->tokens[i], "echo", 5) == 0)
+		if ((ft_strncmp(data()->tokens[i], "echo", 5) == 0) && data()->tokens[i + 1] != NULL)
 		{
 			if (ft_strncmp(data()->tokens[i + 1], "-n", 3) == 0)
 				i += 2;
