@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 18:52:56 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 21:46:19 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <errno.h>		//	ERROR
 # include <signal.h>	//	SIG
 # include <dirent.h>	//	DIR
-#include <limits.h>		// MAX / MIN VALUES
+# include <limits.h>	// MAX / MIN VALUES
 # include <readline/readline.h>	//	ReadLine
 # include <readline/history.h>	//	History
 # include "../libft/include/libft.h"
