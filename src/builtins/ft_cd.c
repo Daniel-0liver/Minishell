@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 14:29:59 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:11:47 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,32 @@ void	add_cd_to_env(char *path)
 
 void	apply_cd(char *oldcd, char *newcd)
 {
-	char *path;
-    char dir[1024];
-    
+	char	*path;
+	char	dir[1024];
+
 	if (chdir(newcd) < 0)
 	{
-        builtins_error("cd: ", newcd, ": No such file or directory", 1);
-		// printf("Minishell: cd: %s: No such file or directory\n", newcd);
-        // data()->error = 1;
+		builtins_error("cd: ", newcd, ": No such file or directory", 1);
 		return ;
 	}
 	path = ft_strjoin("OLDPWD=", oldcd);
 	check_export(&path);
 	add_cd_to_env(path);
 	free(path);
-    getcwd(dir, (sizeof(char) * 1024));
+	getcwd(dir, (sizeof(char) * 1024));
 	path = ft_strjoin("PWD=", dir);
 	check_export(&path);
 	add_cd_to_env(path);
 	free(path);
 	path = NULL;
-    data()->error = 0;
+	data()->error = 0;
 }
 
 void	cd_to(char *str)
 {
 	char	*path;
-	char 	dir[1024];
-	
+	char	dir[1024];
+
 	path = NULL;
 	getcwd(dir, (sizeof(char) * 1024));
 	if (!str || str == NULL || ft_strcpm(str, "~"))
@@ -81,7 +79,7 @@ void	cd_to(char *str)
 	if (path != NULL)
 	{
 		free(path);
-		path = NULL;	
+		path = NULL;
 	}
 }
 
@@ -95,19 +93,18 @@ int	ft_check_cd(char **str)
 	return (i);
 }
 
-void    ft_cd(char **str)
+void	ft_cd(char **str)
 {
-	int	size;
-	char 	dir[1024];
-	
+	int		size;
+	char	dir[1024];
+
 	getcwd(dir, (sizeof(char) * 1024));
 	size = ft_check_cd(str);
 	if (size > 2)
-    {
-        data()->error = 1;
-        builtins_error("cd: ", NULL, "too many arguments", 1);
-		// printf("cd: too many arguments\n");
-    }
+	{
+		data()->error = 1;
+		builtins_error("cd: ", NULL, "too many arguments", 1);
+	}
 	else
 		cd_to(str[1]);
 }

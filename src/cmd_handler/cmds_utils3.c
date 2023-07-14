@@ -6,18 +6,17 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/30 11:47:10 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:04:21 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char   **get_exec_cmd(int i)
+char	**get_exec_cmd(int i)
 {
 	int		size;
 	int		index;
 	char	**cmd;
-	
 
 	index = 0;
 	size = ft_ptrlen(i);
@@ -45,7 +44,7 @@ char   **get_exec_cmd(int i)
 char	**get_red_cmd(int i)
 {
 	char	**cmd;
-	
+
 	cmd = malloc(2 * sizeof(char *));
 	cmd[0] = ft_strdup(data()->tokens[i]);
 	cmd[1] = NULL;
@@ -56,11 +55,12 @@ char	**get_red_cmd(int i)
 char	**check_input(void)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data()->tokens[i] != NULL)
 	{
-		if (is_redirect(data()->tokens[i]) == 3 || is_redirect(data()->tokens[i]) == 4)
+		if (is_redirect(data()->tokens[i]) == 3 \
+		|| is_redirect(data()->tokens[i]) == 4)
 		{
 			data()->spc[data()->count] = i;
 			data()->count++;
@@ -98,7 +98,8 @@ char	**check_red_cmd(void)
 	i = 0;
 	while (data()->tokens[i] != NULL)
 	{
-		if (is_redirect(data()->tokens[i]) == 1 || is_redirect(data()->tokens[i]) == 2)
+		if (is_redirect(data()->tokens[i]) == 1 \
+		|| is_redirect(data()->tokens[i]) == 2)
 		{
 			data()->spc[data()->count] = i;
 			data()->count++;

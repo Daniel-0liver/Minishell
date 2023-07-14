@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:12:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/22 10:02:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:01:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    free_cmds(char ***cmds)
+void	free_cmds(char ***cmds)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (cmds && cmds[i] != NULL)
@@ -35,9 +35,9 @@ void    free_cmds(char ***cmds)
 	cmds = NULL;
 }
 
-void    free_double_ptr(char **str)
+void	free_double_ptr(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i] != NULL)
@@ -49,9 +49,9 @@ void    free_double_ptr(char **str)
 	str = NULL;
 }
 
-void    free_fds(int **fds)
+void	free_fds(int **fds)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (fds && fds[i] != NULL)

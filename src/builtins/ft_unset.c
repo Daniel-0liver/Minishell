@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:42:13 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/22 10:05:35 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:07:03 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	unset_var(char **env, int skip)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**new_str;
 
 	i = 0;
@@ -36,23 +36,23 @@ void	unset_var(char **env, int skip)
 		}
 	}
 	new_str[j] = NULL;
-    free_double_ptr(data()->env_p);
-    data()->env_p = new_str;
+	free_double_ptr(data()->env_p);
+	data()->env_p = new_str;
 }
 
-void    ft_unset(char **str, char *find)
+void	ft_unset(char **str, char *find)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
 	{
-		if (!ft_strncmp(str[i], find, ft_strlen(find)) &&
-		str[i][ft_strlen(find)] == '=')
+		if (!ft_strncmp(str[i], find, ft_strlen(find)) \
+		&& str[i][ft_strlen(find)] == '=')
 		{
 			unset_var(str, i);
 			return ;
 		}
 		i++;
-	}    
+	}
 }

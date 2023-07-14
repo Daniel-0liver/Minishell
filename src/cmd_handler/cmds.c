@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:44:13 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:03:38 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ int	is_valid(void)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	j = 0;
 	while (data()->tokens[i] != NULL)
 	{
 		if (i == 0 && is_exec(data()->tokens[i]) == 1)
 		{
-            builtins_error(NULL, NULL, "bash: syntax error near unexpected token `|'", 2);
+			builtins_error(NULL, NULL, \
+			"bash: syntax error near unexpected token `|'", 2);
 			return (1);
 		}
 		if (is_spc(data()->tokens[i]))
@@ -46,25 +47,28 @@ int	is_valid(void)
 
 void	exec_type_end(void)
 {
-	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) && data()->spc[data()->curr_cmd] == -1)
+	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd - 1]]) \
+	&& data()->spc[data()->curr_cmd] == -1)
 		ft_exec_pipe_end();
-	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
+	else if (data()->spc[data()->curr_cmd] != -1 && \
+	is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
 		ft_red_end();
-	else if (data()->spc[data()->curr_cmd] != -1 && is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
+	else if (data()->spc[data()->curr_cmd] != -1 && \
+	is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
 		ft_red_end();
 }
 
 void	exec_type_md(void)
 {
 	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
-			ft_exec_pipe_md();
+		ft_exec_pipe_md();
 	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
 		ft_red_end();
 	else if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 2)
 		ft_red_end();
 }
 
-void    exec_type(void)
+void	exec_type(void)
 {
 	if (is_exec(data()->tokens[data()->spc[data()->curr_cmd]]) == 1)
 		ft_exec();
@@ -83,19 +87,19 @@ void	check_spc(void)
 	generate_fds();
 	exec_type();
 	while (data()->spc && data()->spc[data()->curr_cmd] != -1)
-    {
-        if (data()->error != 0)
-            return ;
+	{
+		if (data()->error != 0)
+			return ;
 		exec_type_md();
-    }
-    if (data()->error != 0)
-    {
-        return ;
-    }
+	}
+	if (data()->error != 0)
+	{
+		return ;
+	}
 	exec_type_end();
 }
 
-void cmd_to_exec(void) // Main Fuction
+void cmd_to_exec(void)
 {
 	int		pid;
 	int		status;
@@ -119,19 +123,20 @@ void cmd_to_exec(void) // Main Fuction
 			pid = fork();
 			if (pid == 0)
 			{	
-				if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p) == -1)
-                {
-					printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
-                    exit(127);
-                }
+				if (execve(data()->cmds[data()->curr_cmd][0], \
+				data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+				{
+					printf("%s: command not found\n", \
+					data()->cmds[data()->curr_cmd][0]);
+					exit(127);
+				}
 			}
 			else
 				waitpid(pid, &status, 0);
-            if (status > 0)
-                data()->error = status/256;
-            else
-                data()->error = 0;
-            
+			if (status > 0)
+				data()->error = status / 256;
+			else
+				data()->error = 0;
 		}
 		free_exec();
 	}

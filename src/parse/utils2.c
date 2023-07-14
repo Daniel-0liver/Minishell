@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 22:12:27 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:12:56 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	skip_whitespace(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/23 17:17:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:13:26 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ int	check_quotes(char *str)
 
 char	*check_envp(char	*str)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 	char	*output;
 
 	i = 0;
 	str++;
 	tmp = NULL;
-	while(*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '\"')
+	while (*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '\"')
 	{
 		tmp = strjoin_var(tmp, *str);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:10:59 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:08:49 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	check_env_name(char **env, char *str, int size)
 	}
 }
 
-int		check_export(char **str)
+int	check_export(char **str)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	j = 0;
 	while (str && str[j] != NULL)
@@ -40,9 +40,11 @@ int		check_export(char **str)
 		i = 0;
 		while (str[j] && str[j][i] != '\0')
 		{			
-			if ((i == 0 && (str[j][i] == '=' || ft_isdigit(str[j][i]))) || str[j][i] == '-')
+			if ((i == 0 && (str[j][i] == '=' || \
+			ft_isdigit(str[j][i]))) || str[j][i] == '-')
 			{
-				builtins_error("export: `", str[j], "': not a valid identifier", 1);
+				builtins_error("export: `", str[j], \
+				"': not a valid identifier", 1);
 				return (0);
 			}
 			else if (str[j][i] == '=')
@@ -59,7 +61,7 @@ int		check_export(char **str)
 	return (0);
 }
 
-void    ft_export(void)
+void	ft_export(void)
 {
 	int		j;
 	int		new;
@@ -67,7 +69,7 @@ void    ft_export(void)
 
 	if (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
-		data()->error = 1;	
+		data()->error = 1;
 		return ;
 	}
 	new = check_export(data()->cmds[data()->curr_cmd]);
