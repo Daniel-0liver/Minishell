@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:40:47 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:26:32 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,22 @@ int		check_export(char **str)
 		i = 0;
 		while (str[j] && str[j][i] != '\0')
 		{			
-			if (i == 0 && str[j][i] == '=')
+			if ((i == 0 && (str[j][i] == '=' || ft_isdigit(str[j][i]))) || str[j][i] == '-')
 			{
-				printf("Minishell: export '%s': not a valid identifier\n", str[j]);
+                builtins_error("export: `", str[j], "': not a valid identifier", 1);
 				return (0);
 			}
 			else if (str[j][i] == '=')
 			{
 				check_env_name(data()->env_p, str[j], i);
+                data()->error = 0;
 				return (j);
 			}
 			i++;
 		}
 		j++;
 	}
+    data()->error = 0;
 	return (0);
 }
 
