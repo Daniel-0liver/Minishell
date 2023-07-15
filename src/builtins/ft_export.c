@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:32:05 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 21:52:13 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_export(void)
 	char	**new_str;
 
 	new = check_export(data()->cmds[data()->curr_cmd], 0, 0);
-	if (new < 1)
+	if (new < 1 || (data()->spc && data()->spc[data()->curr_cmd] != -1))
 		return ;
 	j = 0;
 	while (data()->env_p && data()->env_p[j] != NULL)
