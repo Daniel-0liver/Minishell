@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:00:55 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:01:56 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,9 @@ int	main(int argc, char *argv[], char **envp)
 		signal(SIGINT, inthandler);
 		data()->str_cmd = readline("Minishell$: ");
 		add_history(data()->str_cmd);
-		if (ft_strncmp(data()->str_cmd, "exit", 5) == 0)
-		{
-			printf("exit\n");
-			break ;
-		}
-		else
-		{
-			parse_init();
-			if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
-				free(data()->str_cmd);
-		}
+		parse_init();
+		if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
+			free(data()->str_cmd);
 	}
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);

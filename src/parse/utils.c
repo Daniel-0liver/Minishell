@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:06:25 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/13 22:11:15 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:48:49 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,6 @@ char	*strjoin_here(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (s_final);
-}
-
-void	handle_shlvl(char c)
-{
-	int		shlvl;
-	char	*str;
-	char	*nbr;
-
-	shlvl = ft_atoi(my_getenv("SHLVL"));
-	if (c == '-')
-		shlvl--;
-	else if (c == '+')
-		shlvl++;
-	nbr = ft_itoa(shlvl);
-	str = ft_strjoin("SHLVL=", nbr);
-	ft_unset(data()->env_p, "SHLVL");
-	add_cd_to_env(str);
-	free(nbr);
-	free(str);
 }
 
 void	handle_error_var(void)
@@ -90,10 +71,11 @@ char	*strjoin_var(char *s1, char s2)
 		s_final[i++] = s2;
 	s_final[i] = '\0';
 	free(s1);
+	s1 = NULL;
 	return (s_final);
 }
 
-char	*strjoin_null(char const *s1, char const *s2)
+char	*strjoin_null(char const *s1, char *s2)
 {
 	char	*s_final;
 	size_t	size;
@@ -114,6 +96,8 @@ char	*strjoin_null(char const *s1, char const *s2)
 	while (i < size)
 		s_final[i++] = s2[j++];
 	s_final[i] = '\0';
+	free(s2);
+	s2 = NULL;
 	return (s_final);
 }
 
@@ -129,7 +113,7 @@ char	*env_var(char *str)
 		{
 			str++;
 			handle_env(str);
-			if (data()->str_tmp)
+			if (data()->str_tmp != NULL)
 			{
 				result = strjoin_null(result, data()->str_tmp);
 				skip_non_whitespace_and_dolar_sign(&str);

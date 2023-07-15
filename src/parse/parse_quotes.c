@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 01:03:09 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:57:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	nbr_inside_quotes(char *str, char c)
 {
 	int		i;
-	
+
 	i = 0;
 	str++;
 	data()->warning = 0;
@@ -26,7 +26,10 @@ int	nbr_inside_quotes(char *str, char c)
 		{
 			data()->str_tmp = check_envp(str);
 			if (data()->str_tmp)
+			{
 				data()->warning = -1;
+				free(data()->str_tmp);
+			}
 		}
 		str++;
 		i++;
@@ -37,7 +40,7 @@ int	nbr_inside_quotes(char *str, char c)
 int	nbr_outside_quotes(char *str)
 {
 	int	nbr;
-	
+
 	nbr = 0;
 	str++;
 	while (*str && *str != ' ' && *str != '\n' 
@@ -105,5 +108,6 @@ char	*check_envp(char	*str)
 	tmp[i] = '\0';
 	output = my_getenv(tmp);
 	free(tmp);
+	tmp = NULL;
 	return (output);
 }
