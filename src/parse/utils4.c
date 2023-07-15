@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:36:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:52:02 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 15:56:26 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	token_inside_quote(char	*str, char **token)
 	if (str[1] != *str)
 	{
 		size = nbr_inside_quotes(str, *str);
-		if ((*str == '\"' && str[2] == '\"') && (str[1] == '>' || str[1] == '<' || str[1] == '|'))
+		if ((*str == '\"' && str[2] == '\"') && (str[1] == '>'
+				|| str[1] == '<' || str[1] == '|'))
 		{
 			spc = ft_substr("\"", 0, 2);
 			(*token) = strjoin_var(spc, str[1]);
