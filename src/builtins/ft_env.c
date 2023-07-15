@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:08 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:10:23 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:03:36 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env(char **str)
 	i = 0;
 	pid = fork();
 	if (pid == 0)
-	{	
+	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 		while (str && str[i] != NULL)
@@ -28,7 +28,7 @@ void	ft_env(char **str)
 		exit(0);
 	}
 	else
-	{	
+	{
 		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, NULL, 0);
 	}

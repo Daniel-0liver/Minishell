@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:33:32 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:44:10 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ int				ft_check_cd(char **str);
 void			ft_cd(char **str);
 
 // ft_echo
+int				is_spc_char(char *str);
+void			print_echo(char **str, int flag);
 void			ft_echo_beg(char **str, int flag);
 void			ft_echo(char **str);
 void			ft_echo_exec(char **str);
@@ -184,6 +186,7 @@ void			ft_env(char **str);
 void			ft_env_exec(char **str);
 
 // ft_exit
+long long int	ft_atoli_checker(const char *nptr, int i, int sing);
 long long int	ft_atoli(const char *nptr);
 void			ft_exit(char **str);
 void			ft_exit_exec(char **str);

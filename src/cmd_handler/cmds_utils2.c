@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:32:07 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:44:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,5 @@ int	is_exec(char *cmd)
 {
 	if (ft_strcpm(cmd, "|"))
 		return (1);
-	else if (ft_strcpm(cmd, "||"))
-		return (2);
-	else if (ft_strcpm(cmd, "&&"))
-		return (3);
-	else if (ft_strcpm(cmd, "*"))
-		return (4);
 	return (0);
 }
