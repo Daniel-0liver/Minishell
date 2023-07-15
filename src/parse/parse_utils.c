@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:38:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:46:12 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ char	**alloc_tokens(char *str, int nbr_tokens)
 		if (*str == '\'' || *str == '\"')
 			str += token_inside_quote(str, &tokens[i]);
 		else if ((*str == '|' || *str == '>' || *str == '<'))
-			str += token_special_char(str, &tokens[i]);
+			str += token_special_char(str, &tokens[i], &i);
 		else if (*str == '$' && str[1] != ' ' && str[1] != '\t'
 			&& str[1] != '\n' && str[1] != '\'' && str[1] != '\"' && str[1])
 			str += token_space_dolar_sig(str, &tokens[i], nbr_tokens);
 		else if (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
 			str += token_is_space(str, &i);
 		else
-			str += token_other_chars(str, &tokens[i]);
+			str += token_other_chars(str, &tokens[i], &i);
 		nbr_tokens--;
 	}
 	return (tokens);
