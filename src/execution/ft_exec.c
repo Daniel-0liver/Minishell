@@ -6,11 +6,37 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:48:36 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 00:52:53 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exec_begin(void)
+{
+	close(data()->fd[data()->curr_fd][0]);
+	dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
+	if (execve(data()->cmds[data()->curr_cmd][0], \
+	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+	{
+		printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
+		free_all();
+		exit(127);
+	}
+}
+
+void	exec_md(void)
+{
+	dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
+	dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
+	if (execve(data()->cmds[data()->curr_cmd][0], \
+	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+	{
+		printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
+		free_all();
+		exit(127);
+	}
+}
 
 void	ft_exec(void)
 {
@@ -25,17 +51,7 @@ void	ft_exec(void)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		if (execve(data()->cmds[data()->curr_cmd][0], \
-		data()->cmds[data()->curr_cmd], data()->env_p) == -1)
-		{
-			printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
-			free_all();
-			exit(127);
-		}
-	}
+		exec_begin();
 	else
 	{
 		close(data()->fd[data()->curr_fd][1]);
@@ -61,17 +77,7 @@ void	ft_exec_pipe_md(void)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
-		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
-		if (execve(data()->cmds[data()->curr_cmd][0], \
-		data()->cmds[data()->curr_cmd], data()->env_p) == -1)
-		{
-			printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
-			free_all();
-			exit(127);
-		}
-	}
+		exec_md();
 	else
 	{
 		close(data()->fd[data()->curr_fd + 1][1]);
@@ -99,16 +105,7 @@ void	ft_exec_pipe_end(void)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
-		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		if (execve(data()->cmds[data()->curr_cmd][0], \
-		data()->cmds[data()->curr_cmd], data()->env_p) == -1)
-		{
-			printf("%s: command not found\n", data()->cmds[data()->curr_cmd][0]);
-			free_all();
-			exit(127);
-		}
-	}
+		exec_end();
 	else
 	{
 		close(data()->fd[data()->curr_fd][0]);
