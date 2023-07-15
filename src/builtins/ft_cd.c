@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:11:47 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:30:42 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	apply_cd(char *oldcd, char *newcd)
 		return ;
 	}
 	path = ft_strjoin("OLDPWD=", oldcd);
-	check_export(&path);
+	check_export(&path, 0, 0);
 	add_cd_to_env(path);
 	free(path);
 	getcwd(dir, (sizeof(char) * 1024));
 	path = ft_strjoin("PWD=", dir);
-	check_export(&path);
+	check_export(&path, 0, 0);
 	add_cd_to_env(path);
 	free(path);
 	path = NULL;

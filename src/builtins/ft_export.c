@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:26:55 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:32:05 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	check_export(char **str, int i, int j)
 		i = 0;
 		while (str[j] && str[j][i] != '\0')
 		{
-			if (((i == 0 && str[j][i] == '=' || \
-			ft_isdigit(str[j][i]))) || str[j][i] == '-')
+			if ((i == 0 && (str[j][i] == '=' \
+			|| ft_isdigit(str[j][i]))) || str[j][i] == '-')
 			{
 				builtins_error("export: `", str[j], \
 				"': not a valid identifier", 1);
