@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:53:46 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:26:55 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,21 @@ void	check_env_name(char **env, char *str, int size)
 	}
 }
 
-int	check_export(char **str)
+int	check_export(char **str, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	while (str && str[j] != NULL)
 	{
 		i = 0;
-		if (((str[j][i] == '=' || ft_isdigit(str[j][i]))) || str[j][i] == '-')
-		{
-			builtins_error("export: `", str[j], "': not a valid identifier", 1);
-			return (0);
-		}
 		while (str[j] && str[j][i] != '\0')
 		{
-			if (str[j][i] == '=')
+			if (((i == 0 && str[j][i] == '=' || \
+			ft_isdigit(str[j][i]))) || str[j][i] == '-')
+			{
+				builtins_error("export: `", str[j], \
+				"': not a valid identifier", 1);
+				return (0);
+			}
+			else if (str[j][i] == '=')
 			{
 				check_env_name(data()->env_p, str[j], i);
 				return (j);
@@ -63,7 +60,7 @@ void	ft_export(void)
 	int		new;
 	char	**new_str;
 
-	new = check_export(data()->cmds[data()->curr_cmd]);
+	new = check_export(data()->cmds[data()->curr_cmd], 0, 0);
 	if (new < 1)
 		return ;
 	j = 0;

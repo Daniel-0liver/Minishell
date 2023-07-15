@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:04:36 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:15:06 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,14 +201,14 @@ void			ft_env(char **str);
 void			ft_env_exec(char **str);
 
 // ft_exit
-long long int	ft_atoli_checker(const char *nptr, int i, int sing);
-long long int	ft_atoli(const char *nptr);
+long long int	ft_atoli_checker(char *nptr, int i, int sing);
+long long int	ft_atoli(char *nptr);
 void			ft_exit(char **str);
 void			ft_exit_exec(char **str);
 
 // ft_export
 void			check_env_name(char **env, char *str, int size);
-int				check_export(char **str);
+int				check_export(char **str, int i, int j);
 void			ft_export(void);
 
 // ft_pwd
