@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:13:26 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:03:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	nbr_inside_quotes(char *str, char c)
 	data()->warning = 0;
 	while (*str && *str != c)
 	{
-		if (*str == '$' && c == '\"')
+		if (*str == '$' && c == '\"' && str[1] != ' ' && str[1] != '\t'
+			&& str[1] != '\n' && str[1] != '\'' && str[1] != '\"' && str[1])
 		{
 			data()->str_tmp = check_envp(str);
 			if (data()->str_tmp)

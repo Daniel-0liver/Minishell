@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:12:56 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 00:39:12 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ void	handle_env(char *str)
 	tmp = NULL;
 	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t'
 		&& str[i] != '\"' && str[i] != '$')
+	{
 		tmp = strjoin_var(tmp, str[i++]);
+		if (ft_strncmp(tmp, "?", 2) == 0)
+			break ;
+	}
 	data()->str_tmp = my_getenv(tmp);
 	free(tmp);
 	tmp = NULL;
