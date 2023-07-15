@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:19:40 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:33:32 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ void			ft_spc(int size);
 char			**ft_cmd(void);
 int				ft_matriz_size(void);
 int				ft_ptrlen(int v);
+char			*get_path(char *cmd);
+
+//split_cmds2
+char			*get_path_loop(char *cmd, char **path);
+char			*add_path(char *path, int i, char *cmds);
 char			*check_path(char *cmd);
 
 // cmds
@@ -138,7 +143,6 @@ void			free_exec(void);
 int				is_redirect(char *cmd);
 int				is_exec(char *cmd);
 int				is_exec(char *cmd);
-void			alloc_env(char **env);
 
 // cmd_utils3
 char			**get_exec_cmd(int i);
@@ -151,6 +155,8 @@ char			**check_red_cmd(void);
 int				is_valid_loop(void);
 int				is_valid(void);
 void			cmd_exec(int pid, int status);
+void			alloc_env(char **env);
+int				ft_cmd_loop(void);
 
 // check_builtins
 int				is_builtins(char *cmd);

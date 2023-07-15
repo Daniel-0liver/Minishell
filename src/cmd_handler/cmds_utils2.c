@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:05:08 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 15:32:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,4 @@ int	is_exec(char *cmd)
 	else if (ft_strcpm(cmd, "*"))
 		return (4);
 	return (0);
-}
-
-void	alloc_env(char **env)
-{
-	int	j;
-
-	j = 0;
-	while (env && env[j] != NULL)
-		j++;
-	data()->env_p = malloc(sizeof(char *) * (j + 1));
-	j = 0;
-	while (env && env[j] != NULL)
-	{
-		data()->env_p[j] = ft_strdup(env[j]);
-		j++;
-	}
-	data()->env_p[j] = NULL;
 }

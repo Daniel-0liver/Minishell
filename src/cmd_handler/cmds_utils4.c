@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:15:47 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:13:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,46 @@ void	cmd_exec(int pid, int status)
 			data()->error = status / 256;
 	}
 	free_exec();
+}
+
+void	alloc_env(char **env)
+{
+	int	j;
+
+	j = 0;
+	while (env && env[j] != NULL)
+		j++;
+	data()->env_p = malloc(sizeof(char *) * (j + 1));
+	j = 0;
+	while (env && env[j] != NULL)
+	{
+		data()->env_p[j] = ft_strdup(env[j]);
+		j++;
+	}
+	data()->env_p[j] = NULL;
+}
+
+int	ft_cmd_loop(void)
+{
+	int	i;
+
+	i = 0;
+	while (data()->tokens[i] != NULL && data()->count < 0)
+	{
+		if (!is_spc(data()->tokens[i]) \
+		&& (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
+		{
+			data()->count++;
+			if (data()->count == data()->curr_cmd)
+				return (i);
+			else
+			{
+				while (data()->tokens[i] != NULL && !is_spc(data()->tokens[i]))
+					i++;
+				i--;
+			}
+		}
+		i++;
+	}
+	return (-1);
 }
