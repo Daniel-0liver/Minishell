@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:05:08 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:44:46 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ int	is_exec(char *cmd)
 {
 	if (ft_strcpm(cmd, "|"))
 		return (1);
-	else if (ft_strcpm(cmd, "||"))
-		return (2);
-	else if (ft_strcpm(cmd, "&&"))
-		return (3);
-	else if (ft_strcpm(cmd, "*"))
-		return (4);
 	return (0);
 }
 

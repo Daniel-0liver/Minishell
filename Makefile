@@ -15,6 +15,7 @@ SRC			=	src/minishell.c \
 				src/parse/utils2.c \
 				src/parse/utils3.c \
 				src/parse/utils4.c \
+				src/parse/utils5.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
 				src/parse/parse_quotes.c \
@@ -39,7 +40,7 @@ SRC			=	src/minishell.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS		=	-I${HEADER} -Wall -Wextra -Werror -g -fsanitize=address
 
 all:		$(LFT) obj $(NAME) 
 

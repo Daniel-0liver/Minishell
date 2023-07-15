@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:42:37 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:51:46 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Main function of the parse unit
+	// for (int i = 0; data()->tokens[i]; i++)
+	// 	printf("%s\n", data()->tokens[i]);
 
-// for (int 1 = 0; data()->tokens[i]; i++)
-	// printf("%s\n", data()->tokens[i]);
 void	parse_init(void)
 {
 	handle_error_var();
@@ -43,7 +43,7 @@ char	*my_getenv(char *str)
 		while (tmp[i] != '=' && tmp[i] != '\0')
 			i++;
 		if (tmp[i] == '=' && i == size && ft_strncmp(str, tmp, i) == 0)
-			return (&tmp[i + 1]);
+			return (ft_strdup(&tmp[i + 1]));
 		j++;
 	}
 	return (NULL);

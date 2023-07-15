@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:06:09 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:43:58 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	is_spc(char *cmd)
 {
 	if (ft_strcpm(cmd, "|"))
 		return (1);
-	else if (ft_strcpm(cmd, "||"))
-		return (1);
 	else if (ft_strcpm(cmd, ">"))
 		return (1);
 	else if (ft_strcpm(cmd, ">>"))
@@ -25,10 +23,6 @@ int	is_spc(char *cmd)
 	else if (ft_strcpm(cmd, "<"))
 		return (1);
 	else if (ft_strcpm(cmd, "<<"))
-		return (1);
-	else if (ft_strcpm(cmd, "&&"))
-		return (1);
-	else if (ft_strcpm(cmd, "*"))
 		return (1);
 	return (0);
 }

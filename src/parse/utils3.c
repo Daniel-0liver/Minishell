@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 15:39:30 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:34:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void	handle_shlvl(char c)
 	int		shlvl;
 	char	*str;
 	char	*nbr;
+	char	*env;
 
-	shlvl = ft_atoi(my_getenv("SHLVL"));
+	env = my_getenv("SHLVL");
+	shlvl = ft_atoi(env);
 	if (c == '-')
 		shlvl--;
 	else if (c == '+')
@@ -90,6 +92,7 @@ void	handle_shlvl(char c)
 	add_cd_to_env(str);
 	free(nbr);
 	free(str);
+	free(env);
 }
 
 int	token_is_space(char *str, int *i)

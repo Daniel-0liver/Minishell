@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:10:53 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:08:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_echo_beg(char **str, int flag)
 
 	pid = fork();
 	if (pid == 0)
-	{	
+	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 		if (flag == 1)
@@ -44,7 +44,7 @@ void	ft_echo_beg(char **str, int flag)
 		exit(0);
 	}
 	else
-	{	
+	{
 		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, NULL, 0);
 	}
