@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:44:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:04:56 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,4 @@ int	is_exec(char *cmd)
 	if (ft_strcpm(cmd, "|"))
 		return (1);
 	return (0);
-}
-
-void	alloc_env(char **env)
-{
-	int	j;
-
-	j = 0;
-	while (env && env[j] != NULL)
-		j++;
-	data()->env_p = malloc(sizeof(char *) * (j + 1));
-	j = 0;
-	while (env && env[j] != NULL)
-	{
-		data()->env_p[j] = ft_strdup(env[j]);
-		j++;
-	}
-	data()->env_p[j] = NULL;
 }

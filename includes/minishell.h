@@ -6,25 +6,25 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:53:15 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:04:36 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>	//  write, dup2, close
-# include <fcntl.h>     //  O_RDONLY, O_...
-# include <stdlib.h>    //  EXIT_FAILURE, malloc, free
-# include <stdio.h>     //  STDIN
-# include <sys/types.h> //	wait
-# include <sys/wait.h>	//	wait
-# include <errno.h>		//	ERROR
-# include <signal.h>	//	SIG
-# include <dirent.h>	//	DIR
-# include <limits.h>	// MAX / MIN VALUES
-# include <readline/readline.h>	//	ReadLine
-# include <readline/history.h>	//	History
+# include <unistd.h>//  write, dup2, close
+# include <fcntl.h>//  O_RDONLY, O_...
+# include <stdlib.h>//  EXIT_FAILURE, malloc, free
+# include <stdio.h>//  STDIN
+# include <sys/types.h>//	wait
+# include <sys/wait.h>//	wait
+# include <errno.h>//	ERROR
+# include <signal.h>//	SIG
+# include <dirent.h>//	DIR
+# include <limits.h>// MAX / MIN VALUES
+# include <readline/readline.h>//	ReadLine
+# include <readline/history.h>//	History
 # include "../libft/include/libft.h"
 # define TRUE 1
 # define FALSE 0
@@ -103,10 +103,14 @@ void			ft_spc(int size);
 char			**ft_cmd(void);
 int				ft_matriz_size(void);
 int				ft_ptrlen(int v);
+char			*get_path(char *cmd);
+
+//split_cmds2
+char			*get_path_loop(char *cmd, char **path);
+char			*add_path(char *path, int i, char *cmds);
 char			*check_path(char *cmd);
 
 // cmds
-int				is_valid(void);
 void			exec_type_end(void);
 void			exec_type_md(void);
 void			exec_type(void);
@@ -127,6 +131,9 @@ void			ft_exec_pipe_end(void);
 
 // ft_exec_utils
 void			exec_end(void);
+int				ft_input_check(int tmp_cmd);
+int				ft_red_input_check(int tmp_cmd);
+int				ft_red_loop_checker(int tmp_cmd);
 
 // ft_redirect
 void			ft_red(void);
@@ -151,7 +158,6 @@ void			free_exec(void);
 int				is_redirect(char *cmd);
 int				is_exec(char *cmd);
 int				is_exec(char *cmd);
-void			alloc_env(char **env);
 
 // cmd_utils3
 char			**get_exec_cmd(int i);
@@ -159,6 +165,13 @@ char			**get_red_cmd(int i);
 char			**check_input(void);
 char			**check_cmd_exec(void);
 char			**check_red_cmd(void);
+
+// cmd_utils4
+int				is_valid_loop(void);
+int				is_valid(void);
+void			cmd_exec(int pid, int status);
+void			alloc_env(char **env);
+int				ft_cmd_loop(void);
 
 // check_builtins
 int				is_builtins(char *cmd);
@@ -177,6 +190,8 @@ int				ft_check_cd(char **str);
 void			ft_cd(char **str);
 
 // ft_echo
+int				is_spc_char(char *str);
+void			print_echo(char **str, int flag);
 void			ft_echo_beg(char **str, int flag);
 void			ft_echo(char **str);
 void			ft_echo_exec(char **str);
@@ -186,6 +201,7 @@ void			ft_env(char **str);
 void			ft_env_exec(char **str);
 
 // ft_exit
+long long int	ft_atoli_checker(const char *nptr, int i, int sing);
 long long int	ft_atoli(const char *nptr);
 void			ft_exit(char **str);
 void			ft_exit_exec(char **str);

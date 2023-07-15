@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:51:21 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:33:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,10 @@ char	**ft_cmd(void)
 	char	**cmd;
 	int		i;
 
-	i = 0;
 	data()->count = -1;
-	while (data()->tokens[i] != NULL && data()->count < 0)
-	{	
-		if (!is_spc(data()->tokens[i]) \
-		&& (i == 0 || (i > 0 && !is_spc(data()->tokens[i - 1]))))
-		{
-			data()->count++;
-			if (data()->count == data()->curr_cmd)
-				return (get_exec_cmd(i));
-			else
-			{
-				while (data()->tokens[i] != NULL && !is_spc(data()->tokens[i]))
-					i++;
-				i--;
-			}
-		}
-		i++;
-	}
+	i = ft_cmd_loop();
+	if (i >= 0)
+		return (get_exec_cmd(i));
 	cmd = check_input();
 	if (cmd != NULL)
 		return (cmd);
@@ -117,73 +102,18 @@ int	ft_ptrlen(int v)
 
 char	*get_path(char *cmd)
 {
-	int				i;
-	DIR				*dir;
+	char			*split;
 	char			*rtn;
 	char			**path;
-	struct dirent	*entry;
 
-	i = 0;
-	rtn = ft_getenv(data()->env_p, "PATH", 4);
-	if (rtn == NULL)
+	split = ft_getenv(data()->env_p, "PATH", 4);
+	if (split == NULL)
 	{
 		return (NULL);
 	}
-	path = ft_split(rtn, ':');
-	free(rtn);
-	while (path[i] != NULL)
-	{
-		dir = opendir(path[i]);
-		if (dir != NULL)
-		{
-			while ((entry = readdir(dir)) != NULL)
-			{
-				if (ft_strcpm(entry->d_name, cmd))
-				{
-					rtn = ft_strdup(path[i]);
-					free_double_ptr(path);
-					closedir(dir);
-					return (rtn);
-				}
-			}
-		}
-		closedir(dir);
-		i++;
-	}
+	path = ft_split(split, ':');
+	free(split);
+	rtn = get_path_loop(cmd, path);
 	free_double_ptr(path);
-	return (NULL);
-}
-
-char	*check_path(char *cmds)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*rtn;
-	char	*path;
-
-	i = 0;
-	if (is_builtins(cmds))
-		return (ft_strdup(cmds));
-	while (cmds[i] != '\0')
-	{
-		if (cmds[i] == '/')
-			return (ft_strdup(cmds));
-		i++;
-	}
-	path = get_path(cmds);
-	if (path == NULL)
-		return (ft_strdup(cmds));
-	k = ft_strlen(path);
-	rtn = malloc(sizeof(char) * (i + 2 + k));
-	j = -1;
-	while (++j < k)
-		rtn[j] = path[j];
-	rtn[j++] = '/';
-	i = 0;
-	while (cmds[i] != '\0' && cmds[i] != ' ')
-		rtn[j++] = cmds[i++];
-	rtn[j] = '\0';
-	free(path);
 	return (rtn);
 }

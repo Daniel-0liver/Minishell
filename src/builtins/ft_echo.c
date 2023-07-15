@@ -6,41 +6,57 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:08:21 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:04:44 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_spc_char(char *str)
+{
+	if (ft_strcpm(str, "\">"))
+		return (1);
+	else if (ft_strcpm(str, "\">>"))
+		return (1);
+	else if (ft_strcpm(str, "\"<"))
+		return (1);
+	else if (ft_strcpm(str, "\"<<"))
+		return (1);
+	else if (ft_strcpm(str, "\"|"))
+		return (1);
+	return (0);
+}
+
+void	print_echo(char **str, int flag)
+{
+	int	i;
+
+	if (flag == 1)
+		i = 2;
+	else
+		i = 1;
+	while (str[i] != NULL)
+	{
+		if (is_spc_char(str[i]))
+			printf("%s", &str[i][1]);
+		else
+			printf("%s", str[i]);
+		i++;
+	}
+	if (flag != 1)
+		printf("\n");
+}
+
 void	ft_echo_beg(char **str, int flag)
 {
 	int	pid;
-	int	i;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		close(data()->fd[data()->curr_fd][0]);
 		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		if (flag == 1)
-		{
-			i = 2;
-			while (str[i] != NULL)
-			{
-				printf("%s", str[i]);
-				i++;
-			}
-		}
-		else
-		{
-			i = 1;
-			while (str[i] != NULL)
-			{
-				printf("%s", str[i]);
-				i++;
-			}
-			printf("\n");
-		}
+		print_echo(str, flag);
 		exit(0);
 	}
 	else
@@ -61,26 +77,9 @@ void	ft_echo(char **str)
 
 void	ft_echo_exec(char **str)
 {
-	int	i;
-
 	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
-	{
-		i = 2;
-		while (str[i] != NULL)
-		{
-			printf("%s", str[i]);
-			i++;
-		}
-	}
+		print_echo(str, 1);
 	else if (str[1] != NULL)
-	{
-		i = 1;
-		while (str[i] != NULL)
-		{
-			printf("%s", str[i]);
-			i++;
-		}
-		printf("\n");
-	}
+		print_echo(str, 0);
 	data()->error = 0;
 }

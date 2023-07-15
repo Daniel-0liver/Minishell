@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:42:13 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/14 23:07:03 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:44:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	unset_var(char **env, int skip)
 		if (i == skip)
 			i++;
 		else
-		{	
+		{
 			new_str[j] = ft_strdup(env[i]);
 			j++;
 			i++;
