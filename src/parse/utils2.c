@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 00:39:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:21:52 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,39 @@ void	handle_env(char *str)
 	data()->str_tmp = my_getenv(tmp);
 	free(tmp);
 	tmp = NULL;
+}
+
+// Function to know the numbers of some char in a string
+int	nbr_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		while (*str && *str != c)
+			str++;
+		str++;
+		i++;
+	}
+	return (i);
+}
+
+void	handle_special_characters(char **str, int *count)
+{
+	if ((**str == '|' || **str == '<' || **str == '>'))
+	{
+		if ((**str == '<' || **str == '>') && (*str)[1] == **str)
+			(*str) += 2;
+		else
+			(*str)++;
+		(*count)++;
+	}
+	else
+	{
+		while (**str && **str != ' ' && **str != '\n'
+			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
+			(*str)++;
+		(*count)++;
+	}
 }

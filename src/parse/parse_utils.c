@@ -6,27 +6,11 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 01:10:52 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 15:38:18 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Function to know the numbers of some char in a string
-int	nbr_char(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (*str)
-	{
-		while (*str && *str != c)
-			str++;
-		str++;
-		i++;
-	}
-	return (i);
-}
 
 // Function to count the tokens
 int	count_tokens(char *str)
@@ -56,152 +40,31 @@ int	count_tokens(char *str)
 	return (i);
 }
 
-void	handle_special_characters(char **str, int *count)
-{
-	if ((**str == '|' || **str == '<' || **str == '>'))
-	{
-		if ((**str == '<' || **str == '>') && (*str)[1] == **str)
-			(*str) += 2;
-		else
-			(*str)++;
-		(*count)++;
-	}
-	else
-	{
-		while (**str && **str != ' ' && **str != '\n'
-			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
-			(*str)++;
-		(*count)++;
-	}
-}
-
-int	handle_dollar_sign(char *str)
-{
-	int	i;
-
-	i = 0;
-	str++;
-	handle_env(str);
-	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t'
-		&& str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != '$')
-	{
-		i++;
-		if (str[i - 1] == '?')
-			break ;
-	}
-	if (!data()->str_tmp)
-		data()->warning = -1;
-	return (i);
-}
-
 char	**alloc_tokens(char *str, int nbr_tokens)
 {
 	int		i;
-	int		size;
 	char	**tokens;
 
 	i = 0;
-	tokens = (char **)calloc((nbr_tokens + 1), sizeof(char *));
-	tokens[nbr_tokens] = NULL;
-	if (!tokens)
-	{
-		perror("Error while malloc tokens.");
-		return (NULL);
-	}
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
-		str++;
+	tokens = init_tokens(nbr_tokens);
+	str += skip_whitespace(str);
 	while (*str)
 	{
 		data()->warning = 0;
 		if (*str == '\'' || *str == '\"')
-		{
-			if (str[1] != *str)
-			{
-				size = nbr_inside_quotes(str, *str);
-				if (data()->warning == -1)
-					tokens[i] = strjoin_null(tokens[i], env_var(str++));
-				else
-					tokens[i] = strjoin_null(tokens[i], ft_substr(++str, 0, size));
-				str += (size + 1);
-			}
-			else
-				str += 2;
-		}
+			str += token_inside_quote(str, &tokens[i]);
 		else if ((*str == '|' || *str == '>' || *str == '<'))
-		{
-			if (str[1] == *str && (*str == '>' || *str == '<'))
-			{
-				tokens[i] = strjoin_null(tokens[i], ft_substr(str, 0, 2));
-				str += 2;
-			}
-			else
-				tokens[i] = strjoin_null(tokens[i], ft_substr(str++, 0, 1));
-		}
-		else if (*str == '$' && str[1] != ' ' && str[1] != '\t' && str[1] != '\n'
-			&& str[1] != '\'' && str[1] != '\"' && str[1])
-		{
-			size = handle_dollar_sign(str);
-			if (data()->warning != -1)
-			{
-				if (data()->str_tmp != NULL)
-					tokens[i] = strjoin_null(tokens[i], ft_substr(data()->str_tmp,
-						0, ft_strlen(data()->str_tmp)));
-			}
-			else if (nbr_tokens > 0)
-				continue ;
-			else
-				tokens[i] = strjoin_null(tokens[i], ft_substr(" ", 0, 1));
-			str += (size + 1);
-		}
+			str += token_special_char(str, &tokens[i]);
+		else if (*str == '$' && str[1] != ' ' && str[1] != '\t'
+			&& str[1] != '\n' && str[1] != '\'' && str[1] != '\"' && str[1])
+			str += token_space_dolar_sig(str, &tokens[i], nbr_tokens);
 		else if (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
-		{
-			if (str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
-				i++;
-			str++;
-		}
+			str += token_is_space(str, &i);
 		else
-		{
-			size = nbr_outside_quotes(str);
-			tokens[i] = strjoin_null(tokens[i], ft_substr(str, 0, (size + 1)));
-			str += (size + 1);
-		}
+			str += token_other_chars(str, &tokens[i]);
 		nbr_tokens--;
 	}
 	return (tokens);
-}
-
-void	check_echo(void)
-{
-	int	i;
-
-	i = 0;
-	while (data()->tokens[i] != NULL)
-	{
-		if ((ft_strncmp(data()->tokens[i], "echo", 5) == 0) && data()->tokens[i + 1] != NULL)
-		{
-			if (ft_strncmp(data()->tokens[i + 1], "-n", 3) == 0)
-				i += 2;
-			else
-				i++;
-			while (data()->tokens[i] && ft_strncmp(data()->tokens[i], "|", 2) != 0
-				&& ft_strncmp(data()->tokens[i], ">", 2) != 0 && ft_strncmp(data()->tokens[i], "<", 2) != 0
-				&& ft_strncmp(data()->tokens[i], "|", 2) != 0 && ft_strncmp(data()->tokens[i], "\'", 2) != 0
-				&& ft_strncmp(data()->tokens[i], "\"", 2) != 0 && ft_strncmp(data()->tokens[i], ">>", 3)
-				&& ft_strncmp(data()->tokens[i], "<<", 3))
-			{
-				if (data()->tokens[i + 1] == NULL)
-				{
-					i++;
-					break ;
-				}
-				else
-					data()->tokens[i] = strjoin_var(data()->tokens[i], ' ');
-				i++;
-			}
-		}
-		else
-			i++;
-	}
 }
 
 // Function to generate tokens from the str_cmd.
@@ -210,7 +73,8 @@ int	get_tokens(void)
 	int	i;
 
 	i = 0;
-	while (data()->str_cmd[i] && (data()->str_cmd[i] == ' ' || data()->str_cmd[i] == '\n' || data()->str_cmd[i] == '\t'))
+	while (data()->str_cmd[i] && (data()->str_cmd[i] == ' '
+			|| data()->str_cmd[i] == '\n' || data()->str_cmd[i] == '\t'))
 		i++;
 	if (data()->str_cmd[i] == '\0')
 		return (0);
@@ -219,8 +83,8 @@ int	get_tokens(void)
 		perror("Error unclosed quotes");
 		return (0);
 	}
-	data()->nbr_tokens = count_tokens(data()->str_cmd);
-	data()->tokens = alloc_tokens(data()->str_cmd, data()->nbr_tokens);
+	(data()->nbr_tokens) = count_tokens(data()->str_cmd);
+	(data()->tokens) = alloc_tokens(data()->str_cmd, data()->nbr_tokens);
 	if (*data()->tokens == NULL)
 		return (0);
 	check_echo();
