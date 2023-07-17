@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:32:19 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 14:38:08 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:35:27 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	ft_input(void)
 	int	tmp_cmd;
 
 	tmp_cmd = ft_input_check((data()->curr_cmd + 1));
+    if (data()->error != 0)
+    {
+        return ;
+    }
 	if (data()->spc && data()->spc[data()->curr_cmd] != -1 \
 	&& data()->spc[data()->curr_cmd + 1] != -1)
 	{
