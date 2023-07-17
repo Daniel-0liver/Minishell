@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:32:19 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 21:35:27 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:10:51 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_input(void)
         return ;
     }
 	if (data()->spc && data()->spc[data()->curr_cmd] != -1 \
-	&& data()->spc[data()->curr_cmd + 1] != -1)
+	&& data()->spc[tmp_cmd] != -1)
 	{
 		if (is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 1 \
 		|| is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 2)

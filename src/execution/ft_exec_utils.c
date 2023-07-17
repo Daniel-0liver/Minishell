@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:35:46 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 21:34:52 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:18:58 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ int	ft_input_check(int tmp_cmd)
 		else
 			tmp_fd = handle_here(data()->cmds[tmp_cmd][0]);
 		if (tmp_fd < 0)
-			printf("Error to create/read the redirected file named: %s\n", \
-			data()->cmds[tmp_cmd][0]);
+		{
+			builtins_error(NULL, data()->cmds[tmp_cmd][0],\
+			": No such file or directory", 1);
+			return (tmp_cmd);
+		}
 		close(tmp_fd);
 		tmp_cmd++;
 	}
@@ -48,10 +51,8 @@ int	ft_input_check(int tmp_cmd)
 	else
 		data()->fd[data()->curr_fd][0] = handle_here(data()->cmds[tmp_cmd][0]);
 	if (data()->fd[data()->curr_fd][0] < 0)
-        builtins_error("Error to create/read the redirected file named: ",\
-         data()->cmds[tmp_cmd][0], NULL, errno);
-		// printf("Error to create/read the redirected file named: %s\n", 
-		// data()->cmds[tmp_cmd][0]);
+		builtins_error(NULL, data()->cmds[tmp_cmd][0],\
+		": No such file or directory", 1);
 	return (tmp_cmd);
 }
 
