@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:06:25 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:48:49 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:54:52 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*strjoin_var(char *s1, char s2)
 	return (s_final);
 }
 
-char	*strjoin_null(char const *s1, char *s2)
+char	*strjoin_null(char *s1, char *s2)
 {
 	char	*s_final;
 	size_t	size;
@@ -96,8 +96,10 @@ char	*strjoin_null(char const *s1, char *s2)
 	while (i < size)
 		s_final[i++] = s2[j++];
 	s_final[i] = '\0';
-	free(s2);
-	s2 = NULL;
+	if (s2 != NULL)
+		free(s2);
+	if (s1 != NULL)
+		free(s1);
 	return (s_final);
 }
 
