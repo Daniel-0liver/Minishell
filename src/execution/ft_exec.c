@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 12:45:32 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:50:47 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exec_begin(void)
 {
-    puts("HERE");
 	close(data()->fd[data()->curr_fd][0]);
 	dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 	if (execve(data()->cmds[data()->curr_cmd][0], \

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 22:18:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 00:35:14 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,13 @@ int	check_special_char(int i)
 	if (data()->tokens[i]
 		&& ft_strncmp(data()->tokens[i], ">", 2) != 0
 		&& ft_strncmp(data()->tokens[i], "<", 2) != 0
-		&& ft_strncmp(data()->tokens[i], "|", 2) != 0
 		&& ft_strncmp(data()->tokens[i], "\'", 2) != 0
 		&& ft_strncmp(data()->tokens[i], "\"", 2) != 0
 		&& ft_strncmp(data()->tokens[i], ">>", 3) != 0
 		&& ft_strncmp(data()->tokens[i], "<<", 3) != 0)
 		return (0);
 	else
-	{
-		if ((ft_strncmp(data()->tokens[i + 1], "./", 2) == 0) && (ft_strncmp(data()->tokens[i], "<", 2) == 0))
-			return (0);
 		return (1);
-	}
 }
 
 void	check_echo(void)
@@ -62,13 +57,14 @@ void	check_echo(void)
 		{
 			if (ft_strncmp(data()->tokens[i + 1], "-n", 3) == 0)
 				i += 1;
-			while (check_special_char(i++) == 0)
+			while (ft_strncmp(data()->tokens[++i], "|", 2) != 0)
 			{
 				if (data()->tokens[i + 1] == NULL)
 					break ;
-				else if (ft_strncmp(data()->tokens[i + 1], "./", 2) == 0
-					|| check_special_char(i))
+				else if (check_special_char(i) == 1 || ft_strncmp(data()->tokens[i], "./", 2) == 0)
+				{
 					continue ;
+				}
 				else
 					(data()->tokens[i]) = strjoin_var(data()->tokens[i], ' ');
 			}
