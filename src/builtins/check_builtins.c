@@ -34,13 +34,24 @@ int	is_builtins(char *cmd)
 void	call_builtins(char **cmd)
 {
 	if (ft_strcpm(cmd[0], "echo"))
-		ft_echo(cmd);
+	{
+		if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 3 \
+		|| is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 4)
+			ft_echo_exec(cmd);
+		else
+			ft_echo(cmd);
+	}
 	else if (ft_strcpm(cmd[0], "cd"))
 		ft_cd(cmd);
 	else if (ft_strcpm(cmd[0], "pwd"))
 		ft_pwd(cmd);
 	else if (ft_strcpm(cmd[0], "export"))
-		ft_export();
+	{
+		if (data()->cmds[data()->curr_cmd][1] != NULL)
+			ft_export();
+		else
+			export_declare();
+	}
 	else if (ft_strcpm(cmd[0], "unset"))
 		ft_unset(data()->env_p, data()->cmds[data()->curr_cmd][1]);
 	else if (ft_strcpm(cmd[0], "env"))
@@ -58,7 +69,12 @@ void	call_builtins_exec(char **cmd)
 	else if (ft_strcpm(cmd[0], "pwd"))
 		ft_pwd_exec(cmd);
 	else if (ft_strcpm(cmd[0], "export"))
-		ft_export();
+	{
+		if (data()->cmds[data()->curr_cmd][1] != NULL)
+			ft_export();
+		else
+			export_declare_exec(data()->env_p);
+	}
 	else if (ft_strcpm(cmd[0], "unset"))
 		ft_unset(data()->env_p, data()->cmds[data()->curr_cmd][1]);
 	else if (ft_strcpm(cmd[0], "env"))

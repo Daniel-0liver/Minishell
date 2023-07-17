@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:05:11 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:31:49 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	cmd_to_exec(void)
 	data()->cmds = get_cmds();
 	data()->curr_cmd = 0;
 	data()->curr_fd = 0;
+	// for (int i = 0; data()->cmds[i] != NULL; i++)
+	// 	for (int j = 0; data()->cmds[i][j] != NULL; j++)
+	// 		printf("CMDS: Matriz %i Array %i %s\n", i, j, data()->cmds[i][j]);
+	// for (int k = 0; data()->spc && data()->spc[k] != -1; k++)
+	// 	printf("SPC INDEX: %i\n", data()->spc[k]);
+	// return ;
 	if (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
 		check_spc();
