@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 12:21:00 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:02:50 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			handle_error_var(void);
 void			handle_shlvl(char c);
 char			*strjoin_var(char *s1, char s2);
 char			*strjoin_here(char *s1, char *s2);
-char			*strjoin_null(char const *s1, char *s2);
+char			*strjoin_null(char *s1, char *s2);
 
 // Utils 2
 void			handle_env(char *str);
@@ -91,9 +91,9 @@ int				token_is_space(char *str, int *i);
 // Utils 4
 char			**init_tokens(int nbr_tokens);
 int				token_inside_quote(char	*str, char **tokens);
-int				token_special_char(char *str, char **token);
+int				token_special_char(char *str, char **token, int *i);
 int				token_space_dolar_sig(char *str, char **token, int nbr_tokens);
-int				token_other_chars(char *str, char **token);
+int				token_other_chars(char *str, char **token, int *i);
 
 // Utils 5
 char			*handle_single_spc_quote(char *str);

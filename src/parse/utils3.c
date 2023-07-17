@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:34:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:49:58 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ void	handle_shlvl(char c)
 
 int	token_is_space(char *str, int *i)
 {
-	if (str[1] != ' ' && str[1] != '\n' && str[1] != '\t')
-		(*i)++;
-	return (1);
+	int	j;
+
+	j = skip_whitespace(str);
+	(*i)++;
+	return (j);
 }

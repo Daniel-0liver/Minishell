@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:36:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:46:35 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:57:12 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,20 @@ int	token_inside_quote(char	*str, char **token)
 		return (2);
 }
 
-int	token_special_char(char *str, char **token)
+int	token_special_char(char *str, char **token, int *i)
 {
 	if (str[1] == *str && (*str == '>' || *str == '<'))
 	{
 		(*token) = strjoin_null((*token), ft_substr(str, 0, 2));
+		if (str[2] != ' ')
+			(*i)++;
 		return (2);
 	}
 	else
 	{
-		(*token) = strjoin_null((*token), ft_substr(str++, 0, 1));
+		(*token) = ft_substr(str, 0, 1);
+		if (str[1] != ' ')
+			(*i)++;
 		return (1);
 	}
 }
@@ -81,11 +85,13 @@ int	token_space_dolar_sig(char *str, char **token, int nbr_tokens)
 	return (size + 1);
 }
 
-int	token_other_chars(char *str, char **token)
+int	token_other_chars(char *str, char **token, int *i)
 {
 	int	size;
 
 	size = nbr_outside_quotes(str);
 	(*token) = strjoin_null((*token), ft_substr(str, 0, (size + 1)));
+	if (str[size + 1] == '|' || str[size + 1] == '>' || str[size + 1] == '<' )
+		(*i)++;
 	return (size + 1);
 }
