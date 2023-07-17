@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 00:52:53 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:45:32 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_begin(void)
 {
+    puts("HERE");
 	close(data()->fd[data()->curr_fd][0]);
 	dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 	if (execve(data()->cmds[data()->curr_cmd][0], \
@@ -54,8 +55,8 @@ void	ft_exec(void)
 		exec_begin();
 	else
 	{
-		close(data()->fd[data()->curr_fd][1]);
 		waitpid(pid, &status, 0);
+		close(data()->fd[data()->curr_fd][1]);
 		if (status > 0)
 			data()->error = status / 256;
 		else
@@ -80,9 +81,9 @@ void	ft_exec_pipe_md(void)
 		exec_md();
 	else
 	{
+		waitpid(pid, &status, 0);
 		close(data()->fd[data()->curr_fd + 1][1]);
 		close(data()->fd[data()->curr_fd][0]);
-		waitpid(pid, &status, 0);
 		if (status > 0)
 			data()->error = status / 256;
 		else
@@ -108,8 +109,8 @@ void	ft_exec_pipe_end(void)
 		exec_end();
 	else
 	{
-		close(data()->fd[data()->curr_fd][0]);
 		waitpid(pid, &status, 0);
+		close(data()->fd[data()->curr_fd][0]);
 		if (status > 0)
 			data()->error = status / 256;
 		else

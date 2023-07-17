@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:51:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:31:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Main function of the parse unit
-	// for (int i = 0; data()->tokens[i]; i++)
-	// 	printf("%s\n", data()->tokens[i]);
 
 void	parse_init(void)
 {
 	handle_error_var();
 	if (get_tokens() == 0)
 		return ;
+	// for (int i = 0; data()->tokens[i]; i++)
+	// 	printf("PARSE: %s\n", data()->tokens[i]);
 	if (data()->tokens)
 		cmd_to_exec();
 }

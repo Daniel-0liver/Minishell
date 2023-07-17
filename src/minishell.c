@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 21:42:06 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:48:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char **envp)
 	alloc_env(envp);
 	data()->error = 0;
 	ft_unset(data()->env_p, "SHELL");
-	add_cd_to_env("SHELL=/bin/zsh");
+	add_cd_to_env("SHELL=/bin/bash");
 	handle_shlvl('+');
 	while (TRUE)
 	{
