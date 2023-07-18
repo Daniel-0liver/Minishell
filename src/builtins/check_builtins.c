@@ -31,12 +31,22 @@ int	is_builtins(char *cmd)
 	return (0);
 }
 
+int	is_echo_pipes(int tmp_cmd)
+{
+		while (data()->spc[tmp_cmd] != -1 \
+		&& (is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 3 \
+		|| is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 4))
+			tmp_cmd++;
+		if (data()->spc[tmp_cmd] == -1)
+			return (1);
+		return (0);
+}
+
 void	call_builtins(char **cmd)
 {
 	if (ft_strcpm(cmd[0], "echo"))
 	{
-		if (is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 3 \
-		|| is_redirect(data()->tokens[data()->spc[data()->curr_cmd]]) == 4)
+		if (is_echo_pipes(data()->curr_cmd))
 			ft_echo_exec(cmd);
 		else
 			ft_echo(cmd);

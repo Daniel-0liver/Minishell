@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 21:02:50 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:52:03 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int				ft_cmd_loop(void);
 
 // check_builtins
 int				is_builtins(char *cmd);
+int				is_echo_pipes(int tmp_cmd);
 void			call_builtins(char **cmd);
 void			call_builtins_exec(char **cmd);
 

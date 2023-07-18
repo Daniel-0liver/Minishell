@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:35:46 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 22:18:58 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:09:26 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_input_check(int tmp_cmd)
 			tmp_fd = handle_here(data()->cmds[tmp_cmd][0]);
 		if (tmp_fd < 0)
 		{
-			builtins_error(NULL, data()->cmds[tmp_cmd][0],\
+			builtins_error(NULL, data()->cmds[tmp_cmd][0], \
 			": No such file or directory", 1);
 			return (tmp_cmd);
 		}

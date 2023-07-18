@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:13:52 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:16:29 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	is_valid_loop(void)
 
 int	is_valid(void)
 {
+	if (data()->tokens[0] != NULL && data()->tokens[0][0] == '#')
+        return (1);
 	if (data()->tokens[0] != NULL && is_exec(data()->tokens[0]) == 1)
 	{
 		builtins_error(NULL, NULL, \
