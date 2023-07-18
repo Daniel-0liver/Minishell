@@ -1,0 +1,65 @@
+CTRL\ should do nothing
+CTRL\ should exit without seg 
+
+
+
+
+
+==15923== 3,038 bytes in 42 blocks are still reachable in loss record 44 of 69
+==15923==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x10BBAE: ft_strdup (cmds_utils.c:93)
+==15923==    by 0x10F4B4: unset_var (ft_unset.c:33)
+==15923==    by 0x10F5B8: ft_unset (ft_unset.c:53)
+==15923==    by 0x10ADB1: get_tokens (parse_utils.c:91)
+==15923==    by 0x10A806: parse_init (parse_init.c:20)
+==15923==    by 0x1095D9: main (minishell.c:46)
+
+===============================================================================
+
+==15923== 16 bytes in 1 blocks are still reachable in loss record 15 of 69
+==15923==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x10A338: init_tokens (utils4.c:19)
+==15923==    by 0x10AA78: alloc_tokens (parse_utils.c:49)
+==15923==    by 0x10AD78: get_tokens (parse_utils.c:87)
+==15923==    by 0x10A806: parse_init (parse_init.c:20)
+==15923==    by 0x1095D9: main (minishell.c:46)
+==15923== 16 bytes in 1 blocks are still reachable in loss record 16 of 69
+==15923==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x10BB11: get_cmds (cmds_utils.c:77)
+==15923==    by 0x10B597: cmd_to_exec (cmds.c:73)
+==15923==    by 0x10A81D: parse_init (parse_init.c:25)
+==15923==    by 0x1095D9: main (minishell.c:46)
+==15923==
+==15923== 16 bytes in 1 blocks are still reachable in loss record 17 of 69
+==15923==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x10BFC9: get_exec_cmd (cmds_utils3.c:23)
+==15923==    by 0x10CA09: ft_cmd (split_cmds.c:50)
+==15923==    by 0x10BB37: get_cmds (cmds_utils.c:79)
+==15923==    by 0x10B597: cmd_to_exec (cmds.c:73)
+==15923==    by 0x10A81D: parse_init (parse_init.c:25)
+==15923==    by 0x1095D9: main (minishell.c:46)
+
+==========================================================================
+
+==15923== 7 bytes in 1 blocks are still reachable in loss record 3 of 69
+==15923==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x1098A4: strjoin_null (utils.c:86)
+==15923==    by 0x10A6D3: token_other_chars (utils4.c:93)
+==15923==    by 0x10AC3E: alloc_tokens (parse_utils.c:64)
+==15923==    by 0x10AD78: get_tokens (parse_utils.c:87)
+==15923==    by 0x10A806: parse_init (parse_init.c:20)
+==15923==    by 0x1095D9: main (minishell.c:46)
+==15923==
+==15923== 7 bytes in 1 blocks are still reachable in loss record 4 of 69
+==15923==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15923==    by 0x10BBAE: ft_strdup (cmds_utils.c:93)
+==15923==    by 0x10CE8F: check_path (split_cmds2.c:75)
+==15923==    by 0x10C009: get_exec_cmd (cmds_utils3.c:24)
+==15923==    by 0x10CA09: ft_cmd (split_cmds.c:50)
+==15923==    by 0x10BB37: get_cmds (cmds_utils.c:79)
+==15923==    by 0x10B597: cmd_to_exec (cmds.c:73)
+==15923==    by 0x10A81D: parse_init (parse_init.c:25)
+==15923==    by 0x1095D9: main (minishell.c:46)
+
+==========================================================================
+

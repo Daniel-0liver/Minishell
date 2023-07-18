@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:46:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:03:28 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int	get_tokens(void)
 	if (*data()->tokens == NULL)
 		return (0);
 	check_echo();
-	ft_unset(data()->env_p, "?");
+	ft_unset(data()->env_p, "?");	
 	return (1);
 }

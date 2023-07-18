@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:36:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:57:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:25:31 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**init_tokens(int nbr_tokens)
 {
 	char	**tokens;
 
-	tokens = (char **)calloc((nbr_tokens + 1), sizeof(char *));
+	tokens = (char **)ft_calloc((nbr_tokens + 1), sizeof(char *));
 	tokens[nbr_tokens] = NULL;
 	if (!tokens)
 	{
