@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:36:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 21:25:31 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:57:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	token_space_dolar_sig(char *str, char **token, int nbr_tokens)
 	else if (nbr_tokens > 0)
 		return (0);
 	else
-		(*token) = strjoin_null((*token), ft_substr(" ", 0, 1));
+		if (str[size + 1] == ' ')
+			size = (size + 1) + skip_whitespace(str);
 	return (size + 1);
 }
 
