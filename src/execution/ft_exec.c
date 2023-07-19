@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 19:13:13 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:34:13 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	exec_begin(void)
 {
 	close(data()->fd[data()->curr_fd][0]);
+	if (data()->fd[data()->curr_fd][1] < 0)
+		close(data()->fd[data()->curr_fd][1]);
 	dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
 	if (execve(data()->cmds[data()->curr_cmd][0], \
 	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
@@ -27,6 +29,10 @@ void	exec_begin(void)
 
 void	exec_md(void)
 {
+	if (data()->fd[data()->curr_fd][0] < 0)
+		close(data()->fd[data()->curr_fd][0]);
+	if (data()->fd[data()->curr_fd + 1][1] < 0)
+		close(data()->fd[data()->curr_fd + 1][1]);
 	dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
 	dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
 	if (execve(data()->cmds[data()->curr_cmd][0], \

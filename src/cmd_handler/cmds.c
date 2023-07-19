@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 19:15:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:14:17 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,13 @@ void	exec_type(void)
 void	check_spc(void)
 {
 	generate_fds();
+    // printf("POINTER TO: %s\n", data()->cmds[data()->curr_cmd][0]);
 	exec_type();
+    // printf("POINTER TO: %s\n", data()->cmds[data()->curr_cmd][0]);
 	while (data()->spc && data()->spc[data()->curr_cmd] != -1)
 	{
-		if (data()->error != 0)
-			return ;
 		exec_type_md();
-	}
-	if (data()->error != 0)
-	{
-		return ;
+        // printf("POINTER TO: %s\n", data()->cmds[data()->curr_cmd][0]);
 	}
 	exec_type_end();
 }

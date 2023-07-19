@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 14:46:41 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:35:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@ void	ft_red(void)
 	int	tmp_cmd;
 
 	tmp_cmd = ft_red_loop_checker(data()->curr_cmd + 1);
+	if (!(access(data()->cmds[tmp_cmd][0], W_OK) == 0))
+	{
+		if (errno == EACCES)
+		{
+			builtins_error(NULL, data()->cmds[tmp_cmd][0], ": Permission denied", 1);
+			data()->fd[data()->curr_fd][1] = -1;
+			while (data()->spc[tmp_cmd] != -1 && data()->tokens[data()->spc[tmp_cmd]] 
+			&& data()->tokens[data()->spc[data()->curr_cmd]][0] == '>' 
+			&& data()->tokens[data()->spc[tmp_cmd - 1]][0] == '>')
+				tmp_cmd++;
+			data()->curr_cmd = tmp_cmd;
+			return ;
+		}
+	}
 	if (is_redirect(data()->tokens[data()->spc[tmp_cmd - 1]]) == 1)
 		(data()->fd[data()->curr_fd][1]) = open(data()->cmds[tmp_cmd][0], \
 		O_RDWR | O_CREAT | O_TRUNC, 0664);
@@ -35,6 +49,20 @@ void	ft_red_end(void)
 	int	tmp_cmd;
 
 	tmp_cmd = ft_red_loop_checker(data()->curr_cmd + 1);
+	if (!(access(data()->cmds[tmp_cmd][0], W_OK) == 0))
+	{
+		if (errno == EACCES)
+		{    
+			builtins_error(NULL, data()->cmds[tmp_cmd][0], ": Permission denied", 1);
+			data()->fd[data()->curr_fd][1] = -1;
+			while (data()->spc[tmp_cmd] != -1 && data()->tokens[data()->spc[tmp_cmd]] 
+			&& data()->tokens[data()->spc[data()->curr_cmd]][0] == '>' 
+			&& data()->tokens[data()->spc[tmp_cmd - 1]][0] == '>')
+				tmp_cmd++;
+			data()->curr_cmd = tmp_cmd;
+			return ;
+		}
+	}
 	if (is_redirect(data()->tokens[data()->spc[tmp_cmd - 1]]) == 1)
 		(data()->fd[data()->curr_fd + 1][1]) = open(data()->cmds[tmp_cmd][0], \
 		O_RDWR | O_CREAT | O_TRUNC, 0664);

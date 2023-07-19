@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:04:44 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:35:34 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_echo(char **str)
 
 void	ft_echo_exec(char **str)
 {
+
 	if (str[1] && ft_strcpm(str[1], "-n") && str[2] != NULL)
 		print_echo(str, 1);
 	else if (str[1] != NULL)
