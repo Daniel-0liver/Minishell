@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 00:35:20 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:23:42 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,23 @@ void	handle_special_characters(char **str, int *count)
 			(*str) += 2;
 		else
 			(*str)++;
-		(*count)++;
+	}
+	else if (**str == '$')
+	{
+		data()->warning = 0;
+		handle_dollar_sign(*str);
+		(*str)++;
+		while (**str && **str != ' ' && **str != '\n' && **str != '$'
+			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
+			(*str)++;
+		if (data()->warning == -1)
+			return ;
 	}
 	else
 	{
 		while (**str && **str != ' ' && **str != '\n'
 			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
 			(*str)++;
-		(*count)++;
 	}
+	(*count)++;
 }
