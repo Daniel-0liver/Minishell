@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 11:52:03 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:42:27 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void			call_builtins_exec(char **cmd);
 // error_msg
 void			builtins_error(char *option, char *var_option, \
 				char *msg, int err);
+void			error_exec(void);
 
 //  ft_cd
 void			add_cd_to_env(char *path);

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:35:04 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 13:16:29 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:43:57 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	cmd_exec(int pid, int status)
 			if (execve(data()->cmds[data()->curr_cmd][0], \
 			data()->cmds[data()->curr_cmd], data()->env_p) == -1)
 			{
-				printf("%s: command not found\n", \
-				data()->cmds[data()->curr_cmd][0]);
-				exit(127);
+		        error_exec();
 			}
 		}
 		else
