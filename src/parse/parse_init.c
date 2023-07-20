@@ -6,14 +6,13 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/19 21:52:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:59:55 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Main function of the parse unit
-
 void	parse_init(void)
 {
 	handle_error_var();
@@ -22,8 +21,6 @@ void	parse_init(void)
 		ft_unset(data()->env_p, "?");
 		return ;
 	}
-	// for (int i = 0; data()->tokens[i]; i++)
-	// 	printf("PARSE: %s\n", data()->tokens[i]);
 	if (data()->tokens)
 		cmd_to_exec();
 }

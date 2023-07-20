@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/18 00:35:14 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:01:12 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,9 @@ void	check_echo(void)
 			{
 				if (data()->tokens[i + 1] == NULL)
 					break ;
-				else if (check_special_char(i) == 1 || ft_strncmp(data()->tokens[i], "./", 2) == 0)
-				{
+				else if (check_special_char(i) == 1
+					|| ft_strncmp(data()->tokens[i], "./", 2) == 0)
 					continue ;
-				}
 				else
 					(data()->tokens[i]) = strjoin_var(data()->tokens[i], ' ');
 			}

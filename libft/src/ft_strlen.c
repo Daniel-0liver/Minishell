@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 02:13:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 17:19:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:06:21 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlen(const char	*str)
 	size_t	size;
 
 	size = 0;
-	while (str && str[size] )
+	while (str && str[size])
 		size++;
 	return (size);
 }
