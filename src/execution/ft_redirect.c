@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/19 20:35:07 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:56:37 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,7 @@ void	ft_red(void)
 	{
 		if (errno == EACCES)
 		{
-			builtins_error(NULL, data()->cmds[tmp_cmd][0], ": Permission denied", 1);
-			data()->fd[data()->curr_fd][1] = -1;
-			while (data()->spc[tmp_cmd] != -1 && data()->tokens[data()->spc[tmp_cmd]] 
-			&& data()->tokens[data()->spc[data()->curr_cmd]][0] == '>' 
-			&& data()->tokens[data()->spc[tmp_cmd - 1]][0] == '>')
-				tmp_cmd++;
-			data()->curr_cmd = tmp_cmd;
+			redirection_error(tmp_cmd);
 			return ;
 		}
 	}
@@ -52,14 +46,8 @@ void	ft_red_end(void)
 	if (!(access(data()->cmds[tmp_cmd][0], W_OK) == 0))
 	{
 		if (errno == EACCES)
-		{    
-			builtins_error(NULL, data()->cmds[tmp_cmd][0], ": Permission denied", 1);
-			data()->fd[data()->curr_fd][1] = -1;
-			while (data()->spc[tmp_cmd] != -1 && data()->tokens[data()->spc[tmp_cmd]] 
-			&& data()->tokens[data()->spc[data()->curr_cmd]][0] == '>' 
-			&& data()->tokens[data()->spc[tmp_cmd - 1]][0] == '>')
-				tmp_cmd++;
-			data()->curr_cmd = tmp_cmd;
+		{
+			redirection_error(tmp_cmd);
 			return ;
 		}
 	}

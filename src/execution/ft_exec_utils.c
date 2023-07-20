@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:35:46 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/19 21:43:04 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:49:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_end(void)
 	if (execve(data()->cmds[data()->curr_cmd][0], \
 	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
 	{
-        error_exec();
+		error_exec();
 	}
 }
 
@@ -47,7 +47,7 @@ int	ft_input_check(int tmp_cmd)
 	else
 		data()->fd[data()->curr_fd][0] = handle_here(data()->cmds[tmp_cmd][0]);
 	if (data()->fd[data()->curr_fd][0] < 0)
-		builtins_error(NULL, data()->cmds[tmp_cmd][0],\
+		builtins_error(NULL, data()->cmds[tmp_cmd][0], \
 		": No such file or directory", 1);
 	return (tmp_cmd);
 }
@@ -61,7 +61,7 @@ int	ft_red_input_check(int tmp_cmd)
 	{
 		if (!(access(data()->cmds[tmp_cmd][0], R_OK) == 0))
 			if (errno == EACCES)
-				break;
+				break ;
 		if (is_redirect(data()->tokens[data()->spc[tmp_cmd - 1]]) == 1)
 			tmp_fd = open(data()->cmds[tmp_cmd][0], \
 			O_RDWR | O_CREAT | O_TRUNC, 0664);
@@ -87,7 +87,7 @@ int	ft_red_loop_checker(int tmp_cmd)
 	{
 		if (!(access(data()->cmds[tmp_cmd][0], R_OK) == 0))
 			if (errno == EACCES)
-				break;
+				break ;
 		if (is_redirect(data()->tokens[data()->spc[tmp_cmd - 1]]) == 1)
 			tmp_fd = open(data()->cmds[tmp_cmd][0], \
 			O_RDWR | O_CREAT | O_TRUNC, 0664);

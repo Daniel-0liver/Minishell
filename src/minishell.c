@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 16:37:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:48:34 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	main(int argc, char *argv[], char **envp)
 		signal(SIGINT, inthandler);
 		signal(SIGQUIT, SIG_IGN);
 		data()->str_cmd = readline("Minishell$: ");
-        if (data()->str_cmd == NULL)
-            break ;
+		if (data()->str_cmd == NULL)
+			break ;
 		add_history(data()->str_cmd);
 		parse_init();
 		if (data()->str_cmd != NULL && *data()->str_cmd != '\0')
 			free(data()->str_cmd);
 	}
-    printf("exit\n");
+	printf("exit\n");
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
 	return (0);

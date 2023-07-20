@@ -33,13 +33,13 @@ int	is_builtins(char *cmd)
 
 int	is_echo_pipes(int tmp_cmd)
 {
-		while (data()->spc[tmp_cmd] != -1 \
-		&& (is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 3 \
-		|| is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 4))
-			tmp_cmd++;
-		if (data()->spc[tmp_cmd] == -1)
-			return (1);
-		return (0);
+	while (data()->spc[tmp_cmd] != -1 \
+	&& (is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 3 \
+	|| is_redirect(data()->tokens[data()->spc[tmp_cmd]]) == 4))
+		tmp_cmd++;
+	if (data()->spc[tmp_cmd] == -1)
+		return (1);
+	return (0);
 }
 
 void	call_builtins(char **cmd)

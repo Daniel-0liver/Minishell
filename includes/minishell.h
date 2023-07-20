@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/19 21:42:27 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:01:58 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void			ft_red_end(void);
 void			ft_input(void);
 int				handle_here(char *exit);
 void			ft_red_input(int tmp_cmd);
+int				next_acton(int tmp_cmd);
 
 // cmds_utils
 int				is_spc(char *cmd);
@@ -183,6 +184,8 @@ void			call_builtins_exec(char **cmd);
 void			builtins_error(char *option, char *var_option, \
 				char *msg, int err);
 void			error_exec(void);
+void			redirection_error(int tmp_cmd);
+void			input_error(int tmp_cmd);
 
 //  ft_cd
 void			add_cd_to_env(char *path);
