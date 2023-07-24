@@ -19,6 +19,7 @@ if HOME/OLD_PWD IS NOT SET ON CD SHOULD PRINT ERRRO ABOUT IT
 < a | ls OVERFL
 cat << EOF | pwd
 
+
 - SIGINT should stop reading into here_doc & move on to the next command prompt
 - SIGINT while running a blocking command should not display the prompt twice
 - SIGQUIT should quit & dump the core while running a blocking command
