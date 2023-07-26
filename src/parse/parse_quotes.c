@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:51:58 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/25 16:51:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:02:13 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,20 @@
 int	nbr_inside_quotes(char *str, char c)
 {
 	int		i;
-	char	*tmp;
-	
+
 	i = 0;
 	str++;
 	data()->warning = 0;
 	while (*str && *str != c)
 	{
-		if (*str == '$' && c == '\"')
+		if (*str == '$' && c == '\"' && str[1] != ' ' && str[1] != '\t'
+			&& str[1] != '\n' && str[1] != '\'' && str[1] != '\"' && str[1])
 		{
-			tmp = check_envp(str);
-			if (tmp[0] != '\0')
+			data()->str_tmp = check_envp(str);
+			if (data()->str_tmp)
 			{
-				i += ft_strlen(tmp);
-				while (*str != ' ' || *str != '\n' || *str != '\t' || *str != '\"')
-					str++;
 				data()->warning = -1;
+				free(data()->str_tmp);
 			}
 		}
 		str++;
@@ -42,7 +40,7 @@ int	nbr_inside_quotes(char *str, char c)
 int	nbr_outside_quotes(char *str)
 {
 	int	nbr;
-	
+
 	nbr = 0;
 	str++;
 	while (*str && *str != ' ' && *str != '\n' 
@@ -94,6 +92,22 @@ int	check_quotes(char *str)
 
 char	*check_envp(char	*str)
 {
-	printf("%s\n", str);
-	return (str);
+	int		i;
+	char	*tmp;
+	char	*output;
+
+	i = 0;
+	str++;
+	tmp = NULL;
+	while (*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '\"')
+	{
+		tmp = strjoin_var(tmp, *str);
+		i++;
+		str++;
+	}
+	tmp[i] = '\0';
+	output = my_getenv(tmp);
+	free(tmp);
+	tmp = NULL;
+	return (output);
 }

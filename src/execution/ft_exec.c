@@ -3,87 +3,118 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:43:07 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:49:17 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	exec_begin(void)
+{
+	close(data()->fd[data()->curr_fd][0]);
+	if (data()->fd[data()->curr_fd][1] < 0)
+		close(data()->fd[data()->curr_fd][1]);
+	dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
+	if (execve(data()->cmds[data()->curr_cmd][0], \
+	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+	{
+		error_exec();
+	}
+}
+
+void	exec_md(void)
+{
+	if (data()->fd[data()->curr_fd][0] < 0)
+		close(data()->fd[data()->curr_fd][0]);
+	if (data()->fd[data()->curr_fd + 1][1] < 0)
+		close(data()->fd[data()->curr_fd + 1][1]);
+	dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
+	dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
+	if (execve(data()->cmds[data()->curr_cmd][0], \
+	data()->cmds[data()->curr_cmd], data()->env_p) == -1)
+	{
+		error_exec();
+	}
+}
+
 void	ft_exec(void)
 {
-	int pid;
+	int	pid;
+	int	status;
 
-    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
-    {
-        call_builtins(data()->cmds[data()->curr_cmd]);
-        data()->curr_cmd++;
-        return ;
-    }
+	if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+	{
+		call_builtins(data()->cmds[data()->curr_cmd]);
+		data()->curr_cmd++;
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
-	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
-		if (execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd],  data()->env_p) == -1)
-            free_all();
-	}
+		exec_begin();
 	else
 	{
+		waitpid(pid, &status, 0);
 		close(data()->fd[data()->curr_fd][1]);
-		waitpid(pid, NULL, 0);
+		if (status > 0)
+			data()->error = status / 256;
+		else
+			data()->error = 0;
 		data()->curr_cmd++;
 	}
 }
 
-void	    ft_exec_pipe_md(void)
+void	ft_exec_pipe_md(void)
 {
-	int pid;
-	
-    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
-    {
-        call_builtins(data()->cmds[data()->curr_cmd]);
-        data()->curr_cmd++;
-        return ;
-    }
+	int	pid;
+	int	status;
+
+	if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+	{
+		call_builtins(data()->cmds[data()->curr_cmd]);
+		data()->curr_cmd++;
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
-	{
-		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		dup2(data()->fd[data()->curr_fd + 1][1], STDOUT_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
-	}
+		exec_md();
 	else
 	{
+		waitpid(pid, &status, 0);
 		close(data()->fd[data()->curr_fd + 1][1]);
 		close(data()->fd[data()->curr_fd][0]);
-		waitpid(pid, NULL, 0);
-        data()->curr_cmd++;
+		if (status > 0)
+			data()->error = status / 256;
+		else
+			data()->error = 0;
+		data()->curr_cmd++;
 		data()->curr_fd++;
 	}
 }
 
 void	ft_exec_pipe_end(void)
 {
-	int pid;
+	int	pid;
+	int	status;
 
-    if (is_builtins(data()->cmds[data()->curr_cmd][0]))
-    {
-        call_builtins(data()->cmds[data()->curr_cmd]);
-        data()->curr_cmd++;
-        return ;
-    }
+	if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+	{
+		call_builtins(data()->cmds[data()->curr_cmd]);
+		data()->curr_cmd++;
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
-	{
-		dup2(data()->fd[data()->curr_fd][0], STDIN_FILENO);
-		execve(data()->cmds[data()->curr_cmd][0], data()->cmds[data()->curr_cmd], data()->env_p);
-	}
+		exec_end();
 	else
-    {
+	{
+		waitpid(pid, &status, 0);
 		close(data()->fd[data()->curr_fd][0]);
-		waitpid(pid, NULL, 0);
-    }
+		if (status > 0)
+			data()->error = status / 256;
+		else
+			data()->error = 0;
+	}
 }

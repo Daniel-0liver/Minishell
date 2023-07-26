@@ -1,0 +1,53 @@
+$"PWD" || $'PWD' //Any val
+here_doc signals
+echo -nnnnnnnnnnnn case
+export ascending order
+expansions leaks
+		Direct leak of 35 byte(s) in 1 object(s) allocated from:
+		0 0x49760d in malloc (/nfs/homes/dateixei/minishell_eval/minishell+0x49760d)
+		1 0x4d206f in ft_strdup /nfs/homes/dateixei/minishell_eval/src/cmd_handler/cmds_utils.c:95:8
+		2 0x4cd410 in my_getenv /nfs/homes/dateixei/minishell_eval/src/parse/parse_init.c:46:12
+		3 0x4c9ef2 in handle_env /nfs/homes/dateixei/minishell_eval/src/parse/utils2.c:46:20
+		4 0x4cb13a in handle_dollar_sign /nfs/homes/dateixei/minishell_eval/src/parse/utils3.c:21:2
+		5 0x4ca5a6 in handle_special_characters /nfs/homes/dateixei/minishell_eval/src/parse/utils2.c:79:3
+		6 0x4cdad5 in count_tokens /nfs/homes/dateixei/minishell_eval/src/parse/parse_utils.c:37:4
+		7 0x4ceaa7 in get_tokens /nfs/homes/dateixei/minishell_eval/src/parse/parse_utils.c:86:25
+		8 0x4cd0d1 in parse_init /nfs/homes/dateixei/minishell_eval/src/parse/parse_init.c:19:6
+		9 0x4c8891 in main /nfs/homes/dateixei/minishell_eval/src/minishell.c:49:3
+		10 0x7f156dc4c082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
+if HOME/OLD_PWD IS NOT SET ON CD SHOULD PRINT ERRRO ABOUT IT
+< a | ls OVERFL
+cat << EOF | pwd
+
+- SIGINT should stop reading into here_doc & move on to the next command prompt
+- SIGINT while running a blocking command should not display the prompt twice
+- SIGQUIT should quit & dump the core while running a blocking command
+- commands with a pipe as their last token are segfaulting
+- $PWD should reset if not present in env provide by parent shell
+- bash resets $SHLVL to 1 when it goes over 999
+- check for file and folder permissions when using cd
+- your expander should stop reading the content after the '$' token when it encounters a non alnum char
+    (ex: echo $HOME/Documents/projects/philosophers/philo is not printing anything)
+- multiple redirections need to be handled without segfaults
+    (ex: < infile cat > outfile)
+- when mixing pipes and redirects:
+    > redirects take priority over pipes
+    > an input after a redirect is valid syntax
+well done! unfortunately your project will have to be failed, so here are a few pointers (pun intended) to fix it for your next attempt:
+- SIGINT should stop reading into here_doc & move on to the next command prompt
+- SIGINT while running a blocking command should not display the prompt twice
+- SIGQUIT should quit & dump the core while running a blocking command
+- commands with a pipe as their last token are segfaulting
+- $PWD should reset if not present in env provide by parent shell
+- bash resets $SHLVL to 1 when it goes over 999
+- check for file and folder permissions when using cd
+- your expander should stop reading the content after the '$' token when it encounters a non alnum char
+    (ex: echo $HOME/Documents/projects/philosophers/philo is not printing anything)
+- multiple redirections need to be handled without segfaults
+    (ex: < infile cat > outfile)
+- when mixing pipes and redirects:
+    > redirects take priority over pipes
+    > an input after a redirect is valid syntax
+- in bash, cat | cat | ls prints the contents of ls first and then reads into cat
+- watch out for segfaults when handling here_doc!
+- history should not save empty commands

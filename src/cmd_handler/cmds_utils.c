@@ -6,29 +6,23 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:13:36 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/21 15:40:54 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:04:50 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_spc(char *cmd)
+int	is_spc(char *cmd)
 {
 	if (ft_strcpm(cmd, "|"))
 		return (1);
-	else if (ft_strcpm(cmd , "||"))
-		return (1);
 	else if (ft_strcpm(cmd, ">"))
 		return (1);
-	else if (ft_strcpm(cmd , ">>"))
+	else if (ft_strcpm(cmd, ">>"))
 		return (1);
 	else if (ft_strcpm(cmd, "<"))
 		return (1);
-	else if (ft_strcpm(cmd , "<<"))
-		return (1);
-	else if (ft_strcpm(cmd, "&&"))
-		return (1);
-	else if (ft_strcpm(cmd , "*"))
+	else if (ft_strcpm(cmd, "<<"))
 		return (1);
 	return (0);
 }
@@ -36,7 +30,7 @@ int is_spc(char *cmd)
 int	ft_strcpm(char *s1, char *s2)
 {
 	int	i;
-	
+
 	i = 0;
 	while (s1 && s2 && s1[i] != '\0' && s2[i] != '\0')
 	{
@@ -56,7 +50,7 @@ void	generate_fds(void)
 
 	i = 0;
 	j = 0;
-	while (data()->spc && data()->spc[i] != '\0')
+	while (data()->spc && data()->spc[i] != -1)
 		i++;
 	data()->fd = malloc(sizeof (int *) * (i + 1));
 	while (j < i)
@@ -71,7 +65,7 @@ void	generate_fds(void)
 
 char	***get_cmds(void)
 {
-	int     curr;
+	int		curr;
 	int		size;
 	char	***cmds;
 
@@ -96,7 +90,8 @@ char	*ft_strdup(const char *src)
 	size = 0;
 	while (src[size])
 		++size;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
+	new = malloc(sizeof(char) * (size + 1));
+	if (!new)
 		return (NULL);
 	i = 0;
 	while (src[i])

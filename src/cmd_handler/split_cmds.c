@@ -3,69 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:38:26 by gateixei          #+#    #+#             */
-/*   Updated: 2023/06/20 17:18:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:33:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_spc(int size)
+void	ft_spc(int size)
 {
-	int i;
-	int mtz;
-	int *spc;
+	int	i;
+	int	mtz;
+	int	*spc;
 
 	i = 0;
 	mtz = 0;
 	spc = malloc(sizeof(int) * (size));
 	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->tokens[i]))
+		if (is_spc(data()->tokens[i]))
+		{
+			if (mtz == size)
+			{
+				spc[mtz] = -1;
+				data()->spc = spc;
+				return ;
+			}
 			spc[mtz++] = i;
+		}
 		i++;
 	}
-	spc[mtz] = '\0';
+	spc[mtz] = -1;
 	data()->spc = spc;
 }
 
 char	**ft_cmd(void)
 {
-	int 		i;
-	int			size;
-	int			tmp_curr;
-	char		**cmd;
-	
-	i = 0;
-	if(is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	size = ft_ptrlen(data()->curr_cmd);
-	cmd = malloc((size + 1) * sizeof(char *));
-	cmd[i] = check_path(data()->tokens[data()->curr_cmd]);
-	data()->curr_cmd++;
-	i++;
-	tmp_curr = data()->curr_cmd;
-	while (--size > 0)
-	{
+	char	**cmd;
+	int		i;
 
-		if (is_redirect(data()->tokens[tmp_curr]))
-		{
-			tmp_curr = tmp_curr + 2;
-			size++;
-		}
-		else
-		{
-			cmd[i] = ft_strdup(data()->tokens[tmp_curr]);
-			tmp_curr++;
-			i++;
-		}
-	}
-	while (data()->tokens[data()->curr_cmd] != NULL && !is_spc(data()->tokens[data()->curr_cmd]))
-		data()->curr_cmd++;
-	cmd[i] = NULL;
-	return (cmd);
+	data()->count = -1;
+	i = ft_cmd_loop();
+	if (i >= 0)
+		return (get_exec_cmd(i));
+	cmd = check_input();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_cmd_exec();
+	if (cmd != NULL)
+		return (cmd);
+	cmd = check_red_cmd();
+	if (cmd != NULL)
+		return (cmd);
+	return (NULL);
 }
 
 int	ft_matriz_size(void)
@@ -77,7 +69,7 @@ int	ft_matriz_size(void)
 	mtz = 1;
 	while (data()->tokens[i] != NULL)
 	{
-		if(is_spc(data()->tokens[i]))
+		if (is_spc(data()->tokens[i]))
 			mtz++;
 		i++;
 	}
@@ -86,14 +78,14 @@ int	ft_matriz_size(void)
 
 int	ft_ptrlen(int v)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (v > 0 && is_redirect(data()->tokens[v - 1]))
 		return (1);
 	while (data()->tokens[v] != NULL)
 	{
-		if(is_exec(data()->tokens[v]))
+		if (is_exec(data()->tokens[v]))
 			return (i);
 		else if (is_redirect(data()->tokens[v]))
 		{
@@ -108,32 +100,20 @@ int	ft_ptrlen(int v)
 	return (i);
 }
 
-char	*check_path(char *cmds) // Change this to PATH variable
+char	*get_path(char *cmd)
 {
-	int		i;
-	int		j;
-	char	*rtn;
-	char	*path;
+	char			*split;
+	char			*rtn;
+	char			**path;
 
-	i = 0;
-	if (is_builtins(cmds))
-		return (ft_strdup(cmds));
-	if (data()->curr_cmd > 0 && is_redirect(data()->tokens[data()->curr_cmd - 1]))
-		return (ft_strdup(cmds));
-	while (cmds[i] != '\0')
+	split = ft_getenv(data()->env_p, "PATH", 4);
+	if (split == NULL)
 	{
-		if (cmds[i] == '/')
-			return (ft_strdup(cmds));
-		i++;
+		return (NULL);
 	}
-	rtn = malloc(sizeof(char) * (i + 6));
-	path = "/bin/";
-	j = -1;
-	while (++j < 5)
-		rtn[j] = path[j];
-	i = 0;
-	while (cmds[i] != '\0' && cmds[i] != ' ')
-		rtn[j++] = cmds[i++];
-	rtn[j] = '\0';
+	path = ft_split(split, ':');
+	free(split);
+	rtn = get_path_loop(cmd, path);
+	free_double_ptr(path);
 	return (rtn);
 }

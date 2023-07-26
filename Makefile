@@ -11,6 +11,11 @@ HEADER		=	./includes -I ./libft/includes
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 
 SRC			=	src/minishell.c \
+				src/parse/utils.c \
+				src/parse/utils2.c \
+				src/parse/utils3.c \
+				src/parse/utils4.c \
+				src/parse/utils5.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
 				src/parse/parse_quotes.c \
@@ -18,26 +23,31 @@ SRC			=	src/minishell.c \
 				src/cmd_handler/free.c \
 				src/cmd_handler/cmds_utils.c \
 				src/cmd_handler/cmds_utils2.c \
+				src/cmd_handler/cmds_utils3.c \
+				src/cmd_handler/cmds_utils4.c \
 				src/cmd_handler/split_cmds.c \
+				src/cmd_handler/split_cmds2.c \
 				src/execution/ft_exec.c \
+				src/execution/ft_exec_utils.c \
 				src/execution/ft_redirect.c \
 				src/execution/ft_input.c \
-				src/builtins/ft_echo.c \
 				src/builtins/ft_cd.c \
+				src/builtins/ft_pwd.c \
 				src/builtins/ft_env.c \
 				src/builtins/ft_exit.c \
+				src/builtins/ft_echo.c \
 				src/builtins/ft_unset.c \
-				src/builtins/ft_pwd.c \
 				src/builtins/ft_export.c \
+				src/builtins/error_msg.c \
 				src/builtins/check_builtins.c
 
 CC			=	cc
-FLAGS		=	-I${HEADER} -lreadline -L ./libft -lft -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		=	-I${HEADER} -Wall -Wextra -Werror -g #-fsanitize=address
 
 all:		$(LFT) obj $(NAME) 
 
 $(NAME):	$(OBJ)
-			@$(CC) -o $@ $^ $(FLAGS)
+			@$(CC) -o $@ $^ $(FLAGS) -lreadline -L ./libft -lft
 
 $(LFT):		
 			@@echo " [ .. ] | Compiling libft.."
@@ -52,7 +62,7 @@ obj/%.o:	src/%.c ./includes/minishell.h
 			@echo "$@ $(GREEN)created$(RESET)"
 
 valgrind:	all
-			valgrind --leak-check=full --show-leak-kinds=all --quiet ./minishell
+			valgrind --leak-check=full --show-leak-kinds=all ./minishell
 
 clean:
 			@rm -rf $(OBJ) obj

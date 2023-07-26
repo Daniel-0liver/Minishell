@@ -6,27 +6,11 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/06/25 16:51:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:02:30 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Function to know the numbers of some char in a string
-int	nbr_char(char	*str, char	c)
-{
-	int	i;
-
-	i = 0;
-	while (*str)
-	{
-		while (*str && *str != c)
-			str++;
-		str++;
-		i++;
-	}
-	return (i);
-}
 
 // Function to count the tokens
 int	count_tokens(char *str)
@@ -34,36 +18,24 @@ int	count_tokens(char *str)
 	int	i;
 
 	i = 0;
+	str += skip_whitespace(str);
 	while (*str)
 	{
-		if (*str == ' ' || *str == '\n' || *str == '\t')
-			str++;
-		else if (*str == '\'' || *str == '\"')
+		if (*str == '\'' || *str == '\"')
 		{
 			if (str[1] != *str)
 			{
 				str = handle_quote(str, *str);
 				i++;
 				if (*str == '\0')
-					return(i);
+					return (i);
 			}
 			else
 				str += 2;
 		}
-		else if ((*str == '|' || *str == '<' || *str == '>'))
-		{
-			if ((*str == '<' || *str == '>') && (str[1] == *str))
-				str += 2;
-			else
-				str++;
-			i++;
-		}
 		else
-		{
-			while (*str && *str != ' ' && *str != '\n' && *str != '\t' && *str != '|' && *str != '<' && *str != '>')
-				str++;
-			i++;
-		}
+			handle_special_characters(&str, &i);
+		str += skip_whitespace(str);
 	}
 	return (i);
 }
@@ -71,76 +43,51 @@ int	count_tokens(char *str)
 char	**alloc_tokens(char *str, int nbr_tokens)
 {
 	int		i;
-	int		size;
 	char	**tokens;
 
 	i = 0;
-	tokens = (char **)malloc((nbr_tokens + 1) * sizeof(char *));
-	if (!tokens)
-	{
-		perror("Error while malloc tokens.");
-		return (NULL);
-	}
+	tokens = init_tokens(nbr_tokens);
+	str += skip_whitespace(str);
 	while (*str)
 	{
-		if (*str == ' ' || *str == '\n' || *str == '\t')
-			str++;
-		else if (*str == '\'' || *str == '\"')
-		{
-			if (str[1] != *str)
-			{
-				size = nbr_inside_quotes(str, *str);
-				if (data()->warning == 1)
-				{
-					
-				}
-				else
-				{
-					tokens[i++] = ft_substr(++str, 0, size);
-					str += (size + 1);
-				}
-			}
-			else
-				str += 2;
-		}
+		data()->warning = 0;
+		if (*str == '\'' || *str == '\"')
+			str += token_inside_quote(str, &tokens[i]);
 		else if ((*str == '|' || *str == '>' || *str == '<'))
-		{
-			if (str[1] == *str && (*str == '>' || *str == '<'))
-			{
-				tokens[i++] = ft_substr(str, 0, 2);
-				str += 2;
-			}
-			else
-				tokens[i++] = ft_substr(str++, 0, 1);
-		}
+			str += token_special_char(str, &tokens[i], &i);
+		else if (*str == '$' && str[1] != ' ' && str[1] != '\t'
+			&& str[1] != '\n' && str[1] != '\'' && str[1] != '\"' && str[1])
+			str += token_space_dolar_sig(str, &tokens[i], nbr_tokens);
+		else if (*str && (*str == ' ' || *str == '\n' || *str == '\t'))
+			str += token_is_space(str, &i);
 		else
-		{
-			size = nbr_outside_quotes(str);
-			tokens[i++] = ft_substr(str, 0, (size + 1));
-			str += (size + 1);
-		}
+			str += token_other_chars(str, &tokens[i], &i);
+		nbr_tokens--;
 	}
-	tokens[i] = NULL;
 	return (tokens);
 }
 
 // Function to generate tokens from the str_cmd.
 int	get_tokens(void)
 {
-	int	nbr_tokens;
+	int	i;
 
-	while (*data()->str_cmd == ' ' || *data()->str_cmd == '\n' || *data()->str_cmd == '\t')
-		data()->str_cmd++;
-	if (*data()->str_cmd == '\0')
-		return(0);
+	i = 0;
+	while (data()->str_cmd[i] && (data()->str_cmd[i] == ' '
+			|| data()->str_cmd[i] == '\n' || data()->str_cmd[i] == '\t'))
+		i++;
+	if (data()->str_cmd[i] == '\0')
+		return (0);
 	if (check_quotes(data()->str_cmd) == 0)
 	{
 		perror("Error unclosed quotes");
 		return (0);
 	}
-	nbr_tokens = count_tokens(data()->str_cmd);
-	data()->tokens = alloc_tokens(data()->str_cmd, nbr_tokens);
+	(data()->nbr_tokens) = count_tokens(data()->str_cmd);
+	(data()->tokens) = alloc_tokens(data()->str_cmd, data()->nbr_tokens);
 	if (*data()->tokens == NULL)
 		return (0);
+	check_echo();
+	ft_unset(data()->env_p, "?");
 	return (1);
 }

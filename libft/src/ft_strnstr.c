@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 13:16:20 by dateixei          #+#    #+#             */
-/*   Updated: 2021/12/07 01:32:35 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:03:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 				k++;
 				if (!s2[++j])
 					return (((char *)s1 + i));
-			}			
+			}
 		}
 		i++;
 	}

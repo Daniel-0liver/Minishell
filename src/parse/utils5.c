@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 02:13:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 19:06:21 by dateixei         ###   ########.fr       */
+/*   Created: 2023/07/15 16:48:10 by dateixei          #+#    #+#             */
+/*   Updated: 2023/07/15 16:51:37 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-// The strlen() function calculates the length of the string pointed to by s, 
-// excluding the terminating null byte ('\0').
-
-size_t	ft_strlen(const char	*str)
+char	*handle_single_spc_quote(char *str)
 {
-	size_t	size;
+	char	*spc;
 
-	size = 0;
-	while (str && str[size])
-		size++;
-	return (size);
+	spc = ft_substr("\"", 0, 2);
+	if ((str[1] == '>' || str[1] == '<') && (str[2] == str[1]))
+	{
+		spc = strjoin_var(spc, str[1]);
+		return (strjoin_var(spc, str[2]));
+	}
+	else
+		return (strjoin_var(spc, str[1]));
 }
-
-// int main(void) {
-
-// 	char *str = {"abcde"};
-
-// 	printf("%d\n", strlen(str));
-// 	printf("%d\n", ft_strlen(str));
-
-// 	return 0;
-// }
