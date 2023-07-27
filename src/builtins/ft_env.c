@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:08 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 19:02:08 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:31:56 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_env(char **str)
 	}
 	else
 	{
-		close(data()->fd[0][1]);
+		swap_fd();
 		waitpid(pid, NULL, 0);
 	}
 }

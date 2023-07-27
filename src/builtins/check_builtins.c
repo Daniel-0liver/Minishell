@@ -33,6 +33,11 @@ int	is_builtins(char *cmd)
 
 void	call_builtins(char **cmd)
 {
+	int	tmp_curr;
+
+	tmp_curr = data()->curr_cmd + 1;
+	if (data()->cmds[tmp_curr] != NULL && is_spc(data()->cmds[tmp_curr][0]))
+		tmp_curr = fd_check(tmp_curr);
 	if (my_strcmp(cmd[0], "echo"))
 		ft_echo(cmd);
 	else if (my_strcmp(cmd[0], "cd"))
@@ -52,4 +57,5 @@ void	call_builtins(char **cmd)
 		ft_env(data()->env_p);
 	else if (my_strcmp(cmd[0], "exit"))
 		ft_exit(cmd);
+	data()->curr_cmd = tmp_curr;
 }

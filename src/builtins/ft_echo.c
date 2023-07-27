@@ -6,20 +6,37 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 19:02:49 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:30:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str && str[i] == '-')
+		i++;
+	else
+		return (0);
+	while (str && str[i] != '\0')
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	print_echo(char **str, int flag)
 {
 	int	i;
 
+	i = 1;
 	if (flag == 1)
 		i = 2;
-	else
-		i = 1;
 	while (str[i] != NULL)
 	{
 		printf("%s", str[i]);
@@ -51,7 +68,7 @@ void	ft_echo_beg(char **str, int flag)
 
 void	ft_echo(char **str)
 {
-	if (str[1] && my_strcmp(str[1], "-n") && str[2] != NULL)
+	if (str[1] && is_flag(str[1]) && str[2] != NULL)
 		ft_echo_beg(str, 1);
 	else if (str[1] != NULL)
 		ft_echo_beg(str, 0);

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:43 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/25 23:07:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:35:25 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long long int	ft_atoli(char *nptr)
 	return (ft_atoli_checker(nptr, i, sing));
 }
 
-void	ft_exit_exec(char **str)
+void	ft_exit(char **str)
 {
 	long long int	i;
 
@@ -79,14 +79,13 @@ void	ft_exit_exec(char **str)
 			error_msg("exit: ", str[1], ": numeric argument required", i);
 		}
 	}
-	free_exec();
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
 	exit(i);
 }
 
-void	ft_exit(char **str)
-{
-	(void) str;
-	data()->error = 2;
-}
+// void	ft_exit(char **str)
+// {
+// 	(void) str;
+// 	data()->error = 2;
+// }
