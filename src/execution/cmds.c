@@ -6,11 +6,25 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 00:11:49 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:49:20 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void    call_spc(void)
+{
+	if (my_strcmp(cmd, "|"))
+		return ;
+	else if (my_strcmp(cmd, ">"))
+		return ;
+	else if (my_strcmp(cmd, ">>"))
+		return ;
+	else if (my_strcmp(cmd, "<"))
+		return ;
+	else if (my_strcmp(cmd, "<<"))
+		return ;
+}
 
 void	execute_cmd(void)
 {
@@ -54,20 +68,20 @@ void	generate_fds(void)
 
 void	cmd_to_exec(void)
 {
-	char	*test[] = {"echo", "ola", NULL};
-	char	*test2[] = {"ls", "-ls", NULL};
-	data()->cmds = malloc(sizeof(char *) * 3);
+	char	*test[] = {"ls", "-la", NULL};
+	char	*test2[] = {"|", NULL};
+	char	*test3[] = {"grep", "Make", NULL};
+	data()->cmds = malloc(sizeof(char *) * 4);
 	data()->cmds[0] = test;
 	data()->cmds[1] = test2;
-	data()->cmds[2] = NULL;
+	data()->cmds[2] = test3;
+	data()->cmds[3] = NULL;
 	generate_fds();
 	data()->curr_cmd = 0;
 	while (data()->cmds && data()->cmds[data()->curr_cmd] != NULL)
 	{
 		if (is_builtins(data()->cmds[data()->curr_cmd][0]))
 			call_builtins(data()->cmds[data()->curr_cmd]);
-		else if (is_spc(data()->cmds[data()->curr_cmd][0]))
-			break ;
 		else
 			execute_cmd();
 		data()->curr_cmd++;
