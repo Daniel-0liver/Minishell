@@ -6,12 +6,12 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:32:19 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 17:04:39 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:16:54 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	ft_input(void)
 {
 	int	tmp_cmd;
@@ -30,7 +30,7 @@ void	ft_input(void)
 	if (data()->cmds[tmp_cmd] && is_builtins(data()->cmds[tmp_cmd][0]) \
 	&& !(is_builtins(data()->cmds[data()->curr_cmd - 1][0])) \
 	&& data()->error == 0)
-		builtins_error(NULL, NULL, "Broken pipe", 0);
+		error_msg(NULL, NULL, "Broken pipe", 0);
 	data()->curr_cmd = tmp_cmd;
 	unlink(TEMP_FILE);
 }
@@ -44,7 +44,7 @@ int	handle_here(char *exit)
 	fd = 0;
 	output = NULL;
 	str = readline("> ");
-	while (ft_strcpm(str, exit) == 0)
+	while (my_strcmp(str, exit) == 0)
 	{
 		output = strjoin_here(output, str);
 		str = readline("> ");
@@ -97,3 +97,5 @@ int	next_acton(int tmp_cmd)
 	}
 	return (tmp_cmd);
 }
+
+*/

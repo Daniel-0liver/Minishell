@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:40:09 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 17:44:40 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:55:14 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	ft_pwd(char **str)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
+		close(data()->fd[0]);
+		dup2(data()->fd[1], STDOUT_FILENO);
 		printf("%s\n", dir);
 		exit(0);
 	}
 	else
 	{
-		close(data()->fd[data()->curr_fd][1]);
+		close(data()->fd[1]);
 		waitpid(pid, NULL, 0);
 		data()->error = 0;
 	}

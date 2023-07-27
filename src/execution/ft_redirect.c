@@ -6,12 +6,13 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:54:51 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 16:56:37 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:16:37 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void	ft_red(void)
 {
 	int	tmp_cmd;
@@ -63,3 +64,5 @@ void	ft_red_end(void)
 	ft_exec_pipe_md();
 	data()->curr_cmd = tmp_cmd;
 }
+
+*/

@@ -6,34 +6,11 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:12:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:32:06 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:15:20 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_cmds(char ***cmds)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (cmds && cmds[i] != NULL)
-	{
-		j = 0;
-		while (cmds[i] && cmds[i][j] != NULL)
-		{
-			free(cmds[i][j]);
-			cmds[i][j] = NULL;
-			j++;
-		}
-		free(cmds[i]);
-		cmds[i] = NULL;
-		i++;
-	}
-	free(cmds);
-	cmds = NULL;
-}
 
 void	free_double_ptr(char **str)
 {
@@ -49,17 +26,46 @@ void	free_double_ptr(char **str)
 	str = NULL;
 }
 
-void	free_fds(int **fds)
+void	free_triple_ptr(char ***str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (fds && fds[i] != NULL)
+	while (str && str[i] != NULL)
 	{
-		free(fds[i]);
-		fds[i] = NULL;
+		j = 0;
+		while (str && str[i][j] != NULL)
+		{
+			free(str[i][j]);
+			j++;
+		}
+		free(str[i]);
 		i++;
 	}
-	free(fds);
-	fds = NULL;
+	free(str);
+	str = NULL;
+}
+
+void	free_all(void)
+{
+	// if (data()->fd && data()->fd != NULL)
+	// 	free_fds(data()->fd);
+	// if (data()->cmds && data()->cmds != NULL)
+	// 	free_cmds(data()->cmds);
+	if (data()->spc && data()->spc != NULL)
+	{
+		free(data()->spc);
+		data()->spc = NULL;
+	}
+	if (data()->tokens && data()->tokens != NULL)
+		free_double_ptr(data()->tokens);
+}
+
+void	free_exec(void)
+{
+	// if (data()->cmds && data()->cmds != NULL)
+	// 	free_cmds(data()->cmds);
+	if (data()->tokens && data()->tokens != NULL)
+		free_double_ptr(data()->tokens);
 }

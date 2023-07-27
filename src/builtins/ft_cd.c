@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:30:42 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:07:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	apply_cd(char *oldcd, char *newcd)
 
 	if (chdir(newcd) < 0)
 	{
-		builtins_error("cd: ", newcd, ": No such file or directory", 1);
+		error_msg("cd: ", newcd, ": No such file or directory", 1);
 		return ;
 	}
 	path = ft_strjoin("OLDPWD=", oldcd);
@@ -63,12 +63,12 @@ void	cd_to(char *str)
 
 	path = NULL;
 	getcwd(dir, (sizeof(char) * 1024));
-	if (!str || str == NULL || ft_strcpm(str, "~"))
+	if (!str || str == NULL || my_strcmp(str, "~"))
 	{
 		path = ft_getenv(data()->env_p, "HOME", 4);
 		apply_cd(dir, path);
 	}
-	else if (ft_strcpm(str, "-"))
+	else if (my_strcmp(str, "-"))
 	{
 		path = ft_getenv(data()->env_p, "OLDPWD", 6);
 		printf("%s\n", path);
@@ -103,7 +103,7 @@ void	ft_cd(char **str)
 	if (size > 2)
 	{
 		data()->error = 1;
-		builtins_error("cd: ", NULL, "too many arguments", 1);
+		error_msg("cd: ", NULL, "too many arguments", 1);
 	}
 	else
 		cd_to(str[1]);

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 16:48:34 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:17:19 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ static void	inthandler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	alloc_env(char **env)
+{
+	int	j;
+
+	j = 0;
+	while (env && env[j] != NULL)
+		j++;
+	data()->env_p = malloc(sizeof(char *) * (j + 1));
+	j = 0;
+	while (env && env[j] != NULL)
+	{
+		data()->env_p[j] = ft_strdup(env[j]);
+		j++;
+	}
+	data()->env_p[j] = NULL;
 }
 
 int	main(int argc, char *argv[], char **envp)

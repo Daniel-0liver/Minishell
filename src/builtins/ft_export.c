@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 11:51:26 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:55:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	export_declare(void)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
+		close(data()->fd[0]);
+		dup2(data()->fd[1], STDOUT_FILENO);
 		export_declare_exec(data()->env_p);
 		exit(0);
 	}
 	else
 	{
-		close(data()->fd[data()->curr_fd][1]);
+		close(data()->fd[1]);
 		waitpid(pid, NULL, 0);
 	}
 }
@@ -79,7 +79,7 @@ int	check_export(char **str, int i, int j)
 			if ((i == 0 && (str[j][i] == '=' \
 			|| ft_isdigit(str[j][i]))) || str[j][i] == '-')
 			{
-				builtins_error("export: `", str[j], \
+				error_msg("export: `", str[j], \
 				"': not a valid identifier", 1);
 				return (0);
 			}

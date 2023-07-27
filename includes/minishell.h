@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 17:01:58 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:53:42 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_data
 	char		*str_cmd;
 	char		**env_p;
 	char		***cmds;
-	int			**fd;
+	int			*fd;
 	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
@@ -118,9 +118,8 @@ void			check_spc(void);
 void			cmd_to_exec(void);
 
 // free
-void			free_cmds(char ***cmds);
 void			free_double_ptr(char **str);
-void			free_fds(int **fds);
+void			free_triple_ptr(char ***str);
 
 // ft_exec
 void			exec_begin(void);
@@ -147,18 +146,13 @@ int				next_acton(int tmp_cmd);
 
 // cmds_utils
 int				is_spc(char *cmd);
-int				ft_strcpm(char *s1, char *s2);
+int				my_strcmp(char *s1, char *s2);
 void			generate_fds(void);
-char			***get_cmds(void);
-char			*ft_strdup(const char *src);
 
 // cmds_utils2
 char			*ft_getenv(char **env, char *str, int size);
 void			free_all(void);
 void			free_exec(void);
-int				is_redirect(char *cmd);
-int				is_exec(char *cmd);
-int				is_exec(char *cmd);
 
 // cmd_utils3
 char			**get_exec_cmd(int i);
@@ -181,7 +175,7 @@ void			call_builtins(char **cmd);
 void			call_builtins_exec(char **cmd);
 
 // error_msg
-void			builtins_error(char *option, char *var_option, \
+void			error_msg(char *option, char *var_option, \
 				char *msg, int err);
 void			error_exec(void);
 void			redirection_error(int tmp_cmd);

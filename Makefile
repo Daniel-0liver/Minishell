@@ -19,16 +19,12 @@ SRC			=	src/minishell.c \
 				src/parse/parse_init.c \
 				src/parse/parse_utils.c \
 				src/parse/parse_quotes.c \
-				src/cmd_handler/cmds.c \
-				src/cmd_handler/free.c \
-				src/cmd_handler/cmds_utils.c \
-				src/cmd_handler/cmds_utils2.c \
-				src/cmd_handler/cmds_utils3.c \
-				src/cmd_handler/cmds_utils4.c \
-				src/cmd_handler/split_cmds.c \
-				src/cmd_handler/split_cmds2.c \
-				src/execution/ft_exec.c \
+				src/execution/cmds.c \
+				src/execution/free.c \
+				src/execution/utils.c \
+				src/execution/get_path.c \
 				src/execution/ft_exec_utils.c \
+				src/execution/ft_exec.c \
 				src/execution/ft_redirect.c \
 				src/execution/ft_input.c \
 				src/builtins/ft_cd.c \

@@ -6,12 +6,13 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:10:00 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 16:49:17 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:54:59 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void	exec_begin(void)
 {
 	close(data()->fd[data()->curr_fd][0]);
@@ -39,7 +40,6 @@ void	exec_md(void)
 		error_exec();
 	}
 }
-
 void	ft_exec(void)
 {
 	int	pid;
@@ -118,3 +118,5 @@ void	ft_exec_pipe_end(void)
 			data()->error = 0;
 	}
 }
+
+*/

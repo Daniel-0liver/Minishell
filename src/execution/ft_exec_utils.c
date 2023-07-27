@@ -6,12 +6,13 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:35:46 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 16:49:07 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:16:24 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void	exec_end(void)
 {
 	if (data()->fd[data()->curr_fd][0] < 0)
@@ -47,7 +48,7 @@ int	ft_input_check(int tmp_cmd)
 	else
 		data()->fd[data()->curr_fd][0] = handle_here(data()->cmds[tmp_cmd][0]);
 	if (data()->fd[data()->curr_fd][0] < 0)
-		builtins_error(NULL, data()->cmds[tmp_cmd][0], \
+		error_msg(NULL, data()->cmds[tmp_cmd][0], \
 		": No such file or directory", 1);
 	return (tmp_cmd);
 }
@@ -102,3 +103,5 @@ int	ft_red_loop_checker(int tmp_cmd)
 	}
 	return (tmp_cmd);
 }
+
+*/
