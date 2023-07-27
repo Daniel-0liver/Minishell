@@ -23,10 +23,8 @@ SRC			=	src/minishell.c \
 				src/execution/free.c \
 				src/execution/utils.c \
 				src/execution/get_path.c \
-				src/execution/ft_exec_utils.c \
-				src/execution/ft_exec.c \
-				src/execution/ft_redirect.c \
-				src/execution/ft_input.c \
+				src/execution/fd_checker.c \
+				src/execution/fd_heredoc.c \
 				src/builtins/ft_cd.c \
 				src/builtins/ft_pwd.c \
 				src/builtins/ft_env.c \

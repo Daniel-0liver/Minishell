@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/26 22:53:42 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:15:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_data
 	char		*str_cmd;
 	char		**env_p;
 	char		***cmds;
-	int			*fd;
+	int			fd[2][2];
 	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
@@ -49,6 +49,8 @@ typedef struct s_data
 	char		*str_tmp;
 	int			error;
 }			t_data;
+
+// ---------- PARSE ------------
 
 //Data init
 t_data			*data(void);
@@ -98,88 +100,51 @@ int				token_other_chars(char *str, char **token, int *i);
 // Utils 5
 char			*handle_single_spc_quote(char *str);
 
-//split_cmds
-void			ft_spc(int size);
-char			**ft_cmd(void);
-int				ft_matriz_size(void);
-int				ft_ptrlen(int v);
-char			*get_path(char *cmd);
-
-//split_cmds2
-char			*get_path_loop(char *cmd, char **path);
-char			*add_path(char *path, int i, char *cmds);
-char			*check_path(char *cmd);
+// ---------- EXECUTION ------------
 
 // cmds
-void			exec_type_end(void);
-void			exec_type_md(void);
-void			exec_type(void);
-void			check_spc(void);
+void			swap_fd(void);
+void			generate_fds(void);
+void			execute_cmd(void);
 void			cmd_to_exec(void);
+
+// fd_checker
+void			fd_input(int tmp_curr);
+void			fd_red_append(int tmp_curr);
+void			fd_redirect(int tmp_curr);
+void			fd_pipe(void);
+int				fd_check(int tmp_curr);
+
+// fd_heredoc
+int				handle_here(char *exit);
+void			fd_heredoc(int tmp_curr);
 
 // free
 void			free_double_ptr(char **str);
 void			free_triple_ptr(char ***str);
 
-// ft_exec
-void			exec_begin(void);
-void			exec_md(void);
-void			ft_exec(void);
-void			ft_exec_pipe_md(void);
-void			ft_exec_pipe_end(void);
+// get_path
+char			*ft_getenv(char **env, char *str, int size);
+char			*get_path_loop(char *cmd, char **path);
+char			*add_path(char *path, int i, char *cmds);
+char			*get_path(char *cmd);
+char			*check_path(char *cmd);
 
-// ft_exec_utils
-void			exec_end(void);
-int				ft_input_check(int tmp_cmd);
-int				ft_red_input_check(int tmp_cmd);
-int				ft_red_loop_checker(int tmp_cmd);
-
-// ft_redirect
-void			ft_red(void);
-void			ft_red_end(void);
-
-// ft_input
-void			ft_input(void);
-int				handle_here(char *exit);
-void			ft_red_input(int tmp_cmd);
-int				next_acton(int tmp_cmd);
-
-// cmds_utils
+// utils
 int				is_spc(char *cmd);
 int				my_strcmp(char *s1, char *s2);
-void			generate_fds(void);
 
-// cmds_utils2
-char			*ft_getenv(char **env, char *str, int size);
-void			free_all(void);
-void			free_exec(void);
-
-// cmd_utils3
-char			**get_exec_cmd(int i);
-char			**get_red_cmd(int i);
-char			**check_input(void);
-char			**check_cmd_exec(void);
-char			**check_red_cmd(void);
-
-// cmd_utils4
-int				is_valid_loop(void);
-int				is_valid(void);
-void			cmd_exec(int pid, int status);
-void			alloc_env(char **env);
-int				ft_cmd_loop(void);
+// ---------- BUILTINS ------------
 
 // check_builtins
 int				is_builtins(char *cmd);
-int				is_echo_pipes(int tmp_cmd);
 void			call_builtins(char **cmd);
-void			call_builtins_exec(char **cmd);
 
 // error_msg
 void			error_msg(char *option, char *var_option, \
 				char *msg, int err);
+void			check_permission(void);
 void			error_exec(void);
-void			redirection_error(int tmp_cmd);
-void			input_error(int tmp_cmd);
 
 //  ft_cd
 void			add_cd_to_env(char *path);
@@ -189,11 +154,9 @@ int				ft_check_cd(char **str);
 void			ft_cd(char **str);
 
 // ft_echo
-int				is_spc_char(char *str);
 void			print_echo(char **str, int flag);
 void			ft_echo_beg(char **str, int flag);
 void			ft_echo(char **str);
-void			ft_echo_exec(char **str);
 
 // ft_env
 void			ft_env(char **str);

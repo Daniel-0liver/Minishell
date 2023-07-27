@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/25 23:07:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:55:08 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	apply_cd(char *oldcd, char *newcd)
 	{
 		error_msg("cd: ", newcd, ": No such file or directory", 1);
 		return ;
+	}
+	if (!(access(newcd, W_OK | R_OK) == 0))
+	{
+		if (errno == EACCES)
+		{
+			error_msg("cd: ", newcd, \
+			": Permission denied", 1);
+			return ;
+		}
 	}
 	path = ft_strjoin("OLDPWD=", oldcd);
 	check_export(&path, 0, 0);
