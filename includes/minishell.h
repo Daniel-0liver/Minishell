@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 22:35:54 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:14:09 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_data
 	char		*str_tmp;
 	int			error;
 }			t_data;
+
+
+// Minishell.c
+t_data			*data(void);
+static void		inthandler(int sig);
+void			alloc_env(char **env);
+int				main(int argc, char *argv[], char **envp);
 
 // ---------- PARSE ------------
 

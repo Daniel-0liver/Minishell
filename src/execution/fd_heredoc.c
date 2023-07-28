@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 18:31:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:14:43 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ int	handle_here(char *exit)
 	str = readline("> ");
 	while (my_strcmp(str, exit) == 0)
 	{
+		signal(SIGINT, inthandler);
+		signal(SIGQUIT, SIG_IGN);
 		output = strjoin_here(output, str);
 		str = readline("> ");
+		if (str == NULL)
+			break ;
 	}
 	free(str);
 	fd = open(TEMP_FILE, O_WRONLY | O_CREAT | O_ASYNC | O_TRUNC, 0644);
