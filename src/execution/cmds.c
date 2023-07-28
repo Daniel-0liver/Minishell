@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 22:20:12 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:12:56 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	execute_cmd(void)
 
 void	cmd_to_exec(void)
 {
-	char	*test[] = {"echo", "-nnnnnnnnnnnn", "ola", NULL};
-	// char	*test2[] = {"cat", NULL};
+	char	*test[] = {"<", "input", NULL};
+	char	*test2[] = {"cat", NULL};
 	char	*test3[] = {"|", NULL};
 	char	*test4[] = {"grep", "Make", NULL};
 	char	*test5[] = {">>", "output2", NULL};
