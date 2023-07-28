@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:56:38 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 18:22:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/28 23:56:15 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	fd_input(int tmp_curr)
 			return ;
 		}
 	}
-	data()->fd[0][0] = open(data()->cmds[tmp_curr][1], O_RDONLY);
+	(data()->fd[0][0]) = open(data()->cmds[tmp_curr][1], O_RDONLY);
 	if (data()->fd[0][1] < 0)
 		error_msg(NULL, data()->cmds[tmp_curr][1], \
 		": No such file or directory", 1);
@@ -42,7 +42,8 @@ void	fd_red_append(int tmp_curr)
 			return ;
 		}
 	}
-	data()->fd[0][1] = open(data()->cmds[tmp_curr][1], O_RDWR | O_CREAT | O_APPEND, 0664);
+	(data()->fd[0][1]) = open(data()->cmds[tmp_curr][1], \
+	O_RDWR | O_CREAT | O_APPEND, 0664);
 	if (data()->fd[0][1] < 0)
 		error_msg("Error to create/read the redirected file named: ", \
 		data()->cmds[tmp_curr][1], NULL, 1);
@@ -60,7 +61,8 @@ void	fd_redirect(int tmp_curr)
 			return ;
 		}
 	}
-	data()->fd[0][1] = open(data()->cmds[tmp_curr][1], O_RDWR | O_CREAT | O_TRUNC, 0664);
+	(data()->fd[0][1]) = open(data()->cmds[tmp_curr][1], \
+	O_RDWR | O_CREAT | O_TRUNC, 0664);
 	if (data()->fd[0][1] < 0)
 		error_msg("Error to create/read the redirected file named: ", \
 		data()->cmds[tmp_curr][1], NULL, 1);
@@ -69,7 +71,7 @@ void	fd_redirect(int tmp_curr)
 void	fd_pipe(void)
 {
 	int	new_fd[2];
-	
+
 	pipe(new_fd);
 	if (data()->fd[1][0] == 0)
 		data()->fd[1][0] = new_fd[0];
@@ -93,7 +95,8 @@ int	fd_check(int tmp_curr)
 		fd_input(tmp_curr);
 	else if (my_strcmp(data()->cmds[tmp_curr][0], "<<"))
 		fd_heredoc(tmp_curr);
-	if (data()->cmds[tmp_curr + 1] != NULL && is_spc(data()->cmds[tmp_curr + 1][0]))
+	if (data()->cmds[tmp_curr + 1] != NULL \
+	&& is_spc(data()->cmds[tmp_curr + 1][0]))
 	{
 		tmp_curr = fd_check(tmp_curr + 1);
 		tmp_curr--;

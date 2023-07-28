@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/28 15:14:09 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/28 23:58:55 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_data
 	char		*str_tmp;
 	int			error;
 }			t_data;
-
 
 // Minishell.c
 t_data			*data(void);
@@ -112,6 +111,7 @@ char			*handle_single_spc_quote(char *str);
 // cmds
 void			swap_fd(void);
 void			generate_fds(void);
+void			child_exec(void);
 void			execute_cmd(void);
 void			cmd_to_exec(void);
 
