@@ -6,44 +6,129 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:15:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/28 23:27:37 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/29 23:04:08 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cmd_size(char ***str)
+int	ft_array_size(char **str)
 {
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char	***join_cmd(char ***cmd, char **str)
+int	ft_matrix_size(char ***str)
 {
-	char	***cmd_tmp;
+	int	i;
 
-	cmd_tmp = malloc((cmd_size(data()->cmds) + 1) * sizeof(char **));
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
 }
 
-char	***handle_input_output_signals(char	**str, int *i)
+void free_matrix(char ***cmd)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (cmd[i]) 
+	{
+		j = 0;
+		while (cmd[i][j])
+		{
+			free(cmd[i][j]);
+			j++;
+		}
+		free(cmd[i]);
+		cmd[i] = NULL;
+		i++;
+	}
+	free(cmd);
+	cmd = NULL;
+}
+
+char	**join_array(char **str1, char *str2)
+{
+	int		i;
+	char	**str_out;
+
+	i = 0;
+	str_out = (char **)malloc((ft_array_size(str1) + 2) * sizeof(char *));
+	while (str1[i])
+	{
+		str_out[i] = ft_strdup(str1[i]);
+		i++; 
+	}
+	str_out[i++] = ft_strdup(str2);
+	str_out[i] = NULL;
+	return (str_out);
+}
+
+char	***join_matrix(char ***cmd, char **str)
+{
+	int		i;
+	int 	j;
+	int		cmd_size;
+	char	***cmd_out;
+
+	cmd_size = ft_matrix_size(cmd) + 2;
+	cmd_out = (char ***)malloc(cmd_size * sizeof(char **));
+	i = 0;
+	j = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		cmd_out[i] = (char **)malloc((ft_array_size(cmd[i]) + 1) * sizeof(char *));
+		while (cmd[i][j])
+		{
+			cmd_out[i][j] = ft_strdup(cmd[i][j]);
+			j++;
+		}
+		cmd_out[i][j] = NULL;
+		i++;
+	}
+	j = 0;
+	cmd_out[i] = (char **)malloc((ft_array_size(str) + 1) * sizeof(char *));
+	while (str[j])
+	{
+		cmd_out[i][j] = ft_strdup(str[j]);
+		j++;
+	}
+	cmd_out[i][j] = NULL;
+	cmd_out[++i] = NULL;
+	if (cmd != NULL)
+		free_matrix(cmd);
+	return (cmd_out);
+}
+
+void	handle_input_output_signals(char **str, int *i)
 {
 	char	**str_tmp;
-	char	***cmd_tmp;
 
-	if (str[*i + 1])
+	str_tmp = malloc(sizeof(char *));
+	str_tmp[0] = NULL;
+	if (str[*i + 1] == NULL)
 	{
-		*string *string
-		str_tmp = ft_strjoin(str[*i], str[*i + 1]);
-		cmd_tmp = join_cmd(data()->cmds, str_tmp);
-		(*i) += 2;
+		(*i)++;
 	}
 	else
 	{
-		
+		str_tmp = join_array(str_tmp, str[*i]);
+		str_tmp = join_array(str_tmp, str[*i + 1]);
+		data()->cmds = join_matrix(data()->cmds, str_tmp);
+		free_double_ptr(str_tmp);
+		(*i) += 2;
 	}
 }
 
@@ -55,18 +140,49 @@ char	***handle_input_output_signals(char	**str, int *i)
 void	ft_get_cmds(char **str)
 {
 	int	i;
-	int	j;
+	char	**str_tmp;
 
 	i = 0;
-	j = 0;
-	data()->cmds = (char***)malloc(sizeof(char***));
+	data()->cmds = malloc(sizeof(char **));
 	data()->cmds[0] = NULL;
 	while (str[i])
 	{
+		str_tmp = malloc(sizeof(char *));
+		str_tmp[0] = NULL;
 		if (ft_strncmp(str[i], ">", 2) == 0 
 			|| ft_strncmp(str[i], "<", 2) == 0
 			|| ft_strncmp(str[i], ">>", 3) == 0
 			|| ft_strncmp(str[i], "<<", 3) == 0)
-		data()->cmds = handle_input_output_signals(str, &i);
+			handle_input_output_signals(str, &i);
+		else if (ft_strncmp(str[i], "|", 2) == 0)
+		{
+			str_tmp = join_array(str_tmp, str[i]);
+			data()->cmds = join_matrix(data()->cmds, str_tmp);
+			i++;
+		}
+		else
+		{
+			while (str[i]
+			&& ft_strncmp(str[i], ">", 2) != 0 
+			&& ft_strncmp(str[i], "<", 2) != 0
+			&& ft_strncmp(str[i], ">>", 3) != 0
+			&& ft_strncmp(str[i], "<<", 3) != 0
+			&& ft_strncmp(str[i], "|", 2) != 0)
+			{
+				str_tmp = join_array(str_tmp, str[i]);
+				i++;
+			}
+			data()->cmds = join_matrix(data()->cmds, str_tmp);
+		}
 	}
 }
+// ls > file -a -b | grep Makefile < filename
+// ls > file -a -b >file2 -c -d
+// ({ls}{-la}{-a}{-b}[-c][-d])
+// {>}{file}{null}
+// {>}{file2}{null}
+// {null}
+
+// > FILE
+// cat file 
+// ls -l -a

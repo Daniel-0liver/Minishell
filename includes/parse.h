@@ -6,13 +6,12 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 21:42:43 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 23:03:41 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/29 20:53:28 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
-
 
 // Parse_utils
 int				get_tokens(void);
@@ -61,5 +60,6 @@ char			*handle_single_spc_quote(char *str);
 
 // ft_get_cmds
 void			ft_get_cmds(char **str);
+void 			free_matrix(char ***cmd);
 
 #endif

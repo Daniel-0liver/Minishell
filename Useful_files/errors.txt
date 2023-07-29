@@ -7,7 +7,7 @@ Matriz:
 
 comando: ls > output -la
 Matriz:
-{"ls", "-la"};
+{"ls", "-la" "-l'};
 {">", "output"}
 
 comando: < ex cat
