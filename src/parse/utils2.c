@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 19:02:15 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:30:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	handle_special_characters(char **str, int *count)
 		if (**str == '\0')
 			(*count)++;
 		while (**str && **str != ' ' && **str != '\n' && **str != '$'
-			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>')
+			&& **str != '\t' && **str != '|' && **str != '<' && **str != '>'
+			&& **str != '\'' && **str != '\"')
 			(*str)++;
 		if (data()->warning == -1)
 			return ;

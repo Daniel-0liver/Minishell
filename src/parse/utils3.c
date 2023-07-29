@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 19:01:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:26:03 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	handle_dollar_sign(char *str)
 	str++;
 	handle_env(str);
 	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t'
-		&& str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != '$')
+		&& str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != '$'
+		&& str[i] != '\'' && str[i] != '\"')
 	{
 		i++;
 		if (str[i - 1] == '?')

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/26 22:01:36 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:44:51 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/readline.h>//	ReadLine
 # include <readline/history.h>//	History
 # include "../libft/include/libft.h"
+# include "parse.h"
 # define TRUE 1
 # define FALSE 0
 # define GREEN "\033[0;32m"
@@ -52,51 +53,6 @@ typedef struct s_data
 
 //Data init
 t_data			*data(void);
-
-// Parse_utils
-int				get_tokens(void);
-int				nbr_char(char *str, char c);
-char			**alloc_tokens(char *str, int nbr_tokens);
-void			handle_special_characters(char **str, int *count);
-
-// Parse_init
-void			parse_init(void);
-char			*my_getenv(char *str);
-
-// Parse_quotes
-int				check_quotes(char *str);
-int				nbr_outside_quotes(char *str);
-int				nbr_inside_quotes(char *str, char c);
-char			*check_envp(char	*str);
-char			*handle_quote(char	*str, char c);
-
-// Utils
-char			*env_var(char *str);
-void			handle_error_var(void);
-void			handle_shlvl(char c);
-char			*strjoin_var(char *s1, char s2);
-char			*strjoin_here(char *s1, char *s2);
-char			*strjoin_null(char *s1, char *s2);
-
-// Utils 2
-void			handle_env(char *str);
-int				skip_whitespace(char *str);
-void			skip_non_whitespace_and_dolar_sign(char **str);
-
-// Utils 3
-int				handle_dollar_sign(char *str);
-void			check_echo(void);
-int				token_is_space(char *str, int *i);
-
-// Utils 4
-char			**init_tokens(int nbr_tokens);
-int				token_inside_quote(char	*str, char **tokens);
-int				token_special_char(char *str, char **token, int *i);
-int				token_space_dolar_sig(char *str, char **token, int nbr_tokens);
-int				token_other_chars(char *str, char **token, int *i);
-
-// Utils 5
-char			*handle_single_spc_quote(char *str);
 
 //split_cmds
 void			ft_spc(int size);
