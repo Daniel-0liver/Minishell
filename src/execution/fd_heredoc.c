@@ -6,11 +6,21 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/28 23:59:17 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:04:41 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	inthandler_doc(int sig)
+{
+	(void) sig;
+	data()->error = EOWNERDEAD;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 int	handle_here(char *exit)
 {
@@ -23,7 +33,7 @@ int	handle_here(char *exit)
 	str = readline("> ");
 	while (my_strcmp(str, exit) == 0)
 	{
-		signal(SIGINT, inthandler);
+		signal(SIGINT, inthandler_doc);
 		signal(SIGQUIT, SIG_IGN);
 		output = strjoin_here(output, str);
 		str = readline("> ");

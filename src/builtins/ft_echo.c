@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 22:30:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:38:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	print_echo(char **str, int flag)
 		i = 2;
 	while (str[i] != NULL)
 	{
+		if (str[i + 1] == NULL && str[i][ft_strlen(str[i]) - 1] == ' ')
+			str[i][ft_strlen(str[i]) - 1] = '\0';
 		printf("%s", str[i]);
 		i++;
 	}
@@ -49,10 +51,13 @@ void	print_echo(char **str, int flag)
 void	ft_echo_beg(char **str, int flag)
 {
 	int	pid;
+	int	status;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
+			exit_child();
 		dup2(data()->fd[0][1], STDOUT_FILENO);
 		print_echo(str, flag);
 		swap_fd();
@@ -61,8 +66,10 @@ void	ft_echo_beg(char **str, int flag)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
-		swap_fd();
+		waitpid(pid, &status, 0);
+		data()->error = 0;
+		if (status > 0)
+			data()->error = status / 256;
 	}
 }
 
@@ -72,5 +79,6 @@ void	ft_echo(char **str)
 		ft_echo_beg(str, 1);
 	else if (str[1] != NULL)
 		ft_echo_beg(str, 0);
-	data()->error = 0;
+	else if (data()->cmds[data()->curr_cmd + 1] == NULL)
+		printf("\n");
 }

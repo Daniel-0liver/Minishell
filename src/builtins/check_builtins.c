@@ -45,12 +45,7 @@ void	call_builtins(char **cmd)
 	else if (my_strcmp(cmd[0], "pwd"))
 		ft_pwd(cmd);
 	else if (my_strcmp(cmd[0], "export"))
-	{
-		if (data()->cmds[data()->curr_cmd][1] != NULL)
-			ft_export();
-		else
-			export_declare();
-	}
+		ft_export();
 	else if (my_strcmp(cmd[0], "unset"))
 		ft_unset(data()->env_p, data()->cmds[data()->curr_cmd][1]);
 	else if (my_strcmp(cmd[0], "env"))
@@ -58,4 +53,5 @@ void	call_builtins(char **cmd)
 	else if (my_strcmp(cmd[0], "exit"))
 		ft_exit(cmd);
 	data()->curr_cmd = tmp_curr;
+	swap_fd();
 }

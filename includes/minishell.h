@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/28 23:58:55 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:59:42 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_data
 	char		**env_p;
 	char		***cmds;
 	int			fd[2][2];
-	int			*spc;
 	int			curr_cmd;
 	int			curr_fd;
 	int			count;
@@ -49,12 +48,6 @@ typedef struct s_data
 	char		*str_tmp;
 	int			error;
 }			t_data;
-
-// Minishell.c
-t_data			*data(void);
-static void		inthandler(int sig);
-void			alloc_env(char **env);
-int				main(int argc, char *argv[], char **envp);
 
 // ---------- PARSE ------------
 
@@ -141,6 +134,17 @@ char			*check_path(char *cmd);
 int				is_spc(char *cmd);
 int				my_strcmp(char *s1, char *s2);
 
+// generate_cmd
+int				ft_cmdlen(void);
+char			**spc_cmd(int i, int j, int size);
+char			**get_cmd(int i, int j, int size);
+char			***generate_cmd(void);
+
+// generate_cmd2
+int				ft_ptrlen(char ***mtz);
+char			***my_realloc(char ***cmds);
+void			free_token(int i);
+
 // ---------- BUILTINS ------------
 
 // check_builtins
@@ -152,6 +156,7 @@ void			error_msg(char *option, char *var_option, \
 				char *msg, int err);
 void			check_permission(void);
 void			error_exec(void);
+void			exit_child(void);
 
 //  ft_cd
 void			add_cd_to_env(char *path);
@@ -171,6 +176,7 @@ void			ft_env(char **str);
 void			ft_env_exec(char **str);
 
 // ft_exit
+int				ft_exit_err(void);
 long long int	ft_atoli_checker(char *nptr, int i, int sing);
 long long int	ft_atoli(char *nptr);
 void			ft_exit(char **str);

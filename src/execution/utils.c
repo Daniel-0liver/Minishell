@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 22:21:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/28 01:47:24 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:38:24 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ int	my_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
-	if (s1 || s2)
-		return (0);
 	while (s1 && s2 && s1[i] != '\0' && s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])
 			return (0);
 		i++;
 	}
-	if (s1[i] != s2[i])
+	if (s1 && s2 && s1[i] != s2[i])
 		return (0);
 	return (1);
 }

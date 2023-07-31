@@ -25,6 +25,8 @@ SRC			=	src/minishell.c \
 				src/execution/get_path.c \
 				src/execution/fd_checker.c \
 				src/execution/fd_heredoc.c \
+				src/execution/generate_cmd.c \
+				src/execution/generate_cmd2.c \
 				src/builtins/ft_cd.c \
 				src/builtins/ft_pwd.c \
 				src/builtins/ft_env.c \

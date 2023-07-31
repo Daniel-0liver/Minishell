@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 19:03:17 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:40:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ void	export_declare_exec(char **str)
 void	export_declare(void)
 {
 	int	pid;
+	int	status;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
+			exit_child();
 		dup2(data()->fd[0][1], STDOUT_FILENO);
 		export_declare_exec(data()->env_p);
 		swap_fd();
@@ -49,8 +52,11 @@ void	export_declare(void)
 	}
 	else
 	{
-		swap_fd();
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (status > 0)
+			data()->error = status / 256;
+		else
+			data()->error = 0;
 	}
 }
 
@@ -102,8 +108,11 @@ void	ft_export(void)
 	int		new;
 	char	**new_str;
 
+	if (data()->cmds[data()->curr_cmd][1] == NULL)
+		export_declare();
 	new = check_export(data()->cmds[data()->curr_cmd], 0, 0);
-	if (new < 1 || (data()->spc && data()->spc[data()->curr_cmd] != -1))
+	if (new < 1 || data()->fd[0][0] != STDIN_FILENO \
+	|| data()->fd[0][1] != STDOUT_FILENO)
 		return ;
 	j = 0;
 	while (data()->env_p && data()->env_p[j] != NULL)

@@ -6,11 +6,21 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:43 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 22:35:25 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:58:02 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_exit_err(void)
+{
+	if (data()->fd[0][0] != 0 || data()->fd[0][1] != 1)
+	{
+		data()->error = 2;
+		return (1);
+	}
+	return (0);
+}
 
 long long int	ft_atoli_checker(char *nptr, int i, int sing)
 {
@@ -63,6 +73,8 @@ void	ft_exit(char **str)
 	long long int	i;
 
 	i = 0;
+	if (ft_exit_err())
+		return ;
 	printf("exit\n");
 	if (str[1] != NULL && str[2] != NULL)
 	{
@@ -83,9 +95,3 @@ void	ft_exit(char **str)
 	free_double_ptr(data()->env_p);
 	exit(i);
 }
-
-// void	ft_exit(char **str)
-// {
-// 	(void) str;
-// 	data()->error = 2;
-// }

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:35:28 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/27 22:21:31 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:38:45 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	check_permission(void)
 	{
 		error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 		": Permission denied", 1);
-		// free_all();
+		free_triple_ptr(data()->cmds);
 		exit(126);
 	}
 	else
 		error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 		": No such file or directory", 127);
-	// free_all();
+	free_triple_ptr(data()->cmds);
 	exit(127);
 }
 
@@ -57,7 +57,7 @@ void	error_exec(void)
 			{
 				error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 				": Is a directory", 126);
-				// free_all();
+				free_triple_ptr(data()->cmds);
 				exit(126);
 			}
 		}
@@ -65,6 +65,13 @@ void	error_exec(void)
 	}
 	error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 	": command not found", 127);
-	// free_all();
+	free_triple_ptr(data()->cmds);
 	exit(127);
+}
+
+void	exit_child(void)
+{
+	swap_fd();
+	swap_fd();
+	exit(1);
 }
