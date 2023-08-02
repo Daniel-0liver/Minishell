@@ -1,6 +1,6 @@
 $"PWD" || $'PWD' //Any val
 here_doc signals - OK
-echo -nnnnnnnnnnnn case - OK
+echo -nnnnnnnnnnnn case - OK (receiving -nnn with white space)
 export ascending order
 expansions leaks
 		Direct leak of 35 byte(s) in 1 object(s) allocated from:
@@ -15,25 +15,25 @@ expansions leaks
 		8 0x4cd0d1 in parse_init /nfs/homes/dateixei/minishell_eval/src/parse/parse_init.c:19:6
 		9 0x4c8891 in main /nfs/homes/dateixei/minishell_eval/src/minishell.c:49:3
 		10 0x7f156dc4c082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
-if HOME/OLD_PWD IS NOT SET ON CD SHOULD PRINT ERRRO ABOUT IT
-< a | ls OVERFL - OK?
-cat << EOF | pwd - OK?
+if HOME/OLD_PWD IS NOT SET ON CD SHOULD PRINT ERRRO ABOUT IT - OK
+< a | ls OVERFL - OK
+cat << EOF | pwd - OK
 
 
 - SIGINT should stop reading into here_doc & move on to the next command prompt - OK
-- SIGINT while running a blocking command should not display the prompt twice - CHECK
-- SIGQUIT should quit & dump the core while running a blocking command - CHECK
-- commands with a pipe as their last token are segfaulting - OK?
-- $PWD should reset if not present in env provide by parent shell - CHECK
-- bash resets $SHLVL to 1 when it goes over 999
-- check for file and folder permissions when using cd - OK?
+- SIGINT while running a blocking command should not display the prompt twice - OK
+- SIGQUIT should quit & dump the core while running a blocking command - CHECK "In interactive mode" so Ok for me
+- commands with a pipe as their last token are segfaulting - OK, handle this??
+- $PWD should reset if not present in env provide by parent shell - OK
+- bash resets $SHLVL to 1 when it goes over 999 - Hmmm
+- check for file and folder permissions when using cd - OK
 - your expander should stop reading the content after the '$' token when it encounters a non alnum char
     (ex: echo $HOME/Documents/projects/philosophers/philo is not printing anything) - CHECK
-- multiple redirections need to be handled without segfaults - OK?
-    (ex: < infile cat > outfile) - OK?
-- when mixing pipes and redirects: - OK?
-    > redirects take priority over pipes - OK?
-    > an input after a redirect is valid syntax - OK?
-- in bash, cat | cat | ls prints the contents of ls first and then reads into cat - OK?
-- watch out for segfaults when handling here_doc! - OK?
+- multiple redirections need to be handled without segfaults - OK
+    (ex: < infile cat > outfile) - OK
+- when mixing pipes and redirects: - OK
+    > redirects take priority over pipes - OK
+    > an input after a redirect is valid syntax - OK
+- in bash, cat | cat | ls prints the contents of ls first and then reads into cat - CHECK NOK
+- watch out for segfaults when handling here_doc! - OK
 - history should not save empty commands - Add a return in parse_init

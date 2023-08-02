@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:38:35 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:47:09 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:40:56 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ void	cd_to(char *str)
 	else if (my_strcmp(str, "-"))
 	{
 		path = ft_getenv(data()->env_p, "OLDPWD", 6);
-		printf("%s\n", path);
-		apply_cd(dir, path);
+		if (path == NULL)
+			error_msg("cd: ", NULL, ": OLDPWD not set", 1);
+		else
+		{
+			printf("%s\n", path);
+			apply_cd(dir, path);
+		}
 	}
 	else
 		apply_cd(dir, str);

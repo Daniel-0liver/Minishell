@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:38:56 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 20:56:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:28:54 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_cmdlen(void)
 
 	i = 0;
 	j = 0;
-	if (is_spc(data()->tokens[i]) == 1)
+	if (is_spc(data()->tokens[i]) == 1 \
+	|| (is_spc(data()->tokens[i]) > 1 && data()->tokens[i + 1] == NULL))
 		return (1);
 	else if (is_spc(data()->tokens[i]) > 1)
 		return (2);
-	while (data()->tokens && data()->tokens[i] != NULL \
-	&& is_spc(data()->tokens[i]) != 1)
+	while (data()->tokens[i] != NULL && is_spc(data()->tokens[i]) != 1)
 	{
 		if (is_spc(data()->tokens[i]) > 1)
 		{

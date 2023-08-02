@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:43 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:58:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:04:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	ft_exit(char **str)
 	}
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
+	free_triple_ptr(data()->cmds);
 	exit(i);
 }

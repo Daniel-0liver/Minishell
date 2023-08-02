@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 20:18:48 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:26:05 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ void	cmd_to_exec(void)
 	data()->cmds = generate_cmd();
 	generate_fds();
 	data()->curr_cmd = 0;
+	// for (int i = 0; data()->cmds && data()->cmds[i]; i++)
+	// 	for (int k = 0; data()->cmds[i][k]; k++)
+	// 		printf("MTZ %i ARR %i: %s$\n", i, k, data()->cmds[i][k]);
 	if (data()->cmds && is_spc(data()->cmds[0][0]) == 1)
 		error_msg(NULL, NULL, "syntax error near unexpected token `|'", 2);
 	else
