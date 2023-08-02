@@ -6,11 +6,21 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:43 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 20:10:41 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:04:52 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_exit_err(void)
+{
+	if (data()->fd[0][0] != 0 || data()->fd[0][1] != 1)
+	{
+		data()->error = 2;
+		return (1);
+	}
+	return (0);
+}
 
 long long int	ft_atoli_checker(char *nptr, int i, int sing)
 {
@@ -58,35 +68,31 @@ long long int	ft_atoli(char *nptr)
 	return (ft_atoli_checker(nptr, i, sing));
 }
 
-void	ft_exit_exec(char **str)
+void	ft_exit(char **str)
 {
 	long long int	i;
 
 	i = 0;
+	if (ft_exit_err())
+		return ;
 	printf("exit\n");
 	if (str[1] != NULL && str[2] != NULL)
 	{
 		i = 1;
-		builtins_error(NULL, NULL, "exit: too many arguments", 1);
+		error_msg(NULL, NULL, "exit: too many arguments", 1);
 	}
 	else if (str[1] != NULL)
 	{
 		i = ft_atoli(str[1]);
 		if ((!ft_isdigit(str[1][0]) && str[1][0] != '-' && str[1][0] != '+') \
-		|| (i == 0 && (!ft_strcpm(str[1], "0") || !ft_strcpm(str[1], "+0"))))
+		|| (i == 0 && (!my_strcmp(str[1], "0") || !my_strcmp(str[1], "+0"))))
 		{
 			i = 2;
-			builtins_error("exit: ", str[1], ": numeric argument required", i);
+			error_msg("exit: ", str[1], ": numeric argument required", i);
 		}
 	}
-	free_exec();
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
+	free_triple_ptr(data()->cmds);
 	exit(i);
-}
-
-void	ft_exit(char **str)
-{
-	(void) str;
-	data()->error = 2;
 }
