@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/26 22:02:04 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:24:55 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	parse_init(void)
 		ft_unset(data()->env_p, "?");
 		return ;
 	}
+	add_history(data()->str_cmd);
 	if (data()->tokens)
 		cmd_to_exec();
 }

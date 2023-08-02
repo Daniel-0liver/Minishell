@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/20 19:01:12 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:32:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	check_echo(void)
 		if ((ft_strncmp(data()->tokens[i], "echo", 5) == 0)
 			&& data()->tokens[i + 1] != NULL)
 		{
-			if (ft_strncmp(data()->tokens[i + 1], "-n", 3) == 0)
+			if (ft_strncmp(data()->tokens[i + 1], "-n", 2) == 0)
 				i += 1;
-			while (ft_strncmp(data()->tokens[++i], "|", 2) != 0)
+			while (data()->tokens[i + 1] != NULL && ft_strncmp(data()->tokens[++i], "|", 2) != 0)
 			{
 				if (data()->tokens[i + 1] == NULL)
 					break ;
