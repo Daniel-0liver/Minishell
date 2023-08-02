@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/02 10:36:15 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:06:58 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ char			***generate_cmd(void);
 int				ft_ptrlen(char ***mtz);
 char			***my_realloc(char ***cmds);
 void			free_token(int i);
+int				is_valid_cmd();
 
 // ---------- BUILTINS ------------
 
@@ -156,6 +157,7 @@ void			error_msg(char *option, char *var_option, \
 				char *msg, int err);
 void			check_permission(void);
 void			error_exec(void);
+void			free_all(void);
 void			exit_child(void);
 
 //  ft_cd

@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:35:28 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/02 11:17:01 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:17:55 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	check_permission(void)
 	{
 		error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 		": Permission denied", 1);
-		free_triple_ptr(data()->cmds);
+		free_all();
 		exit(126);
 	}
 	else
 		error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 		": No such file or directory", 127);
-	free_triple_ptr(data()->cmds);
+	free_all();
 	exit(127);
 }
 
@@ -57,7 +57,7 @@ void	error_exec(void)
 			{
 				error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 				": Is a directory", 126);
-				free_triple_ptr(data()->cmds);
+				free_all();
 				exit(126);
 			}
 		}
@@ -65,14 +65,20 @@ void	error_exec(void)
 	}
 	error_msg(NULL, data()->cmds[data()->curr_cmd][0], \
 	": command not found", 127);
+	free_all();
+	exit(127);
+}
+
+void	free_all(void)
+{
 	free(data()->str_cmd);
 	free_double_ptr(data()->env_p);
 	free_triple_ptr(data()->cmds);
-	exit(127);
 }
 
 void	exit_child(void)
 {
+	free_all();
 	swap_fd();
 	swap_fd();
 	exit(1);

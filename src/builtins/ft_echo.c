@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/02 11:33:27 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:18:16 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_echo_beg(char **str, int flag)
 		print_echo(str, flag);
 		swap_fd();
 		swap_fd();
+		free_all();
 		exit(0);
 	}
 	else

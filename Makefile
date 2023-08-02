@@ -51,7 +51,7 @@ $(LFT):
 			@@echo " [ $(GREEN)OK$(RESET) ] | Libft ready!"
 
 obj:
-			@mkdir -p obj/parse obj/execution obj/builtins obj/cmd_handler
+			@mkdir -p obj/parse obj/execution obj/builtins
 
 obj/%.o:	src/%.c ./includes/minishell.h
 			@$(CC) $(FLAGS) -o $@ -c $<
