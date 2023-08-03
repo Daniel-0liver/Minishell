@@ -15,17 +15,18 @@ expansions leaks
 		8 0x4cd0d1 in parse_init /nfs/homes/dateixei/minishell_eval/src/parse/parse_init.c:19:6
 		9 0x4c8891 in main /nfs/homes/dateixei/minishell_eval/src/minishell.c:49:3
 		10 0x7f156dc4c082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
+
 if HOME/OLD_PWD IS NOT SET ON CD SHOULD PRINT ERRRO ABOUT IT - OK
 < a | ls OVERFL - OK
 cat << EOF | pwd - OK
 
 - SIGINT should stop reading into here_doc & move on to the next command prompt
-- SIGINT while running a blocking command should not display the prompt twice
+- SIGINT while running a blocking command should not display the prompt twice - Interactive mode CHECK LATER
 - SIGQUIT should quit & dump the core while running a blocking command
 - commands with a pipe as their last token are segfaulting
-- $PWD should reset if not present in env provide by parent shell
-- bash resets $SHLVL to 1 when it goes over 999
-- check for file and folder permissions when using cd
+- $PWD should reset if not present in env provide by parent shell CHECKKK
+- bash resets $SHLVL to 1 when it goes over 999 - hmmmmmmmmmmmmmm
+- check for file and folder permissions when using cd - OK
 - your expander should stop reading the content after the '$' token when it encounters a non alnum char
     (ex: echo $HOME/Documents/projects/philosophers/philo is not printing anything) - CHECK
 - multiple redirections need to be handled without segfaults - OK
@@ -33,6 +34,9 @@ cat << EOF | pwd - OK
 - when mixing pipes and redirects: - OK
     > redirects take priority over pipes - OK
     > an input after a redirect is valid syntax - OK
-- in bash, cat | cat | ls prints the contents of ls first and then reads into cat - CHECK NOK
+- in bash, cat | cat | ls prints the contents of ls first and then reads into cat - OK
 - watch out for segfaults when handling here_doc! - OK
 - history should not save empty commands - Add a return in parse_init
+
+
+echo $HOME/Documents/projects/philosophers/philo

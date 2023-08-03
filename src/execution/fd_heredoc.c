@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:53 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 15:04:41 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:07:07 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	handle_here(char *exit)
 		output = strjoin_here(output, str);
 		str = readline("> ");
 		if (str == NULL)
+		{
+			error_msg("warning: here-document delimited by end-of-file (wanted `", exit, "')", 0);
 			break ;
+		}
 	}
 	free(str);
 	fd = open(TEMP_FILE, O_WRONLY | O_CREAT | O_ASYNC | O_TRUNC, 0644);

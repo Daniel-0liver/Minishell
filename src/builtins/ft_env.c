@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:43:08 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:37:13 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:18:24 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_env(char **str)
 			printf("%s\n", str[i++]);
 		swap_fd();
 		swap_fd();
+		free_all();
 		exit(0);
 	}
 	else

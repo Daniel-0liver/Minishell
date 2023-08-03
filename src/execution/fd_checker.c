@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:56:38 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:01:45 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:29:01 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	fd_input(int tmp_curr)
 {
 	if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
 		return ;
+	if (data()->fd[0][0] != STDIN_FILENO)
+		close(data()->fd[0][0]);
 	if (!(access(data()->cmds[tmp_curr][1], R_OK) == 0))
 	{
 		if (errno == EACCES && data()->error == 0)
@@ -36,6 +38,8 @@ void	fd_red_append(int tmp_curr)
 {
 	if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
 		return ;
+	if (data()->fd[0][0] != STDIN_FILENO)
+		close(data()->fd[0][0]);
 	if (!(access(data()->cmds[tmp_curr][1], W_OK) == 0))
 	{
 		if (errno == EACCES && data()->error == 0)
@@ -57,6 +61,8 @@ void	fd_redirect(int tmp_curr)
 {
 	if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
 		return ;
+	if (data()->fd[0][1] != STDOUT_FILENO)
+		close(data()->fd[0][1]);
 	if (!(access(data()->cmds[tmp_curr][1], W_OK) == 0))
 	{
 		if (errno == EACCES && data()->error == 0)

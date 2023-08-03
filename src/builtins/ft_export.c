@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:40:33 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:18:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	export_declare(void)
 		export_declare_exec(data()->env_p);
 		swap_fd();
 		swap_fd();
+		free_all();
 		exit(0);
 	}
 	else

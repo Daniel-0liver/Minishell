@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/01 11:46:08 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:39:50 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ void	parse_init(void)
 		ft_unset(data()->env_p, "?");
 		return ;
 	}
-	// for (size_t j = 0; data()->cmds[j]; j++)
-	// 	for (size_t i = 0; data()->cmds[j][i]; i++)
-	// 		printf("%s I = %zu J = %zu\n", data()->cmds[j][i], j, i);
-	// free_matrix(data()->cmds);
-	// return ;
+	add_history(data()->str_cmd);
 	if (data()->tokens)
 		cmd_to_exec();
 }
