@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:53:15 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 10:39:23 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:51:32 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char			**get_cmd(int i, int j, int size);
 char			***generate_cmd(void);
 
 // generate_cmd2
-int				ft_ptrlen(char ***mtz);
+int				ft_mtzlen(char ***mtz);
 char			***my_realloc(char ***cmds);
 void			free_token(int i);
 int				is_valid_cmd();

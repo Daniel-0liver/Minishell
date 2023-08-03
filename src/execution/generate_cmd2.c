@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   generate_cmd2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:00:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/02 18:09:08 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:52:48 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_ptrlen(char ***mtz)
+int	ft_mtzlen(char ***mtz)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ char	***my_realloc(char ***cmds)
 	char	***new_cmds;
 
 	i = 0;
-	new_cmds = malloc(sizeof(char *) * (2 + ft_ptrlen(cmds)));
+	new_cmds = malloc(sizeof(char *) * (2 + ft_mtzlen(cmds)));
 	while (cmds && cmds[i] != NULL)
 	{
 		new_cmds[i] = cmds[i];

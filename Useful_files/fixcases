@@ -38,5 +38,4 @@ cat << EOF | pwd - OK
 - watch out for segfaults when handling here_doc! - OK
 - history should not save empty commands - Add a return in parse_init
 
-
 echo $HOME/Documents/projects/philosophers/philo
