@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 20:52:54 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/26 22:01:54 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/02 10:36:23 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ static void	inthandler(int sig)
 	rl_redisplay();
 }
 
+void	alloc_env(char **env)
+{
+	int	j;
+
+	j = 0;
+	while (env && env[j] != NULL)
+		j++;
+	data()->env_p = malloc(sizeof(char *) * (j + 1));
+	j = 0;
+	while (env && env[j] != NULL)
+	{
+		data()->env_p[j] = ft_strdup(env[j]);
+		j++;
+	}
+	data()->env_p[j] = NULL;
+}
+
 int	main(int argc, char *argv[], char **envp)
 {
 	(void) argv;
@@ -36,7 +53,7 @@ int	main(int argc, char *argv[], char **envp)
 	alloc_env(envp);
 	data()->error = 0;
 	ft_unset(data()->env_p, "SHELL");
-	add_cd_to_env("SHELL=/bin/zsh");
+	add_cd_to_env("SHELL=/minishell");
 	handle_shlvl('+');
 	while (TRUE)
 	{

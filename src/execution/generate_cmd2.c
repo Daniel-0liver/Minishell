@@ -1,65 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   generate_cmd2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 14:12:12 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:32:06 by gateixei         ###   ########.fr       */
+/*   Created: 2023/07/31 20:00:12 by gateixei          #+#    #+#             */
+/*   Updated: 2023/07/31 20:00:54 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmds(char ***cmds)
+int	ft_ptrlen(char ***mtz)
 {
 	int	i;
-	int	j;
 
 	i = 0;
+	while (mtz && mtz[i] != NULL)
+		i++;
+	return (i);
+}
+
+char	***my_realloc(char ***cmds)
+{
+	int		i;
+	char	***new_cmds;
+
+	i = 0;
+	new_cmds = malloc(sizeof(char *) * (2 + ft_ptrlen(cmds)));
 	while (cmds && cmds[i] != NULL)
 	{
-		j = 0;
-		while (cmds[i] && cmds[i][j] != NULL)
-		{
-			free(cmds[i][j]);
-			cmds[i][j] = NULL;
-			j++;
-		}
-		free(cmds[i]);
-		cmds[i] = NULL;
+		new_cmds[i] = cmds[i];
 		i++;
 	}
-	free(cmds);
-	cmds = NULL;
+	if (cmds != NULL)
+		free(cmds);
+	return (new_cmds);
 }
 
-void	free_double_ptr(char **str)
+void	free_token(int i)
 {
-	int	i;
-
-	i = 0;
-	while (str && str[i] != NULL)
+	free(data()->tokens[i]);
+	while (data()->tokens[i + 1] != NULL)
 	{
-		free(str[i]);
+		data()->tokens[i] = data()->tokens[i + 1];
 		i++;
 	}
-	free(str);
-	str = NULL;
-}
-
-void	free_fds(int **fds)
-{
-	int	i;
-
-	i = 0;
-	while (fds && fds[i] != NULL)
-	{
-		free(fds[i]);
-		fds[i] = NULL;
-		i++;
-	}
-	free(fds);
-	fds = NULL;
+	data()->tokens[i] = NULL;
 }
