@@ -17,7 +17,6 @@ SRC			=	src/minishell.c \
 				src/parse/utils4.c \
 				src/parse/utils5.c \
 				src/parse/parse_init.c \
-				src/parse/ft_get_cmds.c \
 				src/parse/parse_utils.c \
 				src/parse/parse_quotes.c \
 				src/cmd_handler/cmds.c \

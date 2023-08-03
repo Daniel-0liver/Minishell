@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 21:42:43 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/29 20:53:28 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:26:51 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,5 @@ int				token_other_chars(char *str, char **token, int *i);
 
 // Utils 5
 char			*handle_single_spc_quote(char *str);
-
-// ft_get_cmds
-void			ft_get_cmds(char **str);
-void 			free_matrix(char ***cmd);
 
 #endif
