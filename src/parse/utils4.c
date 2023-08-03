@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:36:35 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/19 22:14:51 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:45:46 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	token_space_dolar_sig(char *str, char **token, int nbr_tokens)
 		if (data()->str_tmp != NULL)
 			(*token) = strjoin_null((*token), ft_substr(data
 						()->str_tmp, 0, ft_strlen(data()->str_tmp)));
+		free(data()->str_tmp);
+		data()->str_tmp = NULL;
 	}
 	else if (nbr_tokens > 0)
 		return (0);

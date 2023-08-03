@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 10:34:37 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:40:56 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handle_env(char *str)
 	i = 0;
 	tmp = NULL;
 	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t'
-		&& str[i] != '\"' && str[i] != '$')
+		&& str[i] != '\"' && str[i] != '$' && str[i] != '/')
 	{
 		tmp = strjoin_var(tmp, str[i++]);
 		if (ft_strncmp(tmp, "?", 2) == 0)
@@ -77,6 +77,8 @@ void	handle_special_characters(char **str, int *count)
 	{
 		data()->warning = 0;
 		handle_dollar_sign(*str);
+		free(data()->str_tmp);
+		data()->str_tmp = NULL;
 		(*str)++;
 		if (**str == '\0')
 			(*count)++;
