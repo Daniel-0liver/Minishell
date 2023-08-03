@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/02 17:54:02 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:33:20 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,19 @@ void	cmd_to_exec(void)
 	// 	for (int k = 0; data()->cmds[i][k]; k++)
 	// 		printf("MTZ %i ARR %i: %s$\n", i, k, data()->cmds[i][k]);
 	if (is_valid_cmd())
-		return ;
-	else
 	{
-		while (data()->cmds && data()->cmds[data()->curr_cmd] != NULL)
-		{
-			if (data()->cmds[data()->curr_cmd] != NULL \
-			&& is_spc(data()->cmds[data()->curr_cmd][0]))
-				data()->curr_cmd = fd_check(data()->curr_cmd);
-			else if (is_builtins(data()->cmds[data()->curr_cmd][0]))
-				call_builtins(data()->cmds[data()->curr_cmd]);
-			else
-				execute_cmd();
-		}
+		free_triple_ptr(data()->cmds);
+		return ;
+	}
+	while (data()->cmds && data()->cmds[data()->curr_cmd] != NULL)
+	{
+		if (data()->cmds[data()->curr_cmd] != NULL \
+		&& is_spc(data()->cmds[data()->curr_cmd][0]))
+			data()->curr_cmd = fd_check(data()->curr_cmd);
+		else if (is_builtins(data()->cmds[data()->curr_cmd][0]))
+			call_builtins(data()->cmds[data()->curr_cmd]);
+		else
+			execute_cmd();
 	}
 	free_triple_ptr(data()->cmds);
 	swap_fd();
