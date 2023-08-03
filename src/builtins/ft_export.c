@@ -6,7 +6,7 @@
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:41:20 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/17 11:51:26 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:40:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,26 @@ void	export_declare_exec(char **str)
 void	export_declare(void)
 {
 	int	pid;
+	int	status;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		close(data()->fd[data()->curr_fd][0]);
-		dup2(data()->fd[data()->curr_fd][1], STDOUT_FILENO);
+		if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
+			exit_child();
+		dup2(data()->fd[0][1], STDOUT_FILENO);
 		export_declare_exec(data()->env_p);
+		swap_fd();
+		swap_fd();
 		exit(0);
 	}
 	else
 	{
-		close(data()->fd[data()->curr_fd][1]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (status > 0)
+			data()->error = status / 256;
+		else
+			data()->error = 0;
 	}
 }
 
@@ -79,7 +86,7 @@ int	check_export(char **str, int i, int j)
 			if ((i == 0 && (str[j][i] == '=' \
 			|| ft_isdigit(str[j][i]))) || str[j][i] == '-')
 			{
-				builtins_error("export: `", str[j], \
+				error_msg("export: `", str[j], \
 				"': not a valid identifier", 1);
 				return (0);
 			}
@@ -101,8 +108,11 @@ void	ft_export(void)
 	int		new;
 	char	**new_str;
 
+	if (data()->cmds[data()->curr_cmd][1] == NULL)
+		export_declare();
 	new = check_export(data()->cmds[data()->curr_cmd], 0, 0);
-	if (new < 1 || (data()->spc && data()->spc[data()->curr_cmd] != -1))
+	if (new < 1 || data()->fd[0][0] != STDIN_FILENO \
+	|| data()->fd[0][1] != STDOUT_FILENO)
 		return ;
 	j = 0;
 	while (data()->env_p && data()->env_p[j] != NULL)

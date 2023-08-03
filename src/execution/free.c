@@ -1,50 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 14:43:08 by gateixei          #+#    #+#             */
-/*   Updated: 2023/07/31 19:37:13 by gateixei         ###   ########.fr       */
+/*   Created: 2023/06/19 14:12:12 by gateixei          #+#    #+#             */
+/*   Updated: 2023/07/27 19:07:33 by gateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **str)
-{
-	int	i;
-	int	pid;
-	int	status;
-
-	i = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
-			exit_child();
-		dup2(data()->fd[0][1], STDOUT_FILENO);
-		while (str && str[i] != NULL)
-			printf("%s\n", str[i++]);
-		swap_fd();
-		swap_fd();
-		exit(0);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		data()->error = 0;
-		if (status > 0)
-			data()->error = status / 256;
-	}
-}
-
-void	ft_env_exec(char **str)
+void	free_double_ptr(char **str)
 {
 	int	i;
 
 	i = 0;
 	while (str && str[i] != NULL)
-		printf("%s\n", str[i++]);
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	str = NULL;
+}
+
+void	free_triple_ptr(char ***str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str && str[i] != NULL)
+	{
+		j = 0;
+		while (str && str[i][j] != NULL)
+		{
+			free(str[i][j]);
+			j++;
+		}
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	str = NULL;
 }
