@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 11:42:41 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/04 12:03:10 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@ int	handle_dollar_sign(char *str)
 
 int	check_special_char(int i)
 {
-	if (data()->tokens[i]
-		&& ft_strncmp(data()->tokens[i], ">", 2) != 0
-		&& ft_strncmp(data()->tokens[i], "<", 2) != 0
-		&& ft_strncmp(data()->tokens[i], "\'", 2) != 0
-		&& ft_strncmp(data()->tokens[i], "\"", 2) != 0
-		&& ft_strncmp(data()->tokens[i], ">>", 3) != 0
-		&& ft_strncmp(data()->tokens[i], "<<", 3) != 0)
-		return (0);
-	else
-		return (1);
+	if (data()->tokens[i])
+	{
+		if (ft_strncmp(data()->tokens[i], ">", 2) == 0
+			|| ft_strncmp(data()->tokens[i], "<", 2) == 0
+			|| ft_strncmp(data()->tokens[i], "\'", 2) == 0
+			|| ft_strncmp(data()->tokens[i], "\"", 2) == 0
+			|| ft_strncmp(data()->tokens[i], ">>", 3) == 0
+			|| ft_strncmp(data()->tokens[i], "<<", 3) == 0
+			|| ft_strncmp(data()->tokens[i], "./", 2) == 0)
+			return (1);
+		else
+			return (0);	
+	}
+	return (-1);
 }
 
 void	check_echo(void)
@@ -58,15 +62,14 @@ void	check_echo(void)
 		{
 			if (ft_strncmp(data()->tokens[i + 1], "-n", 2) == 0)
 				i += 1;
-			while (data()->tokens[i + 1] != NULL && ft_strncmp(data()->tokens[++i], "|", 2) != 0)
+			while (data()->tokens[++i] != NULL && data()->tokens[i + 1] != NULL
+				&& ft_strncmp(data()->tokens[i], "|", 2) != 0)
 			{
-				if (data()->tokens[i + 1] == NULL)
-					break ;
-				else if (check_special_char(i) == 1
-					|| ft_strncmp(data()->tokens[i], "./", 2) == 0)
-					continue ;
-				else
-					(data()->tokens[i]) = strjoin_var(data()->tokens[i], ' ');
+				if (check_special_char(i) == 0)
+					if((check_special_char(i + 1) == 1 && data()->tokens[i + 3] != NULL
+						&& ft_strncmp(data()->tokens[i + 3], "|", 2) != 0) || (check_special_char(i + 1) == 0
+						&& ft_strncmp(data()->tokens[i + 1], "|", 2) != 0))
+						(data()->tokens[i]) = strjoin_var(data()->tokens[i], ' ');
 			}
 		}
 		i++;
