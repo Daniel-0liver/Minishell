@@ -111,7 +111,7 @@ char			***generate_cmd(void);
 int				ft_mtzlen(char ***mtz);
 char			***my_realloc(char ***cmds);
 void			free_token(int i);
-int				is_valid_cmd(void);
+int				is_valid_cmd(int i);
 
 // ---------- BUILTINS ------------
 

@@ -82,7 +82,7 @@ void	cmd_to_exec(void)
 	data()->cmds = generate_cmd();
 	generate_fds();
 	data()->curr_cmd = 0;
-	if (is_valid_cmd())
+	if (is_valid_cmd(-1))
 	{
 		free_triple_ptr(data()->cmds);
 		return ;
