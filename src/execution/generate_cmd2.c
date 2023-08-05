@@ -50,34 +50,27 @@ void	free_token(int i)
 	data()->tokens[i] = NULL;
 }
 
-int	is_valid_cmd()
+int	is_valid_cmd(void)
 {
 	int	i;
 
 	i = 0;
 	if (data()->cmds && is_spc(data()->cmds[0][0]) == 1)
-	{
 		error_msg(NULL, NULL, "syntax error near unexpected token `|'", 2);
-		return (1);
-	}
 	while (data()->cmds && data()->cmds[i] != NULL)
 	{
-		if (is_spc(data()->cmds[i][0]) > 1 && data()->cmds[i][1] != NULL && is_spc(data()->cmds[i][1]))
-		{
-			error_msg("syntax error near unexpected token `", data()->cmds[i][1], "'", 2);
-			return (1);
-		}
+		if (is_spc(data()->cmds[i][0]) > 1 && data()->cmds[i][1] \
+		!= NULL && is_spc(data()->cmds[i][1]))
+			error_msg("syntax error near unexpected token `", \
+			data()->cmds[i][1], "'", 2);
 		if (is_spc(data()->cmds[i][0]) > 1 && data()->cmds[i][1] == NULL)
-		{
-			error_msg("syntax error near unexpected token `newline'", NULL, NULL, 2);
-			return (1);
-		}
+			error_msg("syntax error near unexpected token `newline'", \
+			NULL, NULL, 2);
 		if (data()->cmds[i + 1] == NULL && is_spc(data()->cmds[i][0]) == 1)
-		{
 			error_msg(NULL, NULL, "syntax error near unexpected token `|'", 2);
-			return (1);
-		}
+		if (errno > 0)
+			break ;
 		i++;
 	}
-	return (0);
+	return (errno);
 }

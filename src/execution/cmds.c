@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gateixei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:16:32 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 10:33:20 by gateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:54:26 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void	child_exec(void)
 {
 	char	*path;
 
-	path = check_path(data()->cmds[data()->curr_cmd][0]);
 	if (data()->fd[0][0] < 0 || data()->fd[0][1] < 0)
 	{
 		swap_fd();
 		swap_fd();
+		free_all();
 		exit(1);
 	}
+	path = check_path(data()->cmds[data()->curr_cmd][0]);
 	dup2(data()->fd[0][0], STDIN_FILENO);
 	dup2(data()->fd[0][1], STDOUT_FILENO);
 	if (execve(path, data()->cmds[data()->curr_cmd], data()->env_p) == -1)
@@ -81,9 +82,6 @@ void	cmd_to_exec(void)
 	data()->cmds = generate_cmd();
 	generate_fds();
 	data()->curr_cmd = 0;
-	// for (int i = 0; data()->cmds && data()->cmds[i]; i++)
-	// 	for (int k = 0; data()->cmds[i][k]; k++)
-	// 		printf("MTZ %i ARR %i: %s$\n", i, k, data()->cmds[i][k]);
 	if (is_valid_cmd())
 	{
 		free_triple_ptr(data()->cmds);

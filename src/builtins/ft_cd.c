@@ -88,10 +88,7 @@ void	cd_to(char *str)
 	else
 		apply_cd(dir, str);
 	if (path != NULL)
-	{
 		free(path);
-		path = NULL;
-	}
 }
 
 int	ft_check_cd(char **str)

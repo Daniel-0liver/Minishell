@@ -27,10 +27,7 @@ void	ft_pwd(char **str)
 			exit_child();
 		dup2(data()->fd[0][1], STDOUT_FILENO);
 		printf("%s\n", dir);
-		swap_fd();
-		swap_fd();
-		free_all();
-		exit(0);
+		clean_exit_child();
 	}
 	else
 	{

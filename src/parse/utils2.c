@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:26:11 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 11:40:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:44:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,12 @@ void	handle_env(char *str)
 	tmp = NULL;
 }
 
-// Function to know the numbers of some char in a string
-int	nbr_char(char *str, char c)
+void	check_warning(char **str)
 {
-	int	i;
-
-	i = 0;
-	while (*str)
-	{
-		while (*str && *str != c)
-			str++;
-		str++;
-		i++;
-	}
-	return (i);
+	data()->warning = 0;
+	handle_dollar_sign(*str);
+	free(data()->str_tmp);
+	data()->str_tmp = NULL;
 }
 
 void	handle_special_characters(char **str, int *count)
@@ -75,10 +67,7 @@ void	handle_special_characters(char **str, int *count)
 	}
 	else if (**str == '$')
 	{
-		data()->warning = 0;
-		handle_dollar_sign(*str);
-		free(data()->str_tmp);
-		data()->str_tmp = NULL;
+		check_warning(str);
 		(*str)++;
 		if (**str == '\0')
 			(*count)++;

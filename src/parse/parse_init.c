@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:38:13 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/05 03:18:44 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:17:02 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	parse_init(void)
 		ft_unset(data()->env_p, "?");
 		return ;
 	}
-	// for (int i = 0; data()->tokens[i]; i++)
-	// 	printf("%s$\n", data()->tokens[i]);	
 	add_history(data()->str_cmd);
 	if (data()->tokens)
 		cmd_to_exec();

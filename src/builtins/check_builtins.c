@@ -55,3 +55,11 @@ void	call_builtins(char **cmd)
 	data()->curr_cmd = tmp_curr;
 	swap_fd();
 }
+
+void	clean_exit_child(void)
+{
+	free_all();
+	swap_fd();
+	swap_fd();
+	exit(0);
+}

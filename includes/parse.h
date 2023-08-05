@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 21:42:43 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 10:26:51 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:39:48 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 // Parse_utils
 int				get_tokens(void);
-int				nbr_char(char *str, char c);
 char			**alloc_tokens(char *str, int nbr_tokens);
 void			handle_special_characters(char **str, int *count);
 

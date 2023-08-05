@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/05 03:14:59 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:47:17 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	print_echo(char **str, int flag)
 		i = 2;
 	while (str[i] != NULL)
 	{
-		if (str[i + 1] == NULL && str[i][ft_strlen(str[i]) - 1] == ' ')
-			str[i][ft_strlen(str[i]) - 1] = '\0';
 		printf("%s", str[i]);
 		i++;
 	}
@@ -60,10 +58,7 @@ void	ft_echo_beg(char **str, int flag)
 			exit_child();
 		dup2(data()->fd[0][1], STDOUT_FILENO);
 		print_echo(str, flag);
-		swap_fd();
-		swap_fd();
-		free_all();
-		exit(0);
+		clean_exit_child();
 	}
 	else
 	{

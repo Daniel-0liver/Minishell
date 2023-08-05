@@ -39,7 +39,8 @@ int	handle_here(char *exit)
 		str = readline("> ");
 		if (str == NULL)
 		{
-			error_msg("warning: here-document delimited by end-of-file (wanted `", exit, "')", 0);
+			error_msg("warning: here-document delimited by end-of-file \
+			(wanted `", exit, "')", 0);
 			break ;
 		}
 	}

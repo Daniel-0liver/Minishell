@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:23:12 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/04 12:03:10 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:16:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,24 @@ int	check_special_char(int i)
 			|| ft_strncmp(data()->tokens[i], "./", 2) == 0)
 			return (1);
 		else
-			return (0);	
+			return (0);
 	}
 	return (-1);
+}
+
+void	verify_echo_spaces(int i)
+{
+	while (data()->tokens[++i] != NULL && data()->tokens[i + 1] != NULL
+		&& ft_strncmp(data()->tokens[i], "|", 2) != 0)
+		if (check_special_char(i) == 0)
+			if ((check_special_char(i + 1) == 1
+					&& data()->tokens[i + 3] != NULL
+					&& check_special_char(i + 3) == 0
+					&& ft_strncmp(data()->tokens[i + 3], "|", 2) != 0)
+				|| (check_special_char(i + 1) == 0
+					&& ft_strncmp(data()->tokens[i + 1], "|", 2) != 0))
+				(data()->tokens[i])
+					= strjoin_var(data()->tokens[i], ' ');
 }
 
 void	check_echo(void)
@@ -62,15 +77,7 @@ void	check_echo(void)
 		{
 			if (ft_strncmp(data()->tokens[i + 1], "-n", 2) == 0)
 				i += 1;
-			while (data()->tokens[++i] != NULL && data()->tokens[i + 1] != NULL
-				&& ft_strncmp(data()->tokens[i], "|", 2) != 0)
-			{
-				if (check_special_char(i) == 0)
-					if((check_special_char(i + 1) == 1 && data()->tokens[i + 3] != NULL
-						&& ft_strncmp(data()->tokens[i + 3], "|", 2) != 0) || (check_special_char(i + 1) == 0
-						&& ft_strncmp(data()->tokens[i + 1], "|", 2) != 0))
-						(data()->tokens[i]) = strjoin_var(data()->tokens[i], ' ');
-			}
+			verify_echo_spaces(i);
 		}
 		i++;
 	}
@@ -96,13 +103,4 @@ void	handle_shlvl(char c)
 	free(nbr);
 	free(str);
 	free(env);
-}
-
-int	token_is_space(char *str, int *i)
-{
-	int	j;
-
-	j = skip_whitespace(str);
-	(*i)++;
-	return (j);
 }

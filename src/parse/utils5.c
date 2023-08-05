@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 16:48:10 by dateixei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:51:37 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:37:49 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,13 @@ char	*handle_single_spc_quote(char *str)
 	}
 	else
 		return (strjoin_var(spc, str[1]));
+}
+
+int	token_is_space(char *str, int *i)
+{
+	int	j;
+
+	j = skip_whitespace(str);
+	(*i)++;
+	return (j);
 }
