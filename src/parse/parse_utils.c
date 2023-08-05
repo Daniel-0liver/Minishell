@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:45:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/08/03 11:38:06 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 03:26:47 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	get_tokens(void)
 	}
 	(data()->nbr_tokens) = count_tokens(data()->str_cmd);
 	(data()->tokens) = alloc_tokens(data()->str_cmd, data()->nbr_tokens);
-	if (*data()->tokens == NULL)
-		return (0);
 	check_echo();
 	ft_unset(data()->env_p, "?");
 	return (1);

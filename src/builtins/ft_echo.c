@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:12:11 by gateixei          #+#    #+#             */
-/*   Updated: 2023/08/04 12:01:13 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/08/05 03:14:59 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	ft_echo(char **str)
 		ft_echo_beg(str, 0);
 	else if (data()->cmds[data()->curr_cmd + 1] == NULL)
 		printf("\n");
+	return ;
 }
