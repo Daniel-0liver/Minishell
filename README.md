@@ -112,10 +112,6 @@ Any executable present in the `$PATH` can be executed by minishell. For example,
 - Expand test coverage for edge cases and unusual inputs.  
 - Introduce support for scripting and configuration files.  
 
----
-
-## Credits
-
 This project was developed as part of the **42 School curriculum**. Special thanks to the 42 community for their invaluable support and resources.
 
 ---
