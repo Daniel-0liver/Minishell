@@ -116,4 +116,3 @@ This project was developed as part of the **42 School curriculum**. Special than
 
 ---
 Enjoy using **minishell**, and happy coding! 🐚
-
